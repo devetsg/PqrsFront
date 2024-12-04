@@ -1,0 +1,15 @@
+@import "../../../styles.scss";
+@import "../signature/signature.component.scss";
+@import "../add-services/add-services.component.scss";
+
+.miner{
+    &--container{
+
+        &-form-container{
+            width: 60%;
+            margin: 5% auto;
+
+            
+        }
+    }
+}

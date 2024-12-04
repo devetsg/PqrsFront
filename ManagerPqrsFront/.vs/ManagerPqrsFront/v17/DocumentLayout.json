@@ -1,0 +1,478 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\environments\\environment.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\environments\\environment.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\select-aproved\\select-aproved.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\response-pqr\\response-pqr.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\history\\history.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\history\\history.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\history\\history.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\dialog-content\\dialog-content.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\dialog-content\\dialog-content.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\response-pqr\\response-pqr.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\index-dir\\index-dir.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\index-dir\\index-dir.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\index-dir\\index-dir.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\footer\\footer.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\footer\\footer.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\navbar\\navbar.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\navbar\\navbar.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\styles.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\styles.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\app.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\response-pqr\\response-pqr.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\services\\pqrs.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\services\\pqrs.service.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\create-update-pqr\\create-update-pqr.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\aproved-dir\\aproved-dir.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\aproved-dir\\aproved-dir.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\select-aproved\\select-aproved.component.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\components\\select-aproved\\select-aproved.component.scss||{181FE41B-5A5D-479F-9F8F-BF665F4EBC2A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\angular.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:angular.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\interfaces\\PqrItem.ts||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\app\\interfaces\\PqrItem.ts||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 26,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "dialog-content.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\dialog-content\\dialog-content.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\dialog-content\\dialog-content.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\dialog-content\\dialog-content.component.html",
+              "RelativeToolTip": "src\\app\\components\\dialog-content\\dialog-content.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T21:38:45.211Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "footer.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\footer\\footer.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.html",
+              "RelativeToolTip": "src\\app\\components\\footer\\footer.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T21:06:37.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "navbar.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\navbar\\navbar.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\navbar\\navbar.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\navbar\\navbar.component.html",
+              "RelativeToolTip": "src\\app\\components\\navbar\\navbar.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T21:06:22.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "footer.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\footer\\footer.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\footer\\footer.component.scss",
+              "RelativeToolTip": "src\\app\\components\\footer\\footer.component.scss",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T20:30:03.692Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "app.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\app.component.html",
+              "RelativeDocumentMoniker": "src\\app\\app.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\app.component.html",
+              "RelativeToolTip": "src\\app\\app.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T20:26:17.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "index-dir.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\index-dir\\index-dir.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.scss",
+              "RelativeToolTip": "src\\app\\components\\index-dir\\index-dir.component.scss",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T20:18:12.079Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "styles.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\styles.scss",
+              "RelativeDocumentMoniker": "src\\styles.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\styles.scss",
+              "RelativeToolTip": "src\\styles.scss",
+              "ViewState": "AQIAAGABAAAAAAAAAAAAAJkBAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T20:17:15.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "index-dir.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\index-dir\\index-dir.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.html",
+              "RelativeToolTip": "src\\app\\components\\index-dir\\index-dir.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEEAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T19:57:21.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "index-dir.component.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.ts",
+              "RelativeDocumentMoniker": "src\\app\\components\\index-dir\\index-dir.component.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\index-dir\\index-dir.component.ts",
+              "RelativeToolTip": "src\\app\\components\\index-dir\\index-dir.component.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T19:56:51.002Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "aproved-dir.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\aproved-dir\\aproved-dir.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\aproved-dir\\aproved-dir.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\aproved-dir\\aproved-dir.component.html",
+              "RelativeToolTip": "src\\app\\components\\aproved-dir\\aproved-dir.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T19:56:31.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "history.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\history\\history.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.scss",
+              "RelativeToolTip": "src\\app\\components\\history\\history.component.scss",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T19:43:10.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "history.component.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.ts",
+              "RelativeDocumentMoniker": "src\\app\\components\\history\\history.component.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.ts",
+              "RelativeToolTip": "src\\app\\components\\history\\history.component.ts",
+              "ViewState": "AQIAAKYAAAAAAAAAAAAAAOYAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T19:41:44.32Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "history.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\history\\history.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\history\\history.component.html",
+              "RelativeToolTip": "src\\app\\components\\history\\history.component.html",
+              "ViewState": "AQIAACQAAAAAAAAAAAAAAGQAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T19:39:47.99Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "pqrs.service.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\services\\pqrs.service.ts",
+              "RelativeDocumentMoniker": "src\\app\\services\\pqrs.service.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\services\\pqrs.service.ts",
+              "RelativeToolTip": "src\\app\\services\\pqrs.service.ts",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAAAF0AAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T14:26:37.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "PqrItem.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\interfaces\\PqrItem.ts",
+              "RelativeDocumentMoniker": "src\\app\\interfaces\\PqrItem.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\interfaces\\PqrItem.ts",
+              "RelativeToolTip": "src\\app\\interfaces\\PqrItem.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T14:11:05.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "create-update-pqr.component.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts",
+              "RelativeDocumentMoniker": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts",
+              "RelativeToolTip": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.ts",
+              "ViewState": "AQIAANoAAAAAAAAAAAAAAPwAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T13:39:40.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "response-pqr.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\response-pqr\\response-pqr.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.scss",
+              "RelativeToolTip": "src\\app\\components\\response-pqr\\response-pqr.component.scss",
+              "ViewState": "AQIAAJ0AAAAAAAAAAAAAAN4AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T13:18:22.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "create-update-pqr.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss",
+              "RelativeToolTip": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.scss",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAGoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T13:14:13.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "create-update-pqr.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\create-update-pqr\\create-update-pqr.component.html",
+              "RelativeToolTip": "src\\app\\components\\create-update-pqr\\create-update-pqr.component.html",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAAAPMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T13:13:28.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "select-aproved.component.scss",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.scss",
+              "RelativeDocumentMoniker": "src\\app\\components\\select-aproved\\select-aproved.component.scss",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.scss",
+              "RelativeToolTip": "src\\app\\components\\select-aproved\\select-aproved.component.scss",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002663|",
+              "WhenOpened": "2024-09-23T13:11:54.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "response-pqr.component.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.ts",
+              "RelativeDocumentMoniker": "src\\app\\components\\response-pqr\\response-pqr.component.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.ts",
+              "RelativeToolTip": "src\\app\\components\\response-pqr\\response-pqr.component.ts",
+              "ViewState": "AQIAAEUBAAAAAAAAAAAAAJMBAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T13:06:42.077Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "select-aproved.component.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.ts",
+              "RelativeDocumentMoniker": "src\\app\\components\\select-aproved\\select-aproved.component.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.ts",
+              "RelativeToolTip": "src\\app\\components\\select-aproved\\select-aproved.component.ts",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAAAHIAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T13:05:54.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "environment.ts",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\environments\\environment.ts",
+              "RelativeDocumentMoniker": "src\\environments\\environment.ts",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\environments\\environment.ts",
+              "RelativeToolTip": "src\\environments\\environment.ts",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2024-09-23T13:02:11.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "angular.json",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\angular.json",
+              "RelativeDocumentMoniker": "angular.json",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\angular.json",
+              "RelativeToolTip": "angular.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADoAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-23T12:48:43.128Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "select-aproved.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\select-aproved\\select-aproved.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\select-aproved\\select-aproved.component.html",
+              "RelativeToolTip": "src\\app\\components\\select-aproved\\select-aproved.component.html",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACcAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T12:44:23.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "response-pqr.component.html",
+              "DocumentMoniker": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.html",
+              "RelativeDocumentMoniker": "src\\app\\components\\response-pqr\\response-pqr.component.html",
+              "ToolTip": "C:\\Users\\juan.lucumi\\Favorites\\ETSG PROYECTOS\\PQRS\\ManagerPqrsFront\\src\\app\\components\\response-pqr\\response-pqr.component.html",
+              "RelativeToolTip": "src\\app\\components\\response-pqr\\response-pqr.component.html",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAAACkBAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-09-23T12:21:53.178Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

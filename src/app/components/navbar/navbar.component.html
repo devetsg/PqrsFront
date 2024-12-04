@@ -1,0 +1,73 @@
+<nav class="navbar scroll-theme">
+  <h2 class="navbar--title"> <img class="navbar--img" src="../../../assets/images/LogoTSG.png" /></h2>
+
+  
+  <h2 [style.color]="textColor" class="icon--container-title flex flex-start" style="cursor:pointer;" (click)="showMenuFunc()">
+    <i class="bi bi-ui-checks" [style.color]="textColor" style="font-size: 23px; cursor:pointer; margin-right: 10px; margin-left: 5px;"></i>
+    <span>PQR´S</span>
+    <div class="icon--container-icon">
+      <mat-icon class="icon" [class.rotated]="showMenu" aria-hidden="false" aria-label="Example home icon">keyboard_arrow_down</mat-icon>
+    </div>
+  </h2>
+  <div *ngIf="isLogged " class="navbar--links" [@menuAnimation]="showMenu ? 'visible' : 'hidden'">
+    <button *ngIf="actualRole == 'ANALISTA' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/createUpdatePqr" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/createUpdatePqr'}" (click)="setActive('/createUpdatePqr')">Crear PQR</button>
+    <!-- <button  class="navbar--admin-btns" routerLink="/createUpdatePqr" mat-flat-button>
+      <i class="bi bi-pencil" style="font-size: 23px; color: white;cursor:pointer; margin-right: 10px;"></i>
+      <span>Editar PQR</span>
+    </button> -->
+    <button *ngIf="actualRole == 'ANALISTA' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexPqrs' }" (click)="setActive('/indexPqrs')">Consultar PQR</button>
+    <!--<button class="navbar--admin-btns" routerLink="/inbox" mat-flat-button>Responder PQR</button>-->
+    <button *ngIf="actualRole == 'DIRGENERAL' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexDir'}" (click)="setActive('/indexDir')">Aprobar PQR</button>
+
+    <button *ngIf="actualRole != 'MINERO'" class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexSend'}" (click)="setActive('/indexSend')">Histórico PQR
+    </button>
+    <button *ngIf="actualRole == 'MINERO' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexMiner'}" (click)="setActive('/indexMiner')">Mineria
+    </button>
+    <button *ngIf="actualRole == 'COORDINADOR' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexCoord'}" (click)="setActive('/indexCoord')">Gestion PQR´S
+    </button>
+    <button *ngIf="actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSupervisor" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexSupervisor'}" (click)="setActive('/indexSupervisor')">Supervisión
+    </button>
+  </div>
+
+
+  <h2 *ngIf="actualRole == 'COORDINADOR' || actualRole == 'SUPERUSER'" [style.color]="textColorAdmin" class="icon--container-title" style="cursor:pointer;" (click)="showAdminFunc()">
+    <i class="bi bi-clipboard2-pulse" [style.color]="textColorAdmin" style="font-size: 23px; cursor:pointer; margin-right: 10px;"></i>
+    <span>Administracion</span>
+    <div class="icon--container-icon">
+      <mat-icon class="icon" [class.rotated]="showAdmin" aria-hidden="false" aria-label="Example home icon">keyboard_arrow_down</mat-icon>
+    </div>
+  </h2>
+  
+  <div *ngIf="isLogged && (actualRole == 'COORDINADOR' || actualRole == 'SUPERUSER')" class="navbar--links" [@menuAnimation]="showAdmin ? 'visible' : 'hidden'">
+    <button class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button 
+          [ngClass]="{'active': currentUrl == '/indexTypes'}" (click)="setActive('indexTypes')">Tipos de PQR'S</button>
+    <button class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button 
+            [ngClass]="{'active': currentUrl == '/indexMeans'}" (click)="setActive('indexMeans')">Medios de Radicacion</button>
+    <button class="navbar--admin-btns" routerLink="/indexPrincipals" mat-flat-button 
+            [ngClass]="{'active': currentUrl == '/indexPrincipals'}" (click)="setActive('indexPrincipals')">Problemas Centrales</button>
+    <button class="navbar--admin-btns" routerLink="/indexSecundaries" mat-flat-button 
+            [ngClass]="{'active': currentUrl == '/indexSecundaries'}" (click)="setActive('indexSecundaries')">Motivos</button>
+    <button class="navbar--admin-btns" routerLink="/indexSenders" mat-flat-button 
+            [ngClass]="{'active': currentUrl == '/indexSenders'}" (click)="setActive('indexSenders')">Correos</button>
+    <button class="navbar--admin-btns" routerLink="/signatures" mat-flat-button 
+          [ngClass]="{'active': currentUrl == '/signatures'}" (click)="setActive('signatures')">Firmas</button>
+    <!--<button class="navbar--admin-btns" routerLink="/inbox" mat-flat-button>Inbox</button>-->
+  </div>
+
+  <h2 class="icon--container-title flex flex-start" style="cursor:pointer; color: white; margin-top: 16px;" (click)="logout()">
+    <i class="bi bi-door-open" style="font-size: 23px; color: white; cursor:pointer; margin-right: 10px;"></i>
+    <span>Cerrar Sesion</span>
+  </h2>
+
+
+
+</nav>
+<div  class="navbar--border-bottom"></div>
+

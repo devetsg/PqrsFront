@@ -1,0 +1,308 @@
+<section class="section-response">
+
+  <div class="step" style="width:100%;">
+    
+    <div class="step2--container">
+      <div class="response">
+        <div class="response--container">
+
+          <!--------------------------------->
+          <!-------------EMAIL--------------->
+          <!--------------------------------->
+
+          <form *ngIf="isEmail" class="response--container-form-container-form" [formGroup]="formResponse" (ngSubmit)="submit()">
+
+
+            <!--<app-file-viewer [fileUrl]="urlFile"></app-file-viewer>-->
+            <div class="flex" [ngClass]="{'headers-margin-none': isOpen, 'headers-margin-auto': !isOpen}">
+
+              <div class="mr-1" *ngIf="pqrHeaders != null" [ngClass]="{'w50 headers-margin-none': isOpen, 'w80 headers-margin-auto': !isOpen}">
+                <div class="response--headers-container relative">
+                  <div class="absolute" style="top: 10px; right: 12px;">
+                    <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
+                  </div>
+
+                  <div class="response--headers-container-data center">
+                    <h2 class="response--labels">{{pqrHeaders.subject}}</h2>
+                  </div>
+
+                  <!-- <div class="response--headers-container-data">
+                    <h2 class="response--labels">Asunto:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.subject}}</h2>
+                  </div> -->
+
+                  <!-- <div class="response--headers-container-data">
+                    <h2 class="response--labels">De:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.from}}</h2>
+                  </div>
+                  <div class="response--headers-container-data">
+                    <h2 class="response--labels">Para:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.to}}</h2>
+                  </div> -->
+
+                  <div class="response--headers-container-data aling-center dp-block">
+                    <div class="circle-name relative">
+                      {{ getFirstLetter(pqrHeaders.from.replaceAll('"', '')) }}
+                    </div>
+                    <div class="dp-block">
+                     <h2 class="response--labels-data">{{pqrHeaders.from.replaceAll('"','')}}</h2>
+                     <div class="response--headers-container-data dp-block">
+                       <h2 class="response--labels">Para:</h2>
+                       <h2 class="response--labels-data">{{pqrHeaders.to.replaceAll('"','')}}</h2>
+                     </div>
+                    </div>
+                  </div>
+
+                  <div *ngIf="pqrHeaders.cc" class="response--headers-container-data">
+                    <h2 class="response--labels">CC:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.cc}}</h2>
+                  </div>
+
+                  <!-- <div class="response--headers-container-data">
+                    <h2 class="response--labels">CC:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.cc}}</h2>
+                  </div> -->
+                  <!-- <div class="response--headers-container-data">
+                    <h2 class="response--labels">Hora de Envío:</h2>
+                    <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
+                  </div> -->
+  
+                  <div class="response--visors-container-content">
+                    <mat-form-field appearance="fill">
+                      <!-- <mat-label></mat-label> -->
+                      <textarea class="response--fields" matInput formControlName="pqrText"></textarea>
+                    </mat-form-field>
+                  </div>
+  
+                  <div class="response--headers-container-data cont flex-resp">
+                    <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
+                    <!-- <div class="response--labels-data-attachments"> -->
+
+                      <div *ngFor="let name of filteredAttachments" [ngClass]="{'apply-flex': shouldApplyFlexStyle}" class="response--labels-data flex div-doc">
+                        <div class="flex" (click)="getAttach(name)">
+                          <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+                          {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
+                        </div>
+                      </div>
+                    <!-- </div> -->
+                  </div>
+
+
+                  
+                </div>
+              </div>
+
+              <div class="w50 pl-1" [ngClass]="{'display-block': isOpen, 'display-none': !isOpen}">
+                <div class="flex space-between">
+                  <h2 class="response--labels pl-3">Contenido PQR</h2>
+                  <i class="bi bi-x-circle" style="font-size: 20px; color: #126b37;cursor:pointer; " (click)="closeDoc()"></i>
+                </div>
+                <div class="response--visors-container">
+                  <div  class="response--visors-container-visor">
+                    <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
+                    <div *ngIf="pdfSrc">
+                      <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
+                        <p>
+                          Tu navegador no soporta la visualización de PDF. Puedes
+                          <a [href]="pdfSrc">descargar el archivo aquí</a>.
+                        </p>
+                      </object>
+    
+                    </div>
+                    <div class="response--visors-container-visor-excel">
+                      <app-file-viewer-excel *ngIf="excelSrc != false" [fileUrl]="excelSrc!.toString()"></app-file-viewer-excel>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+  
+              
+
+            </div>
+
+
+            <h2 class="response--labels">Respuesta Enviada</h2>
+            <mat-form-field appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="response--fields" matInput formControlName="response"></textarea>
+            </mat-form-field>
+
+            <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
+              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
+            </div>
+
+            <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse">
+              <h4 class="response--attachs-response-title">Click para descargar los Archivos Adjuntos a la respuesta</h4>
+              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
+            </div>
+
+            <div class="response--chat">
+              <div class="response--chat-conatiner">
+                <h2 class="response--chat-conatiner-title">Chat </h2>
+                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
+                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
+                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
+                  <div class="response--chat-conatiner-info">
+
+                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
+                  </div>
+                </div>
+              </div>
+              <h2></h2>
+              <div class="response--attachs-response2 flex-resp">
+                <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para Director</h4>
+                </div>
+
+                <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Click para descargar los Archivos para Director</h4>
+                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+          </form>
+
+
+          <!--------------------------------->
+          <!-------------AUDIO--------------->
+          <!--------------------------------->
+
+          <h2 *ngIf="isAudio" class="response--labels">Audio Pqr</h2>
+          <div *ngIf="isAudio" class="response--audio-container">
+            <button (click)="play()" class="response--audio-container-btn" [disabled]="isPlaying">
+              <i class="bi bi-play-circle-fill response--audio-container-btn-icon"></i>
+            </button>
+            <button (click)="stop()" class="response--audio-container-btn" [disabled]="!isPlaying">
+              <i class="bi bi-stop-circle-fill response--audio-container-btn-icon"></i>
+            </button>
+          </div>
+
+          <form *ngIf="isAudio" class="response--container-form-container-form" [formGroup]="formAudio" (ngSubmit)="submit()">
+
+            <h2 class="response--labels">Respuesta Enviada</h2>
+            <mat-form-field appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="response--fields" matInput formControlName="response"></textarea>
+            </mat-form-field>
+
+
+            <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
+              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
+            </div>
+
+            <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse">
+              <h4 class="response--attachs-response-title">Click para descargar los Archivos Adjuntos a la respuesta</h4>
+              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
+            </div>
+
+            <div class="response--chat">
+              <div class="response--chat-conatiner">
+                <h2 class="response--chat-conatiner-title">Chat </h2>
+                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
+                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
+                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
+                  <div class="response--chat-conatiner-info">
+
+                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
+                  </div>
+                </div>
+              </div>
+              <h2></h2>
+              <div class="response--attachs-response2 flex-resp">
+                <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para Director</h4>
+                </div>
+
+                <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Click para descargar los Archivos para Director</h4>
+                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
+                </div>
+              </div>
+
+            </div>
+
+
+          </form>
+
+
+
+          <!---------------------------------->
+          <!-------------FORMAT--------------->
+          <!---------------------------------->
+
+          <div *ngIf="isFormat">
+            <!--<ngx-extended-pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" useBrowserLocale="true" [textLayer]="true"></ngx-extended-pdf-viewer>-->
+            <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
+            <!--<div style="overflow-x:scroll;">
+            <app-file-viewer-excel *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer-excel>
+            </div>-->
+            <!--<app-file-viewer-word *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer-word>-->
+
+            <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
+              <p>
+                Tu navegador no soporta la visualización de PDF. Puedes
+                <a [href]="pdfSrc">descargar el archivo aquí</a>.
+              </p>
+            </object>
+          </div>
+
+          <form *ngIf="isFormat" class="response--container-form-container-form" [formGroup]="formFormat" (ngSubmit)="submit()">
+
+            <h2 class="response--labels">Respuesta Enviada</h2>
+            <mat-form-field appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="response--fields" matInput formControlName="response"></textarea>
+            </mat-form-field>
+
+            <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
+              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
+            </div>
+
+            <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse">
+              <h4 class="response--attachs-response-title">Click para descargar los Archivos Adjuntos a la respuesta</h4>
+              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
+            </div>
+
+            <div class="response--chat">
+              <div class="response--chat-conatiner">
+                <h2 class="response--chat-conatiner-title">Chat </h2>
+                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
+                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
+                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
+                  <div class="response--chat-conatiner-info">
+
+                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
+                  </div>
+                </div>
+              </div>
+              <h2></h2>
+              <div class="response--attachs-response2 flex-resp">
+                <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para Director</h4>
+                </div>
+
+                <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse2">
+                  <h4 class="response--attachs-response-title">Click para descargar los Archivos para Director</h4>
+                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</section>
+

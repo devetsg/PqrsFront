@@ -1,0 +1,33 @@
+export interface PqrItem {
+  addressee: string;
+  attachmentUrls: string;
+  minerUrls: string;
+  body: string;
+  cc: string;
+  content: string | null;
+  contentId: string | null;
+  dateCreation: string;
+  dateReception: string;
+  documentNumber: string;
+  documentType: string;
+  filePath: string;
+  from: string;
+  hour: string;
+  id: number;
+  mean: string | null;
+  meanRadicationId: number;
+  messageId: string;
+  pqrType: string | null;
+  pqrTypeId: number;
+  regional: string;
+  response: string | null;
+  attachsResponse: string | null;
+  attachsResponse2: string | null;
+  sentTime: string;
+  status: string;
+  subject: string;
+  to: string;
+  typeAttachment: string;
+  userId: number;
+  userName: string;
+}

@@ -1,0 +1,583 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+
+$ManagerPqrsFront-primary: mat.define-palette(mat.$indigo-palette);
+
+$ManagerPqrsFront-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+
+$ManagerPqrsFront-warn: mat.define-palette(mat.$red-palette);
+
+//FONT NOTO SANS =====> CAMBIAR CENTURY GUTY
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('./assets/fonts/CenturyGothic.ttf') format('truetype');
+  /* Agrega otros formatos si los tienes */
+}
+
+$EmailSenderFront-typography: mat.define-typography-config(( font-family: 'Century Gothic, sans-serif', ));
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ManagerPqrsFront-theme: mat.define-light-theme((
+  color: (
+    primary: $ManagerPqrsFront-primary,
+    accent: $ManagerPqrsFront-accent,
+    warn: $ManagerPqrsFront-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ManagerPqrsFront-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  /*background: rgba(58, 91, 34, 0.1);*/
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//Bootstrap Icons
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+.selected-row {
+  background-color: rgba(22, 105, 46, 0.2) !important; /* Color de fondo para la fila seleccionada */
+}
+
+
+//VARIABLES
+$h1-noto-sans: normal 600 67px/67px 'Century Gothic';
+$h2-noto-sans: normal 600 51px/51px 'Century Gothic';
+$h3-noto-sans: normal 600 38px/38px 'Century Gothic';
+$h4-noto-sans: normal 600 28px/28px 'Century Gothic';
+$h5-noto-sans: normal 600 22px/22px 'Century Gothic';
+$base-noto-sans: normal normal 16px/16px 'Century Gothic';
+$min-noto-sans: normal normal 12px/12px 'Century Gothic';
+$body-noto-sans: normal normal 22px/22px 'Century Gothic';
+$gradient-1: linear-gradient(50.498759152186665deg, #FFEA57 7.03125%, #DABF00 21.875%, #FFEA57 32.8125%, #FFFFFF 48.2696533203125%, #DABF00 60.9375%, #FFEA57 75.78125%, #DABF00 89.84375%);
+
+$greenTSG: #126b37;
+$grayTSG: #383838;
+
+$black: #000;
+$white: #fff;
+
+:root{
+  --color-primary-h: #1e9641;
+  --color-primary-a: #14642c;
+}
+
+.grad-gold{
+  // background: linear-gradient(90deg, rgba(186, 116, 24, 1) 0%, rgba(255, 234, 186, 1) 35%, rgba(249, 217, 119, 1) 88%);
+  background: linear-gradient(90deg, rgb(12 115 47) 0%, rgb(83 123 85) 35%, rgb(103 174 73) 88%);
+}
+
+.bg-white{background-color: white;}
+//MIXINS
+@mixin responsive($size1, $size2) {
+  @media screen and (min-width: $size1) and (max-width: $size2) {
+    @content;
+  }
+}
+
+
+//Bootstrap Icons
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+.scroll-theme::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+/* Define the thumb style */
+.scroll-theme::-webkit-scrollbar-thumb {
+  background: gainsboro;
+  border-radius: 5px;
+}
+/* Define the button style */
+
+.scroll-theme::-webkit-scrollbar-button:hover {
+  background-color: #999999;
+}
+
+.scroll-theme-w::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+/* Define the thumb style */
+.scroll-theme-w::-webkit-scrollbar-thumb {
+  background: blue;
+  border-radius: 5px;
+}
+/* Define the button style */
+
+.scroll-theme-w::-webkit-scrollbar-button:hover {
+  background-color: #999999;
+}
+
+
+
+//CREATE-UPDATE TEMPLATE
+
+.create {
+  height: auto;
+
+  @include responsive(1180px,1360px) {
+    height: 110%;
+  }
+
+  @include responsive(990px,1180px) {
+    height: 140%;
+  }
+
+  @include responsive(840px,990px) {
+    height: 165%;
+  }
+
+  &--users {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(240, 240, 240, 0.7);
+    background-image: url(/assets/images/LogoTSG.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 1;
+    background-position-x: 48%;
+    border-radius: 15px;
+  }
+
+  &--container {
+    display: flex;
+    height: 100%;
+    /*border: 4px solid #126b37;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;*/
+
+    &-div1 {
+      width: 60%;
+      border-right: 1px solid rgba(22, 105, 46, 0.1);
+
+
+      &-texts {
+        width: 60%;
+        margin-left: 20%;
+
+        &-title {
+          font-size: 50px;
+          color: #126b37;
+        }
+      }
+
+      &-form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &-form {
+          width: 60%;
+          display: flex;
+          flex-direction: column;
+
+          &-field {
+          }
+
+          &-btn {
+            background: #126b37 !important;
+            margin-bottom: 20px;
+            z-index: 0;
+            width: 100% !important;
+
+            &-download {
+              background: #126b37 !important;
+              margin-bottom: 20px;
+              color: #fff;
+              border-radius: 4px;
+              text-align: center;
+              text-decoration: none;
+              padding: 9px;
+            }
+          }
+        }
+      }
+    }
+
+    &-div2 {
+      display: flex;
+      justify-content: center;
+      /*border-left: 1px solid rgba(22, 105, 46, 0.2);*/
+
+
+
+      width: 40%;
+      background-repeat: no-repeat;
+      background-size: 60%;
+      border-top-left-radius: 35px;
+      border-bottom-left-radius: 35px;
+      position: relative;
+      /*background: url("/assets/images/marcoUp.png");*/
+      /*border-left: 2px solid $greenTSG;*/
+      /*border-bottom: 20px solid #126b37;*/
+
+      &-img {
+        /* border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+        position: absolute;
+        top: -8%;
+        left: -8%;*/
+        width: 100%;
+      }
+    }
+  }
+}
+
+.mat-mdc-form-field{
+    width: 100%;
+}
+
+.mat-elevation-z9 {
+  width: 98%;
+  height: 100%;
+  box-shadow: none;
+  border: 1px solid $greenTSG;
+}
+
+
+.mdc-checkbox .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background, .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled ~ .mdc-checkbox__background {
+  border-color: $greenTSG !important;
+  background-color: $greenTSG !important;
+}
+
+.mdc-checkbox__ripple {
+  background: $greenTSG !important; // Ensure no ripple effect is causing the gradient
+}
+
+
+
+.section {
+
+  &--indexQuerys {
+    width: 80%;
+    margin: auto;
+    height: 75%;
+  }
+
+  &-users {
+    width: 80%;
+    margin: auto;
+  }
+
+  &-means {
+    width: 65%;
+    margin: auto auto 20px;
+    height: 80%;
+  }
+
+  &-response {
+    height: 100%;
+    display:flex;
+    flex-direction:row;
+    gap:15px;
+  }
+
+  // &-dir {
+    // height: 100vh;
+  // }
+}
+
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+  background: #f5f5f5;
+}
+
+.mat-expansion-panel-header-title, mat-label.ng-tns-c3736059725-13 {
+  font: $base-noto-sans;
+  color: #626262;
+  font-weight: 400;
+  font-size: 16px !important;
+}
+
+.mat-mdc-form-field-focus-overlay {
+  
+}
+
+.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+mat-drawer.mat-drawer.example-sidenav.mat-drawer-side.ng-tns-c197257872-0.ng-trigger.ng-trigger-transform.mat-drawer-opened{
+    width: 20%;
+}
+
+.mat-mdc-focus-indicator[_ngcontent-ng-c1740273633]{
+    min-width: 200px;
+}
+
+
+
+//SIGN IN AND SING UP
+.form {
+
+  &--container {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    &-div1 {
+      width: 50%;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      z-index: 30;
+
+      &-texts-container {
+        width: 500px;
+
+        &-title {
+          font-size: 3rem;
+          font-weight: 500;
+          margin-bottom: 0;
+        }
+
+        &-paragraph {
+          font-size: 24px;
+          font-weight: 400;
+          margin-bottom: 50px;
+        }
+      }
+
+      &-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        &-field {
+          width: 500px;
+
+          &-input {
+          }
+        }
+
+        &-btn {
+          width: 500px !important;
+          background: #126b37 !important;
+          z-index: 0;
+        }
+      }
+    }
+
+    &-div2 {
+      width: 50%;
+      /*background: url("/assets/images/marcoUp.png");*/
+      height: 90%;
+      background-repeat: no-repeat;
+      background-size: 113%;
+      border-top-left-radius: 35px;
+      border-bottom-left-radius: 35px;
+      /*border-left: 2px solid $greenTSG;*/
+      position: relative;
+      /*border-bottom: 28px solid #126b37;*/
+      overflow: hidden;
+
+      &-img {
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+        position: absolute;
+        top: -5%;
+        left: -10%;
+        width: 105%;
+      }
+    }
+  }
+}
+
+
+mat-drawer-content.mat-drawer-content {
+  /*background: rgba(58, 91, 34, 0.1);*/
+}
+
+
+.user-class {
+  /* Estilos para mensajes de usuario */
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid rgba(58, 91, 34, 0.8);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: black;
+  font-weight: 500;
+  max-width: 40%;
+  box-shadow: rgba(0, 0, 0, 0.5) 5px 9px 15px 3px;
+  margin-top:10px;
+  .name-color{
+    color: goldenrod;
+    font-weight: 600;
+  }
+}
+
+.dir-class {
+  /* Estilos para mensajes de director */
+  background-color: #d9fdd3;
+  padding: 20px;
+  border: 1px solid rgba(56, 56, 56, 0.8);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  color: black;
+  font-weight: 500;
+  max-width: 40%;
+  margin-left: auto;
+  box-shadow: rgba(0, 0, 0, 0.5) -5px 9px 15px 3px;
+  margin-top: 10px;
+
+  .name-color {
+    color: green;
+    font-weight: 600;
+  }
+}
+
+
+.mat-drawer-container {
+  height: 100%;
+  background: rgb(255, 255, 255) !important;
+  
+}
+
+.bg-theme{
+  background: #126b37 !important;
+}
+
+.flex{display: flex;}
+
+.absolute{position: absolute;}
+.relative{position: relative;}
+.fixed{position: fixed;}
+
+.aling-center{align-items: center;}
+
+.overflow-y-auto{overflow-y: auto;}
+.w10{width: 10%;}
+.w20{width: 20%;}
+.w30{width: 30%;}
+.w40{width: 40%;}
+.w50{width: 50%;}
+.w60{width: 60%;}
+.w70{width: 70%;}
+.w80{width: 80%;}
+.w90{width: 90%;}
+.w100{width: 100%;}
+
+
+.h10{height: 10%;}
+.h20{height: 20%;}
+.h30{height: 30%;}
+.h40{height: 40%;}
+.h50{height: 50%;}
+.h60{height: 60%;}
+.h70{height: 70%;}
+.h80{height: 80%;}
+.h90{height: 90%;}
+.h100{height: 100%;}
+
+
+.mr-1{margin-right: 10px;}
+
+.ml-1{margin-left: 10px;}
+.ml-2{margin-left: 20px;}
+.ml-3{margin-left: 30px;}
+
+.pr-1{padding-right: 10px;}
+.pr-2{padding-right: 20px;}
+.pr-3{padding-right: 30px;}
+
+.pl-1{padding-left: 10px;}
+.pl-2{padding-left: 20px;}
+.pl-3{padding-left: 30px;}
+
+.pd-20{padding: 20px;}
+
+.space-between{justify-content: space-between;}
+.justify-center{justify-content: center;}
+
+
+
+.textareaclara{
+  .mdc-text-field--filled:not(.mdc-text-field--disabled){
+    background-color: white !important;
+  }
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+.mat-mdc-dialog-surface{
+  .step2--container{
+    background-color: white !important;
+  }
+  background: white !important;
+}
+
+.mat-mdc-menu-content{
+  display: flex;
+  flex-flow: column!important;
+  align-items: flex-start!important;
+}
+
+.dp-show-resp{display: none;}
+
+@media screen and (max-width: 820px) {
+  .flex-resp{
+    display: flex!important;
+    flex-flow: column!important;
+  }
+
+  .dp-show-resp{display: block!important;}
+
+  .dp-block{display: block!important;}
+  .dp-hide-resp{display: none!important;}
+
+  .resp-table{
+    position: relative;
+    overflow-x: scroll;
+
+    .mb-20{
+      margin-bottom: 20px;
+    }
+  }
+  .w10-resp{width: 10% !important;}
+  .w50-resp{width: 50% !important;}
+  .w80-resp{width: 80% !important;}
+  .w90-resp{width: 90% !important;}
+  .w100-resp{width: 100% !important;}
+  .gap0{gap: 0px !important;}
+
+  .font-size-resp{font-size: 2rem !important;}
+  .text-center-resp{text-align: center !important;}
+  .text-left{text-align: start!important;}
+}
+
+td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-statusMiner.mat-column-statusMiner.ng-star-inserted{
+  text-align: center;
+}

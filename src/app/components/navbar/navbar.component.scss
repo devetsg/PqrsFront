@@ -1,0 +1,218 @@
+@import "../../../styles.scss";
+
+.navbar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: $greenTSG;
+
+  &--width {
+    width: 20% !important;
+  }
+
+  &--links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 14.5em;
+    margin-left: 20%;
+  }
+
+  &--admin {
+
+    &-btn {
+      color: $white !important;
+      font: $base-noto-sans;
+      font-weight: 400;
+    }
+
+    &-btns {
+      font: $base-noto-sans;
+      font-weight: 400;
+      color: $white !important;
+      justify-content: start;
+      background: $greenTSG !important;
+
+
+      &:hover {
+        color: #000 !important;
+      }
+    }
+  }
+
+  &--title {
+    z-index: 10;
+  }
+  /*&::before {
+    content: " ";*/
+  /*background: url(/assets/images/marcoUp.png);*/
+  /*background-size: cover;
+    width: 100%;
+    height: 53%;
+    position: absolute;
+    top: -10%;
+  }*/
+
+  &--list {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    list-style: none;
+    align-items: center;
+    height: 40px;
+    font: $base-noto-sans;
+    font-weight: 400;
+    margin-right: 20px;
+    z-index: 10;
+  }
+
+  &--links {
+    z-index: 10;
+  }
+
+  &--link {
+    text-decoration: none;
+    color: #fff;
+    transition: all .5s;
+
+    &:hover {
+      font-size: 18px;
+      font-weight: 500;
+      border-bottom: 2px solid #126b37;
+    }
+  }
+
+  &--btn {
+    background: #CD9433 !important;
+    width: 70%;
+    margin-top: 40px;
+  }
+
+
+
+
+
+  &--img {
+    width: 55%;
+    margin: 0;
+    margin-left: 20%;
+  }
+}
+
+li span strong {
+  background: $greenTSG;
+  padding: 8px;
+  border-radius: 10px;
+  color: $white;
+}
+
+li span {
+  font-weight: 600;
+}
+
+//SIDEBAR
+.example-container {
+  width: 20%;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.example-sidenav {
+  padding: 20px;
+  width: 20%;
+}
+
+.menu-container {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  max-height: 0;
+  opacity: 0;
+}
+
+.menu-container.ng-animating {
+  transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+  max-height: 1000px; /* Ajusta según sea necesario */
+  opacity: 1;
+}
+
+.icon {
+  transition: transform 0.5s ease;
+  width: auto;
+  height: auto;
+  vertical-align: middle;
+  color: #fff !important;
+  overflow: unset !important;
+  font-size: 40px;
+
+  &--container {
+    &-title {
+      font: $base-noto-sans;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content:space-between;
+      width:60%;
+    }
+  }
+}
+
+.icon.rotated {
+  transform: rotate(180deg);
+  color: #000 !important;
+}
+
+.navbar--admin-btns:hover{
+  background: #1c9b51 !important;
+}
+
+.scroll-theme::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+/* Define the thumb style */
+.scroll-theme::-webkit-scrollbar-thumb {
+  background: var(--color-primary-h);
+  border-radius: 5px;
+}
+/* Define the button style */
+
+.scroll-theme::-webkit-scrollbar-button:hover {
+  background-color: #999999;
+}
+
+.scroll-theme-w::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+/* Define the thumb style */
+.scroll-theme-w::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 5px;
+}
+/* Define the button style */
+
+.scroll-theme-w::-webkit-scrollbar-button:hover {
+  background-color: #999999;
+}
+
+.flex-start{
+  justify-content: flex-start;
+}
+
+.navbar--admin-btns.active {
+  background-color: white!important; /* Cambia este color al que prefieras */
+  color: black !important; /* Color del texto */
+}

@@ -1,0 +1,133 @@
+<div class="step">
+    <div class="step2--container">
+      <div class="step2--container-texts">
+        <h2 class="step2--container-texts-title font-size-resp">Supervision de PQR´S</h2>
+      </div>
+  
+      <div class="step2--container-index-flex gap0 flex-resp">
+        <form  [formGroup]="formFilter" class="gap0 flex-resp">
+          <div class="step-filters-container gap0 flex-resp">
+            <mat-form-field>
+              <mat-label>Tipo de PQR</mat-label>
+              <mat-select formControlName="pqrType">
+                <mat-option value="0">Ninguno</mat-option>
+                <mat-option *ngFor="let type of types" [value]="type.name" >{{type.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+  
+  
+            <mat-form-field>
+              <input type="text" matInput [formControl]="regionalControl" [matAutocomplete]="auto" placeholder="Regional">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterByRegional($event)">
+                <mat-option value="Ninguna" (click)="filterByRegional('0')">Ninguna</mat-option>
+                <mat-option *ngFor="let reg of filteredRegionals | async" [value]="reg.name" >
+                  {{ reg.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </form>
+        <mat-form-field>
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+        
+        <div style="margin-bottom: 20px;">
+          
+        </div>
+      </div>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle (click)="showTotal()">Pqrs</mat-button-toggle>
+        <mat-button-toggle (click)="showFollow()">Seguimiento</mat-button-toggle>
+        <mat-button-toggle (click)="showMining()">En Mineria</mat-button-toggle>
+        <mat-button-toggle (click)="showReview()">En Revisión</mat-button-toggle>
+        <mat-button-toggle (click)="showPending()">En Aprobación</mat-button-toggle>
+        <mat-button-toggle (click)="showSend()">Aprobadas</mat-button-toggle>
+      </mat-button-toggle-group>
+      <div class="mat-elevation-z8">
+        <div class="resp-table">
+          <table mat-table [dataSource]="dataSource" matSort class="mb-20">
+  
+            <ng-container matColumnDef="pqrId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> PQR ID </th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="reception">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Recepción </th>
+              <td mat-cell *matCellDef="let row"> {{formatDate(row.dateReception)}} a las: {{row.hourReception.slice(0,5)}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="creation">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Creación </th>
+              <td mat-cell *matCellDef="let row"> {{formatDate(row.dateCreation)}} a las: {{row.dateCreation | date: 'HH:mm':'UTC'}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="document">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Documento </th>
+              <td mat-cell *matCellDef="let row"> {{row.documentNumber}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="usuario">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+              <td mat-cell *matCellDef="let row"> {{row.userName}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="radication">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Medio de Radicacion </th>
+              <td mat-cell *matCellDef="let row"> {{row.means}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="typepqr">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo PQR </th>
+              <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="regional">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Regional </th>
+              <td mat-cell *matCellDef="let row"> {{row.regional}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="statusMiner">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Mineria </th>
+              <td mat-cell *matCellDef="let row">
+                <ng-container *ngIf="row.statusMiner === 'MINING'; else miningElse">
+                  <i style="font-size: 30px ;" class="bi bi-minecart"></i>
+                </ng-container>
+                <ng-template #miningElse>
+                  <ng-container *ngIf="row.statusMiner === 'MINED'; else noAplica">
+                    <i style="font-size: 30px;color:#126b37 ;" class="bi bi-minecart-loaded"></i>
+                  </ng-container>
+                </ng-template>
+                <ng-template #noAplica>
+                  No Aplica
+                </ng-template>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="opts">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+              <td mat-cell *matCellDef="let row">
+  
+                <div routerLink="/responsePqr/{{row.id}}"  style="width: max-content; padding: 10px 15px;">
+                    <i class="bi bi-search" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                  </div>
+                
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No hay datos que coincidan con "{{input.value}}"</td>
+            </tr>
+          </table>
+        </div>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </div>
+  </div>

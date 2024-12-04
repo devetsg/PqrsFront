@@ -1,0 +1,13 @@
+<!--<div *ngIf="isPdf">
+  <iframe [src]="sanitizedUrl"
+          width="100%"
+          height="600px"
+          frameborder="0"
+          allowfullscreen>
+  </iframe>
+</div>
+
+<app-file-viewer-excel *ngIf="isXls" [fileUrl]="sanitizedUrl!.toString()"></app-file-viewer-excel>
+<app-file-viewer-word *ngIf="isDoc" [fileUrl]="sanitizedUrl!.toString()"></app-file-viewer-word>-->
+<ngx-extended-pdf-viewer  [src]="pdfSrc" useBrowserLocale="true" [textLayer]="true"></ngx-extended-pdf-viewer>
+

@@ -1,0 +1,225 @@
+<div class="step">
+  <div class="step2--container">
+    <div class="step2--container-texts">
+      <h2 class="step2--container-texts-title font-size-resp">Gestion de PQR´S</h2>
+    </div>
+
+    <div class="step2--container-index-flex gap0 flex-resp">
+      <form  [formGroup]="formFilter" class="gap0 flex-resp">
+        <div class="step-filters-container gap0 flex-resp">
+          <mat-form-field>
+            <mat-label>Tipo de PQR</mat-label>
+            <mat-select formControlName="pqrType">
+              <mat-option value="0">Ninguno</mat-option>
+              <mat-option *ngFor="let type of types" [value]="type.name" >{{type.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <mat-form-field>
+            <input type="text" matInput [formControl]="regionalControl" [matAutocomplete]="auto" placeholder="Regional">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterByRegional($event)">
+              <mat-option value="Ninguna" (click)="filterByRegional('0')">Ninguna</mat-option>
+              <mat-option *ngFor="let reg of filteredRegionals | async" [value]="reg.name" >
+                {{ reg.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </form>
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+      </mat-form-field>
+      
+      <div style="margin-bottom: 20px;">
+        <button routerLink="/createUpdatePqr" class="step--btn w100-resp" mat-fab extended color="primary">
+          Registrar Pqr
+        </button>
+      </div>
+    </div>
+    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle (click)="showTotal()">Pqrs</mat-button-toggle>
+      <mat-button-toggle (click)="showFollow()">Seguimiento</mat-button-toggle>
+      <mat-button-toggle (click)="showMining()">En Mineria</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="mat-elevation-z8">
+      <div class="resp-table">
+        <table mat-table [dataSource]="dataSource" matSort class="mb-20">
+
+          <ng-container matColumnDef="pqrId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> PQR ID </th>
+            <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="reception">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Recepción </th>
+            <td mat-cell *matCellDef="let row"> {{formatDate(row.dateReception)}} a las: {{row.hourReception.slice(0,5)}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="creation">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Creación </th>
+            <td mat-cell *matCellDef="let row"> {{formatDate(row.dateCreation)}} a las: {{row.dateCreation | date: 'HH:mm':'UTC'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="document">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Documento </th>
+            <td mat-cell *matCellDef="let row"> {{row.documentNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+            <td mat-cell *matCellDef="let row"> {{row.userName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="radication">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Medio de Radicacion </th>
+            <td mat-cell *matCellDef="let row"> {{row.means}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="typepqr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo PQR </th>
+            <td mat-cell *matCellDef="let row"> {{row.type}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="regional">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Regional </th>
+            <td mat-cell *matCellDef="let row"> {{row.regional}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="statusMiner">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mineria </th>
+            <td mat-cell *matCellDef="let row">
+              <ng-container  *ngIf="row.statusMiner === 'MINING'; else miningElse">
+                
+                <ng-container  *ngIf="row.statusMiner === 'MINING'; else noAplica">
+                  <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-minecart-loaded"></i> -->
+                  <div *ngIf="row.status == 'MINING'" class="step2--container-table-data-container">
+                    <div style="display:flex;gap: 10px;align-items:center;">
+                      <button class="center-buttons" [matMenuTriggerFor]="menu" mat-icon-button>
+                        <i style="font-size: 30px ;" class="bi bi-minecart"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button  (click)="openDialogMiner(row.id,'TS')" *ngIf="row.observationTs != null && row.observationTs.length > 0" mat-menu-item>
+                          <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
+                          <span >Transporte</span>
+                        </button>
+                        <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.observationFac != null && row.observationFac.length > 0" mat-menu-item >
+                          <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
+                          <span >Facturacion</span>
+                        </button>
+                        <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.observationOp != null && row.observationOp.length > 0" mat-menu-item >
+                          <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
+                          <span>Operacion</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                    
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-template #miningElse>
+                <ng-container  *ngIf="row.statusMiner === 'MINED'; else noAplica">
+                  <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-minecart-loaded"></i> -->
+                  <div *ngIf="row.status != 'MINING'" class="step2--container-table-data-container">
+                    <div style="display:flex;gap: 10px;align-items:center;"  >
+                      <button class="center-buttons" [matMenuTriggerFor]="menu" mat-icon-button >
+                        <i  style="font-size: 30px;color:#126b37 ;" class="bi bi-minecart-loaded"></i>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button (click)="openDialogMiner(row.id,'TS')" *ngIf="row.minerUrlsTs != null && row.minerUrlsTs.length > 0" mat-menu-item>
+                          <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
+                          <span >Transporte</span>
+                        </button>
+                        <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.minerUrlsFac != null && row.minerUrlsFac.length > 0" mat-menu-item>
+                          <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
+                          <span>Facturacion</span>
+                        </button>
+                        <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.minerUrlsOp != null && row.minerUrlsOp.length > 0" mat-menu-item >
+                          <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                          matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
+                          <span>Operacion</span>
+                        </button>
+                      </mat-menu>
+                    </div>
+                    
+                  </div>
+                </ng-container>
+              </ng-template>
+              <ng-template #noAplica>
+                No Aplica
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="opts">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+            <td mat-cell *matCellDef="let row">
+
+              <div *ngIf="row.status != 'MINING'" class="step2--container-table-data-container">
+                <div style="display:flex;gap: 10px;align-items:center;">
+                  <button [matMenuTriggerFor]="menu" mat-icon-button>
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item routerLink="/responsePqr/{{row.id}}">
+                      <i class="bi bi-send-arrow-up" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <span>Responder PQR</span>
+                    </button>
+                    <button mat-menu-item routerLink="/createUpdatePqr/{{row.id}}">
+                      <i class="bi bi-pencil" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"></i>
+                      <span>Editar PQR</span>
+                    </button>
+                    <button mat-menu-item routerLink="/addServices/{{row.id}}">
+                      <i class="bi bi-calendar-plus" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"></i>
+                      <span>Añadir Servicios</span>
+                    </button>
+                    <button mat-menu-item (click)="openDialogToMiner(row.id)">
+                      <i (click)="openDialogToMiner(row.id)" class="bi bi-minecart" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <span>Enviar a Minería</span>
+                    </button>
+                    <button mat-menu-item (click)="deletePqr(row.id)">
+                      <i (click)="deletePqr(row.id)" class="bi bi-trash3" style="font-size: 23px; color: #F11F1F; cursor: pointer; margin-right: 10px;"></i>
+                      <span>Eliminar PQR</span>
+                    </button>
+                  </mat-menu>
+                </div>
+                
+              </div>
+              <div *ngIf="row.status == 'MINING'" class="step2--container-table-data-container">
+                <div style="display:flex;gap: 10px;align-items:center;">
+                  <button [matMenuTriggerFor]="menu" mat-icon-button>
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="exitMinerPqr(row.id)">
+                      <i class="bi bi-recycle" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <span>Eliminar de Mineria</span>
+                    </button>
+                  </mat-menu>
+                </div>
+                
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No hay datos que coincidan con "{{input.value}}"</td>
+          </tr>
+        </table>
+      </div>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+  </div>
+</div>

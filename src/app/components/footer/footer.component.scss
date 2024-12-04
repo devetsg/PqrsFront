@@ -1,0 +1,31 @@
+@import "../../../styles.scss";
+
+.footer {
+  height: 10%;
+  /*background: url(/assets/images/marcoBottom.png);*/
+  background: $greenTSG;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  /*padding: 10px;*/
+  /*position: absolute;*/
+  width: 100%;
+  /*position:fixed;
+  margin-top: -7%;*/
+
+
+  &-text {
+    color: $white;
+    font: $base-noto-sans;
+    margin: 2px;
+  }
+
+  &--border-top {
+    /*margin-top: 150px;*/
+    width: 100%;
+    height: 5px;
+    background: rgba(58, 91, 34, 0.2);
+  }
+}

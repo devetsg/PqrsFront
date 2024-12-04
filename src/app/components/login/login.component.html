@@ -1,0 +1,37 @@
+<div class="form login">
+  <div class="form--container">
+    <div class="form--container-div1 w100-resp">
+      <div class="form--container-div1-texts-container w100-resp flex-resp text-center-resp">
+        <h2 class="form--container-div1-texts-container-title font-size-resp">Sistema De PQR´S</h2>
+        <h3 class="form--container-div1-texts-container-paragraph">Ingresa tus Credenciales para acceder</h3>
+      </div>
+      <form class="form--container-div1-form w100-resp" [formGroup]="formLogin" (ngSubmit)="submit()">
+
+        <mat-form-field class="form--container-div1-form-field w90-resp" appearance="fill">
+          <mat-label>Usuario</mat-label>
+          <input class="form--container-div1-form-field-input" matInput formControlName="UserName">
+        </mat-form-field>
+
+        <mat-form-field class="form--container-div1-form-field w90-resp" appearance="fill">
+          <mat-label>Contraseña</mat-label>
+          <input class="form--container-div1-form-field-input" type="password" matInput formControlName="Password">
+        </mat-form-field>
+
+        <!--<div *ngIf="errorMessages.length > 0">
+          <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+        </div>-->
+
+        <button type="submit" class="form--container-div1-form-btn w90-resp" mat-fab extended color="primary">
+          Iniciar Sesion
+        </button>
+
+      </form>
+    </div>
+    <!-- <div class="form--container-div2"> -->
+      <!--<img class="form--container-div2-img" src="../../../assets/images/sgSeñala.png" />-->
+    <!-- </div> -->
+  </div>
+</div>
+<div class="dp-hide-resp">
+  <img class="form--container-div2-img img-sign" src="../../../assets/images/sgSeñala.png" />
+</div>

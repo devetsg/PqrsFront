@@ -1,0 +1,12 @@
+@import "../add-services/add-services.component.scss";
+
+.response {
+  &--fields {
+    min-height: 500px;
+  }
+
+  &--labels {
+    font: $h4-noto-sans;
+    color: $greenTSG;
+  }
+}

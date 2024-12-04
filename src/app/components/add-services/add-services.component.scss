@@ -1,0 +1,128 @@
+@import "../../../styles.scss";
+.step2 {
+
+  &-btn {
+    color: #fff !important;
+    width: 53% !important;
+    margin: auto !important;
+  }
+
+
+
+  &--container {
+    width: 90%;
+    margin: auto;
+    // padding: 50px;
+    // border: 1px solid $greenTSG;
+    // border-radius: 2%;
+    margin: -2% auto 100px;
+    // box-shadow: rgba(0,0,0,0.5) 0px 5px 20px 0px;
+    // background-color: gainsboro;
+    &-form {
+      padding: 0 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    &-table {
+
+      &-data {
+        font: $base-noto-sans;
+        font-weight: 300;
+
+        &-old {
+          padding: 3%;
+          border: 1px solid #ebebeb;
+          border-radius: 13px;
+          background: #fafafa;
+        }
+
+        &-2 {
+          font: $base-noto-sans;
+          font-size: 14px;
+          margin: 3px;
+        }
+
+        &-3 {
+          font: $base-noto-sans;
+          font-size: 14px;
+          margin: 3px;
+          color: #9b9b9b;
+        }
+
+        &-container {
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          border: 1px solid $greenTSG;
+          border-radius: 5px;
+          padding: 2%;
+          margin-bottom: 2%;
+          background: rgba(22, 105, 46, 0.04);
+          box-shadow: rgba(0, 0, 0, 0.4) 0px 5px 10px -4px;
+        }
+      }
+
+      &-strong {
+        color: $greenTSG;
+
+        &-1 {
+          font: $base-noto-sans;
+          font-weight: 600;
+        }
+      }
+    }
+
+    &-services {
+
+      &-form {
+        display: flex;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 5%;
+      }
+
+
+      &-card {
+        border: 1px solid $greenTSG;
+        border-radius: 2%;
+        padding: 25px;
+        max-width: 44.5%;
+        width: 44.5%;
+        background: rgba(22, 105, 46, 0.04);
+        box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 10px -3px;
+
+        &-field {
+          width: 100% !important;
+          margin-top: 5%;
+        }
+
+        &-texts {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        &-title {
+          font: $h5-noto-sans;
+          font-weight: 300;
+        }
+      }
+    }
+
+    &-texts {
+      text-align: center;
+
+      &-title {
+        font: $h2-noto-sans;
+        color: $greenTSG;
+      }
+    }
+  }
+}
+
+
+.padding-form{
+  padding: 0 25% !important;
+}

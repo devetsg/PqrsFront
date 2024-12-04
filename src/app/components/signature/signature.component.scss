@@ -1,0 +1,68 @@
+@import "../../../styles.scss";
+.dialog {
+
+  &--container {
+
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      padding: 100px;
+
+      @include responsive(300px,997px) {
+        padding: 15px;
+      }
+
+      &-input {
+      }
+
+      &-file-container {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+        height: 160px;
+        background: rgba(240,240,240,0.7);
+        margin-bottom: 25px;
+
+        @include responsive(300px,870px) {
+          height: 150px;
+        }
+
+        &-span {
+          font: $base-noto-sans;
+          padding: 5px;
+          color: rgba(58, 91, 34, 0.7);
+          margin-bottom:15px;
+        }
+
+        &-input {
+          opacity: 0;
+          padding: 3rem;
+          width: 100%;
+          height: 1rem;
+
+          @include responsive(300px,870px) {
+            padding: 2rem;
+          }
+        }
+
+        &-label {
+          font: $base-noto-sans;
+          padding: 5px;
+          color: rgba(58, 91, 34, 0.5);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin-top: 5px;
+          border-bottom: 1px solid rgba(58, 91, 34, 0.2);
+        }
+      }
+
+      &-btn {
+        background: #126b37 !important;
+        margin-top: 50px;
+      }
+    }
+  }
+}

@@ -1,0 +1,191 @@
+<!--------------------------------------------------------------->
+<!------------------------FORM STEP 2---------------------------->
+<!--------------------------------------------------------------->
+<!--------------------------------------------------------------->
+
+
+<div class="step2">
+  <div class="step2--container" >
+    <div class="step2--container-texts">
+      <h2 class="step2--container-texts-title">Asignacion de Servicios</h2>
+    </div>
+    <form [formGroup]="formPQR2" (ngSubmit)="submit2()" class="step2--container-form padding-form">
+      <mat-grid-list cols="1" rowHeight="5:1">
+        <mat-grid-tile>
+          <mat-form-field class="example-full-width">
+            <mat-label>Numero de Documento</mat-label>
+            <input matInput formControlName="documentNumber">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Rango de fechas</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Start date">
+              <input matEndDate formControlName="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+            <!--@if (range.controls.start.hasError('matStartDateInvalid')) {
+            <mat-error>Invalid start date</mat-error>
+            }
+            @if (range.controls.end.hasError('matEndDateInvalid')) {
+            <mat-error>Invalid end date</mat-error>
+            }-->
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1">
+          <button class="create--container-div1-form-container-form-btn step2-btn" type="submit" mat-flat-button>Consultar servicios</button>
+        </mat-grid-tile>
+
+
+      </mat-grid-list>
+    </form>
+
+    <!-- TABLE SERVICES-->
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Servicio </th>
+          <td mat-cell *matCellDef="let row">
+            <div style="display: flex; gap: 30px; justify-content: center;">
+              <div>
+                <h2 class="step2--container-table-data"> <strong>Fecha Recogida: </strong>{{splitDate(row.dateCollection)}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Fecha Servicio: </strong>{{splitDate(row.dateService)}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Cliente: </strong>{{row.cliente}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Usuario: </strong>{{row.userName}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Estado: </strong>{{row.status}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Criticity: </strong>{{row.criticity}}</h2>
+                <h2 class="step2--container-table-data"> <strong>Procedimiento: </strong>{{row.procedimient}}</h2>
+              </div>
+              <div class="step2--container-table-data-container">
+                <div>
+                  <h3 class="step2--container-table-strong-1">Origen:<br /></h3>
+                  <h2 class="step2--container-table-data-2">{{row.originDepCity}}</h2>
+                  <h2 class="step2--container-table-data-2">{{row.originNameDir}}</h2>
+                  <h3 class="step2--container-table-strong-1">Destino: <br /></h3>
+                  <h2 class="step2--container-table-data-2"> {{row.destinyDepCity}}</h2>
+                  <h2 class="step2--container-table-data-2"> {{row.destinyNameDir}}</h2>
+                </div>
+                <div>
+                  <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #126b37; "></i>
+                </div>
+              </div>
+            </div>
+
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox style="" (change)="onCheckboxChange($event,row.id)" class="example-margin"></mat-checkbox>
+            <!--<i (click)="getDetails(row.serviceId)" class="bi bi-info-square-fill" style="cursor:pointer;width: 100px;"></i>-->
+          </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+    </div>
+    <div class="step2--container-services" *ngIf="services">
+      <form class="step2--container-services-form" [formGroup]="formPQR3" (ngSubmit)="submitPQR()">
+
+        <div class="step2--container-services-card" *ngFor="let ser of services; let i = index">
+          <div class="step2--container-services-card-texts">
+            <div>
+              <h2 class="step2--container-table-data"> <strong>Fecha Recogida: </strong>{{splitDate(ser.dateCollection)}}</h2>
+              <h2 class="step2--container-table-data"> <strong>Fecha Servicio: </strong>{{splitDate(ser.dateService)}}</h2>
+            </div>
+            <i (click)="deleteRelation(ser.id)" style="font-size: 30px; color: #126b37;cursor:pointer; " class="bi bi-x-circle"></i>
+          </div>
+
+          <h2 class="step2--container-table-data"> <strong>Cliente: </strong>{{ser.cliente}}</h2>
+          <h2 class="step2--container-table-data"> <strong>Criticity: </strong>{{ser.criticity}}</h2>
+          <h2 class="step2--container-table-data"> <strong>Procedimiento: </strong>{{ser.procedimient}}</h2>
+          <div class="step2--container-table-data-container">
+            <div>
+              <h3 class="step2--container-table-strong-1">Origen:<br /></h3>
+              <h2 class="step2--container-table-data-2">{{ser.originDepCity}}</h2>
+              <h2 class="step2--container-table-data-2">{{ser.originNameDir}}</h2>
+              <h3 class="step2--container-table-strong-1">Destino: <br /></h3>
+              <h2 class="step2--container-table-data-2"> {{ser.destinyDepCity}}</h2>
+              <h2 class="step2--container-table-data-2"> {{ser.destinyNameDir}}</h2>
+            </div>
+            <div>
+              <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #126b37; "></i>
+            </div>
+          </div>
+
+
+          <mat-form-field class="step2--container-services-card-field">
+            <mat-label>Id Servico</mat-label>
+            <input matInput [value]="ser.id" formControlName="id{{i}}">
+          </mat-form-field>
+
+
+          <div class="step2--container-table-data-old" *ngIf="ser.isOld">
+            <h2 class="step2--container-table-data-3" style="margin-bottom:15px;" [innerHTML]="replaceBr(ser.secundaryId)"></h2>
+          </div>
+
+          <mat-accordion *ngIf="!ser.isOld">
+            <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+              <mat-expansion-panel-header>
+                <mat-panel-title> Seleccion de motivos </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul style="list-style:none;">
+                <li *ngFor="let sec of secundaries">
+                  <mat-checkbox id="{{sec.id}}" (change)="changeSec($event.checked,sec.id,i)">
+                    {{sec.name}}
+                  </mat-checkbox>
+                </li>
+              </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+
+          <input type="hidden" [value]="ser.id" formControlName="motivo{{i}}">
+          <mat-form-field class="step2--container-services-card-field">
+            <mat-label>Problema Central</mat-label>
+            <mat-select formControlName="problema{{i}}">
+              <mat-option *ngFor="let pri of principals" [value]="pri.id">{{pri.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button *ngIf="services.length > 0" class="create--container-div1-form-container-form-btn step2-btn" type="submit" mat-flat-button>Guardar</button>
+      </form>
+    </div>
+
+  </div>
+
+
+</div>

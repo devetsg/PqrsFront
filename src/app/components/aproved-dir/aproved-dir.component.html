@@ -1,0 +1,58 @@
+<section class="section-response">
+
+  <div class="step">
+    <div class="step2--container">
+      <div class="response">
+        <div class="response--container">
+          <form class="response--container-form-container-form" [formGroup]="formResponse" (ngSubmit)="submit()">
+
+            <h2 class="response--labels">Asunto PQR</h2>
+            <mat-form-field appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="" matInput formControlName="pqrSubject"></textarea>
+            </mat-form-field>
+
+
+            <h2 class="response--labels">Contenido PQR</h2>
+            <mat-form-field appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="response--fields" matInput formControlName="pqrText"></textarea>
+            </mat-form-field>
+
+
+            <h2 class="response--labels">Respuesta a Aprobar</h2>
+            <mat-form-field class="textareaclara" appearance="fill">
+              <mat-label></mat-label>
+              <textarea class="response--fields" matInput formControlName="response"></textarea>
+            </mat-form-field>
+
+            <div class="response--chat">
+              <div class="response--chat-conatiner">
+                <div *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
+                  {{msg.content}}
+                </div>
+              </div>
+              <h2>Comentarios</h2>
+              <mat-form-field appearance="fill">
+                <mat-label>Escriba un mensaje</mat-label>
+                <input matInput formControlName="corrections">
+              </mat-form-field>
+
+            </div>
+
+
+            <button type="submit" class="response--container-form-container-form-btn" mat-fab extended color="primary">
+              Aprovar
+            </button>
+
+
+
+          </form>
+          <button (click)="sendFollow()" class="response--container-form-container-form-btn" mat-fab extended color="primary">
+            Enviar a Seguimiento
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

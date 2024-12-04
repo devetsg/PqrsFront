@@ -1,0 +1,51 @@
+<div class="create">
+  <div class="create--container">
+    <div class="create--container-div1">
+      <div class="create--container-div1-texts">
+        <h2 class="create--container-div1-texts-title">Agregar Firma</h2>
+      </div>
+      <div class="create--container-div1-form-container">
+        <form class="create--container-div1-form-container-form" [formGroup]="formReAsigned" (ngSubmit)="submit()">
+
+          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+            <mat-label>Usuario a Asignar Firma</mat-label>
+            <mat-select formControlName="reasigned">
+              <mat-option *ngFor="let usr of users" [value]="usr.name">
+                {{usr.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span class="dialog--container-form-file-container-span">* Archivos permitidos: JPG, JPEG, PNG</span>
+          <div class="dialog--container-form-file-container">
+            <label class="dialog--container-form-file-container-label">
+              <span *ngIf="namesFiles.length > 0;else fileTitle">
+                <span *ngFor="let file of namesFiles">
+                  {{file}}
+                  <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
+                </span>
+              </span>
+
+            </label>
+            <input #fileInput style="cursor:pointer;" type="file"
+                   class="dialog--container-form-file-container-input" (change)="getFile($event)"
+                   accept=".jpg, .jpeg, .png"/>
+          </div>
+
+
+
+
+          <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary">
+            Asignar Firma
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="create--container-div2">
+      <img style="width: 86%;" class="create--container-div2-img" src="../../../assets/images/sgSeñala.png" />
+    </div>
+  </div>
+</div>
+<ng-template #fileTitle>
+  <label> Cargar Archivo</label>
+</ng-template>
