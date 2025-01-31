@@ -100,9 +100,10 @@
 
     &-texts {
       &-title {
+        font: $h3-noto-sans;
         font-size: 50px;
         color: #126b37;
-        margin: -3% 0 40px 0;
+        
       }
     }
 
@@ -190,4 +191,24 @@
     .grid5 { grid-column: span 1!important; }
     .grid6 { grid-column: span 1!important; }
   }
+}
+
+.form-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: #fafafa;
+}
+
+.form-input:focus {
+  border-color: #007BFF;
+}
+
+.form-label {
+  font: $h3-noto-sans;
+  margin: auto 0px 0 17px;
+  font-size: 13px;
 }

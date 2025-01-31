@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-means',
@@ -18,7 +19,7 @@ export class IndexMeansComponent {
   displayedColumns: string[] = ['No', 'Name', 'Actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP:PqrsService) { }
+  constructor(private _serviceP:PqrsService,private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,6 +30,14 @@ export class IndexMeansComponent {
   }
 
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getMeans();
+
+      });
+    });
     this.getMeans();
   }
 
@@ -38,6 +47,15 @@ export class IndexMeansComponent {
         this.dataSource.data = data;
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getMeans();
+    });
   }
 
   deleteMean(id: number) {

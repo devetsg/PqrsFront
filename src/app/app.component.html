@@ -1,19 +1,23 @@
 <ul *ngIf="this.screenWidth < 1200 && isLogged" style="list-style:none; padding-left: 5px;" class="navbar--list navbar--menu">
   <li>
-    <button mat-button [matMenuTriggerFor]="menu">
+    <button  mat-button [matMenuTriggerFor]="menu">
       <i class="bi bi-list" style="font-size: 35px; color: #126b37;"></i>
     </button>
     <mat-menu #menu="matMenu" class="flex menu-opts">
-      <button class="navbar--admin-btns" routerLink="/createUpdatePqr" mat-flat-button>Crear PQR</button>
-      <button class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button>Consultar PQR</button>    
-      <button class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button>Aprobar PQR</button>
-      <button class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button>Histórico PQR</button>
-      <button class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button>Tipos de PQR'S'</button>
-      <button class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button>Medios de Radicacion</button>
-      <button class="navbar--admin-btns" routerLink="/indexPrincipals" mat-flat-button>Problemas Centrales</button>
-      <button class="navbar--admin-btns" routerLink="/indexSecundaries" mat-flat-button>Motivos</button>
-      <button class="navbar--admin-btns" routerLink="/indexSenders" mat-flat-button>Correos</button>
-      <button class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Firmas</button>
+      <button *ngIf="isLogged == 'ANALISTA' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/createUpdatePqr" mat-flat-button>Crear PQR</button>
+      <button *ngIf="isLogged == 'ANALISTA' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button>Consultar PQR</button>    
+      <button *ngIf="isLogged == 'DIRGENERAL' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button>Aprobar PQR</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button>Gestionar PQR´S</button>
+      <button *ngIf="isLogged == 'MINERO' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button>Mineria</button>
+      <button *ngIf="isLogged == 'SUPERVISOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSupervisor" mat-flat-button>Supervisión</button>
+      <button *ngIf="isLogged != 'MINERO' && isLogged != 'SUPERVISOR'" class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button>Histórico PQR</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button>Tipos de PQR'S'</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button>Medios de Radicacion</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPrincipals" mat-flat-button>Problemas Centrales</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSecundaries" mat-flat-button>Motivos</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSenders" mat-flat-button>Correos</button>
+      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Firmas</button>
+      <button (click)="logout()" class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Cerrar Sesion</button>
     </mat-menu>
   </li>
 </ul>
@@ -26,12 +30,33 @@
   </mat-drawer>
 
   <div class="example-sidenav-content">
-    <button *ngIf="isLogged" class="sideMenu-btn" type="button" mat-button (click)="onButtonClick()">
+    <button style="position: absolute;" *ngIf="isLogged" class="sideMenu-btn" type="button" mat-button (click)="onButtonClick()">
       <i [ngClass]="iconClass"></i>
     </button>
   
     <router-outlet></router-outlet>
   </div>
-
+  <div *ngIf="isLogged != undefined && isLogged == 'COORDINADOR'" class="interval">
+    <mat-accordion class="interval-accordion">
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title><i class="bi bi-gear-fill interval-icon"></i>
+            Notificacion a Mineros
+          </mat-panel-title>
+          
+        </mat-expansion-panel-header>
+        <form class="interval-accordion-form" [formGroup]="formInterval" (ngSubmit)="submit()">
+          <mat-form-field>
+            <mat-label>Tiempo en horas</mat-label>
+            <input formControlName="interval" matInput type="number" min="1" />
+          </mat-form-field>
+          <button class="interval-btn" *ngIf="isChange" type="submit"  mat-fab extended color="primary">
+            Guardar
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </mat-drawer-container>
 <!-- <app-footer ></app-footer> -->
+

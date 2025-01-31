@@ -1,6 +1,6 @@
 <div class="create--container">
   <div class="create--container-texts">
-    <h2 class="create--container--texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} PQR</h2>
+    <h2 class="create--container-texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} PQR</h2>
   </div>
   <div class="create--container-form-container">
     <form class="create--container-form-container-form" [formGroup]="formPQR" (ngSubmit)="submit()" (reset)="onResetForm()">
@@ -27,14 +27,17 @@
           </div>
 
           <div class="grid1">
-            <mat-form-field>
-              <input type="text" matInput [formControl]="regionalControl" [matAutocomplete]="auto" placeholder="Regional">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let reg of filteredRegionals | async" [value]="reg.name">
-                  {{ reg.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+            <form [formGroup]="formRegional">
+              <mat-form-field>
+                <input type="text" matInput formControlName="regionalControl" [matAutocomplete]="auto" placeholder="Regional">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let reg of filteredRegionals | async" [value]="reg.name">
+                    {{ reg.name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+            
           </div>
 
 
@@ -176,6 +179,10 @@
                 <mat-checkbox formControlName="isMinerOp" (change)="onCheckboxChangeMiner($event,'minerOp')" class="example-margin">Operativa</mat-checkbox>
                 <mat-checkbox formControlName="isMinerTs" (change)="onCheckboxChangeMiner($event,'minerTs')" class="example-margin">Transporte</mat-checkbox>
                 <mat-checkbox formControlName="isMinerFac" (change)="onCheckboxChangeMiner($event,'minerFac')" class="example-margin">Facturacion</mat-checkbox>
+                <!-- <label for="numero" class="form-label"
+                *ngIf="isMinerTs || isMinerOp || isMinerFac">* Intervalo de Notificacion(hrs):</label>
+                <input type="number" id="numero" formControlName="interval" name="numero" class="form-input" min="1" max="12"
+                *ngIf="isMinerTs || isMinerOp || isMinerFac"> -->
               </div>
             </div>
           </div>
@@ -246,8 +253,8 @@
 
 
 <mat-grid-list cols="1" rowHeight="6:0.5">
-  <div>
-    <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" *ngIf="containFile" (click)="downloadFile()"></i>
+  <div style="text-align: center;">
+    <i class="bi bi-cloud-download-fill" style="font-size:60px;cursor:pointer;color:#126b37;" *ngIf="containFile" (click)="downloadFile()"></i>
   </div>
 </mat-grid-list>
 

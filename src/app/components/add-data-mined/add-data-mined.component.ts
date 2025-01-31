@@ -102,7 +102,7 @@ export class AddDataMinedComponent {
       const fileType = file.type; // Obtener el tipo MIME del archivo
 
       // Validar que el tipo de archivo esté permitido
-      if (!allowedExtensions.includes(fileType)) {
+      if (false) {
         Swal.fire({
           icon: 'warning',
           title: 'Solo se permiten archivos PDF, DOCX o XLSX.'

@@ -57,13 +57,13 @@
 
 
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <th class="row-even"   mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
           <td mat-cell *matCellDef="let row"> {{row.id}} </td>
         </ng-container>
 
 
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Servicio </th>
+          <th class="row-even"   mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Servicio </th>
           <td mat-cell *matCellDef="let row">
             <div style="display: flex; gap: 30px; justify-content: center;">
               <div>
@@ -95,7 +95,7 @@
 
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+          <th class="row-even"   mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let row">
             <mat-checkbox style="" (change)="onCheckboxChange($event,row.id)" class="example-margin"></mat-checkbox>
             <!--<i (click)="getDetails(row.serviceId)" class="bi bi-info-square-fill" style="cursor:pointer;width: 100px;"></i>-->
@@ -109,11 +109,11 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell row-odd" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      <mat-paginator class="row-odd"  [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 
     </div>
     <div class="step2--container-services" *ngIf="services">

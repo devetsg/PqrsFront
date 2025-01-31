@@ -10,6 +10,8 @@ import { Observable, map, startWith } from 'rxjs';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ShowMinerComponent } from '../show-miner/show-miner.component';
+import { AccountService } from '../../services/account.service';
 @Component({
   selector: 'app-supervisor',
   templateUrl: './supervisor.component.html',
@@ -28,14 +30,22 @@ export class SupervisorComponent {
   formFilter!: FormGroup;
   signatureValid: string = "";
   allPqrs:any;
+  isLogged: any;
+
+  public screenWidth!: number;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
 
-  constructor(private _serviceP: PqrsService, private datePipe: DatePipe, private _fb: FormBuilder, public dialog: MatDialog, private _redirect: Router) {
+  constructor(private _serviceP: PqrsService, private datePipe: DatePipe, 
+    private _fb: FormBuilder, public dialog: MatDialog, 
+    private _redirect: Router, private _serviceA: AccountService) {
     this.formFilter = _fb.group({
       pqrType: ['']
     })
+    if (typeof window !== 'undefined') {
+      this.screenWidth = window.innerWidth;
+    }
 
   }
 
@@ -46,10 +56,16 @@ export class SupervisorComponent {
   }
 
   ngOnInit():void{
+    this._serviceA.isLogged$.subscribe({
+      next: (data: any) => {
+        this.isLogged = data;
+        console.log(this.isLogged)
+      }
+    })
     this.getPqrs();
     this.getRegionals();
     this.getTypes();
-    this.getSignatureValid();
+    /*this.getSignatureValid();*/
     
     setTimeout(() => {
       this.filteredRegionals = this.regionalControl.valueChanges.pipe(
@@ -159,6 +175,22 @@ export class SupervisorComponent {
         this.types = data;
       }
     })
+  }
+
+  openDialogMiner(id: number, area: string) {
+    console.log(id)
+    const dialogRef = this.dialog.open(ShowMinerComponent, {
+      width: '85%',
+      height: 'auto',
+      data: {
+        id: id,
+        area: area
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
   getPqrs(minin?:boolean) {

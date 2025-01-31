@@ -4,7 +4,7 @@
     <i class="bi bi-file-earmark-text" style="font-size: 35px; color: #126b37;"></i>
   </button>
 
-  <mat-menu #historyMenu="matMenu" style="width: 100%;" panelClass="custom-menu" class="custom-menu">
+  <mat-menu #historyMenu="matMenu" style="width: 100%;" panelClass="custom-menu" class="custom-menu" data-aos="zoom-in-down">
     <div *ngIf="history != undefined && history.length > 0" class="history-fixed w20 relative overflow-y-auto scroll-theme w100-resp">
       <div class="step--history-container grad-gold absolute">
         <div class="overflow-y-auto scroll-theme h60vh separation w100-resp">
@@ -19,7 +19,7 @@
     </div>
   </mat-menu>
 
-  <div class="step w100-resp" style="width:80%;">
+  <div class="step w100-resp" style="width:80%;" data-aos="zoom-in-down">
 
     <div class="step2--container bg-gray" style="border-radius: 25px;">
       <div class="response" style="padding: 30px;">
@@ -491,7 +491,7 @@
   </div>
 
   <!-- <div class=""> -->
-    <div *ngIf="history != undefined && history.length>0" class="history-fixed w20 relative overflow-y-auto scroll-theme dp-hide-resp">
+    <div *ngIf="history != undefined && history.length>0" class="history-fixed w20 relative overflow-y-auto scroll-theme dp-hide-resp" data-aos="zoom-in-down">
       <div class="step--history-container grad-gold absolute">
         <div class="overflow-y-auto scroll-theme h60vh separation">
           <div (click)="openDialog(hist.id)" class="step--history-container-card bg-white" *ngFor="let hist of history">

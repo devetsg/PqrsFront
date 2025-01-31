@@ -1,0 +1,48 @@
+<!-- <div *ngIf="isAudio" class="response--audio-container flex-column">
+    <div class="logo">
+        <img  width="160" src="../../../assets/images/LogoTSG.png">
+    </div>
+    <div class="flex-row">
+        <div class="response--audio-container-btns">
+            <button *ngIf="!isPlaying" (click)="play('PLAY')" class="response--audio-container-btn" >
+                <i class="bi bi-play-circle-fill response--audio-container-btn-icon"></i>
+              </button>
+              <button *ngIf="isPlaying" (click)="play('PAUSE')" class="response--audio-container-btn" [disabled]="!isPlaying">
+                  <i class="bi bi-pause-circle-fill response--audio-container-btn-icon"></i>
+            </button>
+              
+        </div>
+        <div class="response--audio-container-btns">
+            <input 
+              type="range" 
+              min="0" 
+              max="100" 
+              [value]="progress" 
+              (input)="seekTo($event)"
+            />
+        </div>
+    </div>
+</div> -->
+
+<!-- <div *ngIf="isAudio" class="response--audio-container">
+    <div>
+        <button (click)="play()" class="response--audio-container-btn" [disabled]="isPlaying">
+            <i class="bi bi-play-circle-fill response--audio-container-btn-icon"></i>
+          </button>
+          <button (click)="pause()" class="response--audio-container-btn" [disabled]="!isPlaying">
+              <i class="bi bi-pause-circle-fill response--audio-container-btn-icon"></i>
+            </button>
+          <button (click)="stop()" class="response--audio-container-btn" [disabled]="!isPlaying">
+            <i class="bi bi-stop-circle-fill response--audio-container-btn-icon"></i>
+          </button>
+    </div>
+    <div>
+        <input 
+          type="range" 
+          min="0" 
+          max="100" 
+          [value]="progress" 
+          (input)="seekTo($event)"
+        />
+      </div>
+</div> -->

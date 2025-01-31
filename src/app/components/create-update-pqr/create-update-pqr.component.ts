@@ -40,6 +40,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
 
   dataSourceUser = new MatTableDataSource();
   formPQR!: FormGroup;
+  formRegional!: FormGroup;
   
   means: any;
   typespqr: any;
@@ -66,7 +67,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
   fileUrl: string | null = null;
   fileName: string = '';
 
-  regionalControl = new FormControl();
+  
   filteredRegionals!: Observable<{ name: string }[]>;
 
   usersControl = new FormControl();
@@ -97,9 +98,9 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     
     this.formPQR = _fb.group({
       id: [''],
-      means: [''],
+      means: ['', Validators.required],
       regional: [''],
-      pqrType: [''],
+      pqrType: ['', Validators.required],
       dateReception: ['', Validators.required],
       hour: ['', Validators.required],
       documentType: [''],
@@ -121,9 +122,13 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
       observationOp: [''],
       observationTs: [''],
       observationFac: [''],
+      interval: [''],
 
     })
 
+    this.formRegional = _fb.group({
+      regionalControl : new FormControl('', Validators.required)
+    })
     
     
     
@@ -145,9 +150,14 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     this.getRegionals();
     this.getUsers();
     setTimeout(() => {
-      this.filteredRegionals = this.regionalControl.valueChanges.pipe(
+      // this.filteredRegionals = this.regionalControl.valueChanges.pipe(
+      //   startWith(''),
+      //   map(value => this._filter(value!))
+      // );
+
+      this.filteredRegionals = this.formRegional.get("regionalControl")!.valueChanges.pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(value => this._filter(value!))
       );
     }, 1000)
 
@@ -214,8 +224,10 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
           }
             
 
-
-          this.regionalControl.setValue(data.regional);
+          this.formPQR.patchValue({
+            regionalControl: data.regional
+          })
+          // this.regionalControl.setValue(data.regional);
           this.usersControl.setValue(data.documentNumber)
           this.onCheckboxChangeUser(data.documentNumber);
 
@@ -472,6 +484,15 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
       return; // Detener la función submit si el formulario es inválido
     }
 
+    if (this.formRegional.invalid) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Porfavor Complete los campos obligatorios'
+      })
+      
+      return; // Detener la función submit si el formulario es inválido
+    }
+
     let data = new FormData();
     data.append("userId", this.formPQR.get("userId")!.value);
     data.append("means", this.formPQR.get("means")!.value);
@@ -481,7 +502,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     data.append("documentType", this.formPQR.get("documentType")!.value);
     data.append("documentNumber", this.formPQR.get("documentNumber")!.value);
     data.append("userName", this.formPQR.get("name")!.value);
-    data.append("regional", this.regionalControl.value);
+    data.append("regional", this.formRegional.get("regionalControl")!.value);
 
     data.append("isAudio", this.formPQR.get("isAudio")!.value);
     data.append("isFormat", this.formPQR.get("isFormat")!.value);
@@ -493,6 +514,8 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     data.append("ObservationToMinerOp", this.formPQR.get("observationOp")!.value);
     data.append("ObservationToMinerTs", this.formPQR.get("observationTs")!.value);
     data.append("ObservationToMinerFac", this.formPQR.get("observationFac")!.value);
+
+    data.append("interval", this.formPQR.get("interval")!.value);
 
 
     this.Files.forEach((file, index) => {

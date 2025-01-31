@@ -28,6 +28,7 @@ import { IndexCoorComponent } from './components/index-coor/index-coor.component
 import { AddDataMinedComponent } from './components/add-data-mined/add-data-mined.component';
 import { SupervisorComponent } from './components/supervisor/supervisor.component';
 import { ShowMinerComponent } from './components/show-miner/show-miner.component';
+import { TestsComponent } from './components/tests/tests.component';
 
 
 
@@ -138,7 +139,7 @@ const routes: Routes = [
     component: IndexTypesComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'COORDIANDOR,SUPERUSER' }
+    data: { expectedRoleSuper: 'COORDINADOR,SUPERUSER' }
   },
   {
     path: "createUpdateType",
@@ -208,7 +209,7 @@ const routes: Routes = [
     component: IndexSendComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'DIRGENERAL,ANALISTA,SUPERUSER' }
+    data: { expectedRoleSuper: 'DIRGENERAL,ANALISTA,SUPERUSER,COORDINADOR' }
   },
   {
     path: "indexMiner",
@@ -234,6 +235,13 @@ const routes: Routes = [
   {
     path: "showMiner",
     component: ShowMinerComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [supervisorGuard],
+    data: { expectedRoleSuper: 'SUPERVISOR,SUPERUSER' }
+  },
+  {
+    path: "tests",
+    component: TestsComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
     data: { expectedRoleSuper: 'SUPERVISOR,SUPERUSER' }

@@ -5,6 +5,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-types',
@@ -18,7 +19,7 @@ export class IndexTypesComponent {
   displayedColumns: string[] = ['No', 'Name', 'Actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP: PqrsService) { }
+  constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -29,6 +30,7 @@ export class IndexTypesComponent {
   }
 
   ngOnInit(): void {
+    this.listenSignalR();
     this.getTypes();
   }
 
@@ -38,6 +40,15 @@ export class IndexTypesComponent {
         this.dataSource.data = data;
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getTypes();
+    });
   }
 
   deleteType(id: number) {

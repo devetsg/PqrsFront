@@ -18,11 +18,36 @@ export class LoginComponent {
   errorMessages: string[] = [];
   returnUrl: string | null = null;
 
-  constructor(private _roleService: RoleService, private _serviceA: AccountService, private _fb: FormBuilder, private _redirect: Router, private aroute: ActivatedRoute) {
+  constructor(private _roleService: RoleService, private _serviceA: AccountService, 
+    private _fb: FormBuilder, private _redirect: Router, 
+    private aroute: ActivatedRoute) {
     this._serviceA.user$.pipe(take(1)).subscribe({
       next: (user: User | null) => {
         if (user) {
-          this._redirect.navigate(['']);
+          let role:string = this._roleService.getRole();
+          switch(role){
+            case "ANALISTA":
+              this._redirect.navigate(['indexPqrs']);
+              break;
+            case "MINERO":
+              this._redirect.navigate(['indexMiner']);
+              break;
+            
+            case "COORDINADOR":
+              this._redirect.navigate(['indexCoord']);
+              break;
+            case "DIRGENERAL":
+              this._redirect.navigate(['indexDir']);
+              break;
+            case "SUPERVISOR":
+              this._redirect.navigate(['indexSupervisor']);
+              break;
+              
+            default: 
+              this._redirect.navigate(['indexPqrs']);
+              break;
+          }
+         
         } else {
           this.aroute.queryParamMap.subscribe({
             next: (params: any) => {

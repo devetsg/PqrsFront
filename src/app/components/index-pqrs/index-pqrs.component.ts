@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ShowMinerComponent } from '../show-miner/show-miner.component';
 import { SelectMinnerComponent } from '../select-minner/select-minner.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-pqrs',
@@ -19,6 +21,17 @@ import { SelectMinnerComponent } from '../select-minner/select-minner.component'
   styleUrl: './index-pqrs.component.scss',
   providers: [DatePipe,
     { provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl } 
+  ],
+  animations: [
+    trigger('tableRowAnim', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-100%)' }),
+        animate('300ms 0s ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ]),
+      transition(':leave', [
+        animate('300ms 0s ease-in-out', style({ opacity: 0, transform: 'translateX(100%)' }))
+      ])
+    ])
   ]
 })
 export class IndexPqrsComponent implements OnInit, AfterViewInit {
@@ -31,11 +44,14 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   formFilter!: FormGroup;
   signatureValid: string = "";
   allPqrs:any;
+
+  showElement = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
 
-  constructor(private _serviceP: PqrsService, private datePipe: DatePipe, private _fb: FormBuilder, public dialog: MatDialog, private _redirect: Router) {
+  constructor(private _serviceP: PqrsService, private datePipe: DatePipe, private _fb: FormBuilder, 
+    public dialog: MatDialog, private _redirect: Router,private signalRService: SignalRServiceService) {
     this.formFilter = _fb.group({
       pqrType: ['']
     })
@@ -49,10 +65,21 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit():void{
+    // Iniciar conexión SignalR
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getPqrs();
+
+      });
+    });
+
+    // this.listenSignalR();
     this.getPqrs();
     this.getRegionals();
     this.getTypes();
-    this.getSignatureValid();
+    // this.getSignatureValid();
     
     setTimeout(() => {
       this.filteredRegionals = this.regionalControl.valueChanges.pipe(
@@ -176,6 +203,15 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
         }
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getPqrs();
+    });
   }
 
   exitMinerPqr(id:number){

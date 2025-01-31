@@ -24,6 +24,10 @@ export class ShowMinerComponent implements OnInit {
   isPlaying = false;
   area:any;
 
+  progress: number = 0; // Porcentaje de progreso (0-100)
+  progressInterval: any; // Referencia al intervalo
+
+  audioName = "";
   constructor(private _serviceP:PqrsService,private sanitizer: DomSanitizer,
     private _iconService:IconService,public dialogRef: MatDialogRef<ShowMinerComponent>
     , @Inject(MAT_DIALOG_DATA) public data: any
@@ -68,11 +72,42 @@ export class ShowMinerComponent implements OnInit {
     return this._iconService.getIcon(name);
   }
 
-  play() {
-    this.isPlaying = true;
+  updateProgress() {
     if (this.sound) {
-      this.sound.play();
+      const currentTime = this.sound.seek(); // Tiempo actual (en segundos)
+      const duration = this.sound.duration(); // Duración total del audio (en segundos)
+      this.progress = (currentTime / duration) * 100; // Calcula el porcentaje
     }
+  }
+
+  play(type:string) {
+    if(type == 'PLAY'){
+      this.isPlaying = true;
+      if (this.sound) {
+        this.sound.play();
+        // Actualizar la barra de progreso cada 500 ms
+        this.progressInterval = setInterval(() => {
+        this.updateProgress();
+      }, 500);
+      }
+    }else{
+      this.isPlaying = false;
+      if (this.sound) {
+        this.sound.pause();
+      }
+      clearInterval(this.progressInterval);
+    }
+
+
+   
+  }
+
+  pause() {
+    this.isPlaying = false;
+    if (this.sound) {
+      this.sound.pause();
+    }
+    clearInterval(this.progressInterval); // Limpia el intervalo
   }
 
   stop() {
@@ -80,7 +115,20 @@ export class ShowMinerComponent implements OnInit {
     if (this.sound) {
       this.sound.stop();
     }
+    clearInterval(this.progressInterval);
   }
+
+  seekTo(event: Event) {
+    const inputElement = event.target as HTMLInputElement; // Casting
+    const newValue = Number(inputElement.value); // Convertir a número
+    if (this.sound) {
+      const duration = this.sound.duration();
+      const newTime = (newValue / 100) * duration;
+      this.sound.seek(newTime);
+      this.updateProgress();
+    }
+  }
+
   getFormatFromType(type: string): string {
     const formats: { [key: string]: string } = {
       'audio/mpeg': 'mp3',
@@ -94,8 +142,9 @@ export class ShowMinerComponent implements OnInit {
   }
 
   getAttach(name: string) {
+    this.stop();
     const fileExtension = name.split('.').pop();
-
+    this.audioName = this.truncateFilename(name.replace('Resources/Attach/', ''),20);
     if (fileExtension === 'pdf') {
       let url = "https://www.backpqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
       this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -113,12 +162,12 @@ export class ShowMinerComponent implements OnInit {
       this.excelSrc = false
       this.pdfSrc = false;
 
-      // this.audioUrl ="https://www.backpqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
-      // this.sound = new Howl({
-      //   src: [this.audioUrl],
-      //   format: [this.getFormatFromType(fileExtension!)], // Ajusta el formato según el tipo de archivo
-      //   html5: false // Usa HTML5 Audio para mayor compatibilidad
-      // });
+      this.audioUrl ="https://www.backpqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      this.sound = new Howl({
+        src: [this.audioUrl],
+        format: [this.getFormatFromType(fileExtension!)], // Ajusta el formato según el tipo de archivo
+        html5: false // Usa HTML5 Audio para mayor compatibilidad
+      });
     }
      else {
       console.log(`Extensión desconocida: ${fileExtension}`);

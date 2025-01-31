@@ -108,6 +108,11 @@ export class SelectAprovedComponent {
           text: 'Correo Enviado Satisfactoriamente',
           allowOutsideClick: false,
           showConfirmButton: true
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.dialogRef.close('Resultado opcional');
+
+          }
         })
         this._router.navigate(["/indexDir"])
       },
@@ -115,6 +120,8 @@ export class SelectAprovedComponent {
         console.log(error);
       }
     })
+
+    
   }
 
   cerrar(): void {

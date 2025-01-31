@@ -317,6 +317,21 @@ export class PqrsService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + jwt);
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}messageMinersOp`,{headers});
+
+  }
+
+  getInterval() :Observable<any>{
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getInterval`, {headers})
+  }
+
+  updateInterval(interval:number):Observable<any>{
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.put(`${this.myApiUrl}${this.myAppUrlP}updateInterval?newInterval=${interval}`, {headers})
   }
 
   //TYPES

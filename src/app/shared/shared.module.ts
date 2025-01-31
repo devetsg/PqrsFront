@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit,ChangeDetectionStrategy, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
@@ -38,7 +38,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -47,6 +47,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 
 //NGX
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 //import { NgxMatNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { AppComponent } from '../app.component';
@@ -85,7 +86,7 @@ import { AppComponent } from '../app.component';
     //NgxMatDatetimePickerModule,
     //NgxMatNativeDateModule,
     NgxExtendedPdfViewerModule,
-    MatBadgeModule
+    MatBadgeModule,
 
 
 
@@ -120,10 +121,12 @@ import { AppComponent } from '../app.component';
     //NgxMatDatetimePickerModule,
     //NgxMatNativeDateModule,
     NgxExtendedPdfViewerModule,
-    MatBadgeModule
+    MatBadgeModule,
 
 
 
-  ]
+  ],
+  
 })
-export class SharedModule { }
+export class SharedModule { 
+}

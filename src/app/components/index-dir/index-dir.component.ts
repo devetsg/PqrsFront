@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { ShowMinerComponent } from '../show-miner/show-miner.component';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-dir',
@@ -29,7 +30,7 @@ export class IndexDirComponent {
   sends: any;
   oldSends: any;
   constructor(private _serviceP: PqrsService, public dialog: MatDialog, private sanitizer: DomSanitizer,
-              private _fb:FormBuilder) {
+              private _fb:FormBuilder,private signalRService: SignalRServiceService) {
     this.formFilter = this._fb.group({
       filter: [''],
 
@@ -58,6 +59,14 @@ export class IndexDirComponent {
   }
 
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getPqrs();
+
+      });
+    });
     this.getPqrs();
   }
 
@@ -78,6 +87,14 @@ export class IndexDirComponent {
     })
   }
 
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getPqrs();
+    });
+  }
   openDialogMiner(id: number,area:string) {
     console.log(id)
     const dialogRef = this.dialog.open(ShowMinerComponent, {

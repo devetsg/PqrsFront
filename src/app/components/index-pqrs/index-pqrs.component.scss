@@ -1,12 +1,21 @@
 @import "../add-services/add-services.component.scss";
-
+@import "../../../assets/stylesComponents/button-rainbow.scss";
+@import "../../../assets/stylesComponents/button-shadow.scss";
 
 .step2 {
   height: 100% !important;
   /*background: rgba(58, 91, 34, 0.1);*/
-
+  margin-top: 0;
   &--container {
-
+    &-texts{
+      text-align: end;
+      &-title{
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+    
+    
     &-index {
       &-btn {
         background: #126b37 !important;
@@ -16,6 +25,7 @@
       &-flex {
         display: flex;
         gap: 40px;
+        justify-content:space-between;
       }
     }
 
@@ -32,8 +42,8 @@
 }
 
 .step {
-  height: 100%;
-  
+  height: 98vh;
+  margin:0;
 
   &--btn {
     background: $greenTSG;
@@ -53,3 +63,5 @@
     align-items: center;
     display: flex;
 }
+
+

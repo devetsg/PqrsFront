@@ -44,6 +44,7 @@ import { AddDataMinedComponent } from './components/add-data-mined/add-data-mine
 import { SupervisorComponent } from './components/supervisor/supervisor.component';
 import { ShowMinerComponent } from './components/show-miner/show-miner.component';
 import { SelectMinnerComponent } from './components/select-minner/select-minner.component';
+import { TestsComponent } from './components/tests/tests.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { SelectMinnerComponent } from './components/select-minner/select-minner.
     AddDataMinedComponent,
     SupervisorComponent,
     ShowMinerComponent,
-    SelectMinnerComponent
+    SelectMinnerComponent,
+    TestsComponent
   ],
   imports: [
     BrowserModule,

@@ -16,19 +16,19 @@
       <i class="bi bi-pencil" style="font-size: 23px; color: white;cursor:pointer; margin-right: 10px;"></i>
       <span>Editar PQR</span>
     </button> -->
-    <button *ngIf="actualRole == 'ANALISTA' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button
+    <button *ngIf="actualRole == 'ANALISTA'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexPqrs' }" (click)="setActive('/indexPqrs')">Consultar PQR</button>
     <!--<button class="navbar--admin-btns" routerLink="/inbox" mat-flat-button>Responder PQR</button>-->
-    <button *ngIf="actualRole == 'DIRGENERAL' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button
+    <button *ngIf="actualRole == 'DIRGENERAL'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexDir'}" (click)="setActive('/indexDir')">Aprobar PQR</button>
 
-    <button *ngIf="actualRole != 'MINERO'" class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button
+    <button *ngIf="actualRole != 'MINERO' && actualRole != 'SUPERVISOR'" class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexSend'}" (click)="setActive('/indexSend')">Histórico PQR
     </button>
-    <button *ngIf="actualRole == 'MINERO' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button
+    <button *ngIf="actualRole == 'MINERO'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexMiner'}" (click)="setActive('/indexMiner')">Mineria
     </button>
-    <button *ngIf="actualRole == 'COORDINADOR' || actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button
+    <button *ngIf="actualRole == 'COORDINADOR'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexCoord'}" (click)="setActive('/indexCoord')">Gestion PQR´S
     </button>
     <button *ngIf="actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSupervisor" mat-flat-button

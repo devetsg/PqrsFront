@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ManagerPqrsFront"
+    "\\src",
+    "\\src\\app",
+    "\\src\\assets\\stylesComponents"
   ],
+  "SelectedNode": "\\src\\app\\app-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }

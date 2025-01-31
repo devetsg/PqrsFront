@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { HistoryComponent } from '../history/history.component';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { ShowMinerComponent } from '../show-miner/show-miner.component';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-send',
@@ -25,8 +26,18 @@ export class IndexSendComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _serviceP:PqrsService, public dialog: MatDialog, private sanitizer: DomSanitizer){}
+  constructor(private _serviceP:PqrsService, public dialog: MatDialog, private sanitizer: DomSanitizer,
+    private signalRService: SignalRServiceService
+  ){}
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getPqrs();
+
+      });
+    });
     this.getPqrs()
   }
 
@@ -42,6 +53,15 @@ export class IndexSendComponent implements OnInit, AfterViewInit {
         this.dataSource.data = data
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getPqrs();
+    });
   }
 
   deletePqr(id: number) {

@@ -1,3 +1,4 @@
+@import "../../../styles.scss";
 @import "../add-services/add-services.component.scss";
 
 .step2 {
@@ -13,6 +14,7 @@
       &-flex {
         display: flex;
         gap: 40px;
+        justify-content: space-between;
       }
     }
 

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { AddDataMinedComponent } from '../add-data-mined/add-data-mined.component';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-miner',
@@ -19,8 +20,18 @@ export class IndexMinerComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _serviceP:PqrsService, private sanitizer: DomSanitizer, public dialog: MatDialog){}
+  constructor(private _serviceP:PqrsService, private sanitizer: DomSanitizer, public dialog: MatDialog,
+    private signalRService: SignalRServiceService
+  ){}
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getPqrs();
+
+      });
+    });
     this.getPqrs()
   }
 
@@ -55,6 +66,15 @@ export class IndexMinerComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getPqrs();
     });
   }
 

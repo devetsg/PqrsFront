@@ -5,6 +5,7 @@ import { PqrsService } from '../../services/pqrs.service';
 import { MatSort } from '@angular/material/sort';
 import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-sender',
@@ -18,17 +19,25 @@ export class IndexSenderComponent {
   displayedColumns: string[] = ['email', 'serverIMAP', 'serverSMTP', 'portIMAP', 'portSMTP', 'actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP: PqrsService) { }
+  constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   ngAfterViewInit() {
+    this.listenSignalR();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+        this.getSenders()
+      });
+    });
     this.getSenders();
   }
 
@@ -38,6 +47,15 @@ export class IndexSenderComponent {
         this.dataSource.data = data;
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getSenders();
+    });
   }
 
   deleteSender(id: number) {

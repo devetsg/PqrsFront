@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowMinerComponent } from '../show-miner/show-miner.component';
+import { SignalRServiceService } from '../../services/signal-rservice.service';
 
 @Component({
   selector: 'app-index-coor',
@@ -19,8 +20,19 @@ export class IndexCoorComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog,private _serviceP:PqrsService, private sanitizer: DomSanitizer){}
+  constructor(public dialog: MatDialog,private _serviceP:PqrsService, private sanitizer: DomSanitizer,
+    private signalRService: SignalRServiceService
+  ){}
   ngOnInit(): void {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addCrudListener((action, data) => {
+        console.log('Received notification:', action, data);
+        // Aquí puedes manejar las acciones (Create, Update, Delete)
+      this.getPqrs();
+
+      });
+    });
+    // this.listenSignalR();
     this.getPqrs()
   }
 
@@ -36,6 +48,15 @@ export class IndexCoorComponent {
         this.dataSource.data = data
       }
     })
+  }
+
+  listenSignalR(){
+    // Escuchar notificaciones
+    this.signalRService.addCrudListener((action, data) => {
+      console.log('Received notification:', action, data);
+
+      this.getPqrs();
+    });
   }
 
   deletePqr(id: number) {

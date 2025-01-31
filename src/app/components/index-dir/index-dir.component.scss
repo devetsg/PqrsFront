@@ -5,6 +5,13 @@
   &--container {
     width: 90%;
     // margin: 0 5% auto 10%;
+    &-texts{
+      text-align: end;
+      &-title{
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
     &-index {
       &-btn {
         background: #126b37 !important;
