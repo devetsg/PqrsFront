@@ -1,0 +1,130 @@
+@import "../../../styles.scss";
+
+.dialog {
+    max-height: 90vh;
+  &--container {
+
+    &-texts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #126b37;
+
+      &-title {
+        font-size: 50px;
+        color: #fff;
+
+        @include responsive(300px,650px) {
+          font-size: 30px;
+        }
+      }
+    }
+
+    &-cards{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 98%;
+        margin: 20px auto;
+        border-radius: 10px;
+        padding: 5px;
+
+        &-card{
+            background: rgba(30, 150, 65, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 4px solid $greenTSG;
+            border-bottom: 2px solid $greenTSG;
+
+            &-dates{
+                display: flex;
+                gap: 50px;
+                justify-content: space-between;
+                border-bottom: 2px solid;
+                border-radius: 5px;
+                padding: 0 10px;
+
+                &-date{
+                    font: $base-noto-sans;
+                }
+            }
+
+            &-data{
+
+                &-text{
+                    font: $base-noto-sans;
+                    font-size: 14px;
+                    font-weight: 300;
+
+                    span{
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    
+  }
+}
+
+/* app.component.css */
+.dropzone {
+  border: 2px dashed #126b37;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  height: 100px;
+  margin-top: -60px;
+
+  &:hover {
+    border: 2px dashed green;
+  }
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+span.ng-star-inserted {
+
+  @include responsive(300px,870px) {
+    font-size: 11px;
+  }
+}
+
+
+.modal-load {
+  background: $white;
+  border-radius: 20px;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 35%;
+  left: 37%;
+
+  & ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: red !important;
+  }
+}
+
+.back-modal {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
+}

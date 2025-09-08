@@ -1,5 +1,6 @@
 @import "../add-services/add-services.component.scss";
-
+@import "../../../assets/stylesComponents/button-rainbow.scss";
+@import "../../../assets/stylesComponents/button-shadow.scss";
 
 .step2 {
   height: 100% !important;
@@ -62,4 +63,19 @@
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.btns-new{
+  display: flex;
+  justify-content: space-between;
+}
+
+.red{
+  color: red;
+  font-size: 25px;
+}
+
+.editing-row {
+  opacity: 0.2;
+  pointer-events: none;
 }

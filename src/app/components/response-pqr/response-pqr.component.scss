@@ -32,9 +32,74 @@
               color: white;
             }
           }
+
+        &-dev {
+            background: #9b9b9b;
+            border-radius: 10px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 13px;
+            font: $base-noto-sans;
+            font-weight: 600;
+            color: $white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:hover {
+              background-color: #c2c2c2; /* Color en hover con un toque más blanco */
+              color: white;
+            }
+          }
+
+          &-red{
+            background: #e61919;
+            border-radius: 10px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 13px;
+            font: $base-noto-sans;
+            font-weight: 600;
+            color: $white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+
+            &:hover {
+              background-color: #ec5353; /* Color en hover con un toque más blanco */
+              color: white;
+            }
+          }
         }
       }
     }
+  }
+
+  &--see-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-icon{
+      font-size: 30px;
+      color:$greenTSG;
+      cursor: pointer;
+      margin-bottom: 20px;
+
+      &-close{
+        font-size: 30px;
+        color:gray;
+        cursor: pointer;
+        margin-bottom: 20px;
+
+      }
+    }
+  }
+
+  &--visor{
+    margin-bottom: 20px;
   }
 
   &--attachs-response {
@@ -441,4 +506,45 @@ input[type='range']{
 
 .logo{
   margin-right: 15%;
+}
+
+.dp-flex{
+  display: flex;
+}
+
+
+.step2--container-table-data-container{
+  width: 80px !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+
+.modal-load {
+  background: $white;
+  border-radius: 20px;
+  width: 400px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 35%;
+  left: 37%;
+
+  & ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: red !important;
+  }
+}
+
+.back-modal {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 11;
+  top: 0;
+  left: 0;
 }

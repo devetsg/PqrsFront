@@ -14,12 +14,14 @@ export class SignalRServiceService {
   private createConnection(): void {
     if (!this.hubConnection) {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://backpqr.etsg.com.co/crudhub', {
+        .withUrl('https://localhost:44369/crudhub', {
           withCredentials: true,
         })
         .withAutomaticReconnect()
         .build();
     }
+    // https://backpqr.etsg.com.co/crudhub
+    // https://localhost:44369/crudhub
   }
 
   public startConnection(): Promise<void> {

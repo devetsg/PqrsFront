@@ -1,13 +1,13 @@
 <section class="result">
   <div class="result-container">
     <div *ngIf="data.area == 'FAC'" class="dialog--container-texts">
-      <h2 class="dialog--container-texts-title">Minería de Facturacion</h2>
+      <h2 class="dialog--container-texts-title">Trazabilidad de Facturacion</h2>
     </div>
     <div *ngIf="data.area == 'OP'" class="dialog--container-texts">
-      <h2 class="dialog--container-texts-title">Minería de Operacion</h2>
+      <h2 class="dialog--container-texts-title">Trazabilidad de Operacion</h2>
     </div>
     <div *ngIf="data.area == 'TS'" class="dialog--container-texts">
-      <h2 class="dialog--container-texts-title">Minería de Transporte</h2>
+      <h2 class="dialog--container-texts-title">Trazabilidad de Transporte</h2>
     </div>
     <div class="result-container-data">
       <div class="result-container-data-obs card">
@@ -67,40 +67,123 @@
         </div>
         
       </div>
-      <div class="response--headers-container-data cont">
-        <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
-        <!-- <div class="response--labels-data-attachments"> -->
-        <div *ngIf="pqr.minerUrlsFac != null">
-          <div *ngIf="data.area == 'FAC' && pqr.minerUrlsFac.length > 0">
-            <h2 style="margin-bottom: 15px;" class="response--labels">Datos Minados: <i style="font-size: 25px;" class="bi bi-minecart-loaded"></i></h2>
-            <div *ngFor="let name of minedAttachmentsFac" class="response--labels-data flex gap">
-              <div class="flex button-new" (click)="getAttach(name)">
-                <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px; margin-top: 2px;">
-                <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+      <form class="create--container-div1-form-container-form" [formGroup]="formMinner" (ngSubmit)="submit()">
+        <div class="response--headers-container-data-miner cont">
+          <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
+          <!-- <div class="response--labels-data-attachments"> -->
+          <div *ngIf="pqr.minerUrlsFac != null">
+            <div *ngIf="data.area == 'FAC' && pqr.minerUrlsFac.length > 0">
+              <h2 style="margin-bottom: 15px;" class="response--labels">Datos Obtenidos: <i style="font-size: 25px;" class="bi bi-database-fill-check"></i></h2>
+              <div class="btns-container">
+                <div *ngFor="let name of minedAttachmentsFac" class="response--labels-data flex gap">
+                  <div class="flex button-new" (click)="getAttach(name)">
+                    <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px; margin-top: 2px;">
+                    <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reject">
+                
+                <button style="margin-top: 10px;" (click)="showReject()"  class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                  Rechazar Respuesta
+                </button>
+
+                <h2 *ngIf="isMinerFac && showInput" style="margin-bottom: 15px;margin-top: 15px;" class="response--labels">Solicitar Trazabilidad: </h2>
+               
+                <div *ngIf="isMinerFac && showInput" class="grid2" rowspan="1">
+                  <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+                    <mat-label>Observacion para Facturacion</mat-label>
+                    <textarea class="" matInput formControlName="observationFac"></textarea>
+                  </mat-form-field>
+                </div>
+
+                
+                <div style="display: flex;gap: 30px;">
+                  <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerOp && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+                    Cancelar
+                  </button>
+                  <button style="margin-top: 10px;" *ngIf="isMinerOp && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                    Enviar Solicitud
+                  </button>
+                </div>
+               
               </div>
             </div>
           </div>
-        </div>
-        <div *ngIf="pqr.minerUrlsOp != undefined && (data.area == 'OP' && pqr.minerUrlsOp.length > 0)">
-          <h2 style="margin-bottom: 15px;" class="response--labels">Datos Minados: <i style="font-size: 25px;" class="bi bi-minecart-loaded"></i></h2>
-          <div *ngFor="let name of minedAttachmentsOp" class="response--labels-data flex gap">
-            <div class="flex button-new" (click)="getAttach(name)">
-              <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px; margin-top: 2px;">
-              <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+          <div *ngIf="pqr.minerUrlsOp != undefined && (data.area == 'OP' && pqr.minerUrlsOp.length > 0)">
+            <h2 style="margin-bottom: 15px;" class="response--labels">Datos Obtenidos: <i style="font-size: 25px;" class="bi bi-database-fill-check"></i></h2>
+            <div class="btns-container">
+              <div *ngFor="let name of minedAttachmentsOp" class="response--labels-data flex gap">
+                <div class="flex button-new" (click)="getAttach(name)">
+                  <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px; margin-top: 2px;">
+                  <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+                </div>
+              </div>
+              <i (click)="downloadFull()" style="margin-left:15px;font-size: 28px; color: #14642c;cursor: pointer;" class="bi bi-cloud-download-fill"></i>
+            </div>
+            <div class="reject">
+              
+              <button style="margin-top: 10px;" *ngIf="!showInput && role == 'ANALISTA'" (click)="showReject()"  class="response--container-form-container-form-btn-red" mat-fab extended color="primary">
+                Rechazar Respuesta
+              </button>
+              <h2 *ngIf="isMinerOp && showInput" style="margin-bottom: 15px;margin-top: 15px;" class="response--labels">Solicitar Trazabilidad: </h2>
+              <div *ngIf="isMinerOp && showInput" class="grid2" rowspan="1">
+                <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+                  <mat-label>Observacion para Operacion</mat-label>
+                  <textarea class="" matInput formControlName="observationOp"></textarea>
+                </mat-form-field>
+              </div>
+              
+              <div style="display: flex;gap: 30px;">
+                <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerOp && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+                  Cancelar
+                </button>
+                <button style="margin-top: 10px;" *ngIf="isMinerOp && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                  Enviar Solicitud
+                </button>
+              </div>
+             
             </div>
           </div>
-        </div>
-        <div *ngIf="pqr.minerUrlsTs != undefined && (data.area == 'TS' && pqr.minerUrlsTs.length > 0)">
-          <h2 style="margin-bottom: 15px;" class="response--labels">Datos Minados: <i style="font-size: 25px;" class="bi bi-minecart-loaded"></i></h2>
-          <div *ngFor="let name of minedAttachmentsTs" class="response--labels-data flex gap">
-            <div class="flex button-new" (click)="getAttach(name)">
-              <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;margin-top:2px;">
-              <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+          
+          <div *ngIf="pqr.minerUrlsTs != undefined && (data.area == 'TS' && pqr.minerUrlsTs.length > 0)">
+            <h2 style="margin-bottom: 15px;" class="response--labels">Datos Obtenidos: <i style="font-size: 25px;" class="bi bi-database-fill-check"></i></h2>
+            <div class="btns-container">
+              <div *ngFor="let name of minedAttachmentsTs" class="response--labels-data flex gap">
+                <div class="flex button-new" (click)="getAttach(name)">
+                  <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;margin-top:2px;">
+                  <span class="span">{{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="reject">
+             
+              <button style="margin-top: 10px;" (click)="showReject()"  class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                Rechazar Respuesta
+              </button>
+              <h2 *ngIf="isMinerTs && showInput" style="margin-bottom: 15px;margin-top: 15px;" class="response--labels">Solicitar Trazabilidad: </h2>
+             
+              <div *ngIf="isMinerTs && showInput" class="grid2" rowspan="1">
+                <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+                  <mat-label>Observacion para Trasnsporte</mat-label>
+                  <textarea class="" matInput formControlName="observationTs"></textarea>
+                </mat-form-field>
+              </div>
+        
+              <div style="display: flex;gap: 30px;">
+                <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerOp && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+                  Cancelar
+                </button>
+                <button style="margin-top: 10px;" *ngIf="isMinerOp && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                  Enviar Solicitud
+                </button>
+              </div>
+             
             </div>
           </div>
+          <!-- </div> -->
         </div>
-        <!-- </div> -->
-      </div>
+      </form>
       
         <div *ngIf="isAudio" class="audio-player">
           <div class="album-cover"></div>

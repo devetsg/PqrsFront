@@ -54,6 +54,7 @@ import { AppComponent } from '../app.component';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -87,6 +88,7 @@ import { AppComponent } from '../app.component';
     //NgxMatNativeDateModule,
     NgxExtendedPdfViewerModule,
     MatBadgeModule,
+    
 
 
 
@@ -122,7 +124,8 @@ import { AppComponent } from '../app.component';
     //NgxMatNativeDateModule,
     NgxExtendedPdfViewerModule,
     MatBadgeModule,
-
+    
+    
 
 
   ],

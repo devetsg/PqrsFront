@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener, Inject, PLATFORM_ID, viewChild, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject, PLATFORM_ID, viewChild, ViewChild } from '@angular/core';
 import { MatDrawer, MatDrawerToggleResult } from '@angular/material/sidenav';
 import { RoleService } from './services/role.service';
 import { AccountService } from './services/account.service';
@@ -17,8 +17,8 @@ import { ThisReceiver } from '@angular/compiler';
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  @ViewChild('drawer') drawer!: MatDrawer;
+export class AppComponent implements AfterViewInit{
+  @ViewChild('drawer',{ static: false }) drawer!: MatDrawer;
   accordion = viewChild.required(MatAccordion);
   public screenWidth!: number;
   title = 'ManagerPqrsFront';
@@ -35,7 +35,7 @@ export class AppComponent {
   role = "";
   constructor(private _roleService: RoleService, private _serviceA: AccountService, private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,private _fb:FormBuilder,
-    private _serviceE:PqrsService
+    private _serviceE:PqrsService,private cdr: ChangeDetectorRef
   ) {
     if (typeof window !== 'undefined') {
       this.screenWidth = window.innerWidth;
@@ -61,6 +61,27 @@ export class AppComponent {
     
   }
 
+  ngAfterViewChecked() {
+    if (this.drawer && !this.drawerOpen) {
+      this.drawer.open();
+      // this.drawerOpen = true;
+    }
+  }
+
+  ngAfterViewInit(){
+    setTimeout(() => {
+      if (this.drawer) {
+        this.drawer.open();
+      } else {
+        console.error("❌ Error: 'drawer' no está definido.");
+        
+
+      }
+    }, 500);
+
+
+    
+  }
 
   ngOnInit(): void {
     this.getInterval();
@@ -73,11 +94,14 @@ export class AppComponent {
 
     this._serviceA.getRole();
 
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.isHome = this.router.url === '/account/login';
-      }
-    });
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.isHome = this.router.url === '/account/login';
+    //   }
+    // });
+    
+    
+    
   }
 
   getInterval(){
@@ -123,8 +147,8 @@ export class AppComponent {
     this._serviceA.logout();
   }
   onButtonClick() {
-    this.drawer.toggle(); // Acción 1: Alternar el drawer
-    this.toggleIcon(); // Acción 2: Cambiar el ícono
+    this.drawer.toggle();
+    this.toggleIcon();
   }
 
   toggleIcon() {

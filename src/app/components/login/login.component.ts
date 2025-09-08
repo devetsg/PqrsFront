@@ -17,10 +17,15 @@ export class LoginComponent {
   submitted = false;
   errorMessages: string[] = [];
   returnUrl: string | null = null;
-
+  isPasswordVisible: boolean = false;
+  isPass =false;
   constructor(private _roleService: RoleService, private _serviceA: AccountService, 
     private _fb: FormBuilder, private _redirect: Router, 
     private aroute: ActivatedRoute) {
+
+    
+
+
     this._serviceA.user$.pipe(take(1)).subscribe({
       next: (user: User | null) => {
         if (user) {
@@ -41,6 +46,14 @@ export class LoginComponent {
               break;
             case "SUPERVISOR":
               this._redirect.navigate(['indexSupervisor']);
+              break;
+            
+            case "DIRGESTION":
+              this._redirect.navigate(['indexDirGestion']);
+              break;
+            
+            case "DIRCONTRALOR":
+              this._redirect.navigate(['indexContralor']);
               break;
               
             default: 
@@ -63,6 +76,23 @@ export class LoginComponent {
       UserName: ['', [Validators.required]],
       Password: ['', [Validators.required]]
     })
+
+    this.formLogin.get('Password')?.valueChanges.subscribe(value => {
+      
+      if(value.length > 0){
+        this.isPass = true;
+      }else{
+        this.isPass = false;
+      }
+      console.log(this.isPass)
+
+    })
+  }
+
+  ngAfterViewInit(){
+    if(this.formLogin.get('Password')?.value.lenght > 0){
+      this.isPass = true;
+    }
   }
 
   submit() {
@@ -89,11 +119,20 @@ export class LoginComponent {
           else if(role == "MINERO"){
             this._redirect.navigate(["indexMiner"])
           }
+          else if(role == "ANALISTA"){
+            this._redirect.navigate(["indexPqrs"])
+          }
           else if(role == "SUPERVISOR"){
             this._redirect.navigate(["indexSupervisor"])
           }
-          else{
-            this._redirect.navigate(["indexPqrs"])
+          else if(role == "DIRGESTION"){
+            this._redirect.navigate(['indexDirGestion']);
+          }
+          else if(role == "DIRCONTRALOR"){
+            this._redirect.navigate(['indexContralor']);
+          }
+          else if(role == "SUPERUSER"){
+            this._redirect.navigate(['indexPqrs']);
           }
         } else if (data.message == "INVALIDCREDENTIALS") {
           Swal.fire({

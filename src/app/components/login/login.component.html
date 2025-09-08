@@ -14,7 +14,18 @@
 
         <mat-form-field class="form--container-div1-form-field w90-resp" appearance="fill">
           <mat-label>Contraseña</mat-label>
-          <input class="form--container-div1-form-field-input" type="password" matInput formControlName="Password">
+          <div style="display: flex;">
+            <input
+            [type]="isPasswordVisible ? 'text' : 'password'"  
+            class="form--container-div1-form-field-input" type="password" matInput formControlName="Password">
+            <button *ngIf="isPass"
+              style="padding: 0;height: auto;"
+              mat-icon-button 
+              type="button" 
+              (click)="isPasswordVisible = !isPasswordVisible">
+              <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
         </mat-form-field>
 
         <!--<div *ngIf="errorMessages.length > 0">

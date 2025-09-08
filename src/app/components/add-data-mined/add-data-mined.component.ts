@@ -27,7 +27,7 @@ export class AddDataMinedComponent {
   isFile = false;
   nameUser = "";
   observationFrom:any;
-
+  isLoading = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(private _fb: FormBuilder, private _serviceA: AccountService, private _redirect: Router,
@@ -50,7 +50,7 @@ export class AddDataMinedComponent {
 
     this.formMiner = this._fb.group({
       observations:[{value:'',disabled:true}],
-      response:['']
+      response:['',Validators.required]
       
     })
 
@@ -147,26 +147,49 @@ export class AddDataMinedComponent {
 
 
   submit() {
+
+    if (this.formMiner.invalid) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Porfavor Complete los campos obligatorios'
+          })
+          return; // Detener la función submit si el formulario es inválido
+        }
+
+    this.isLoading =true;
     this.submitted = true;
     const data = new FormData();
     data.append("id",this.data.id)
     data.append("ObservationFromMiner",this.formMiner.get('response')!.value)
 
-    this.Files.forEach((file, index) => {
-      data.append(`files`, file);
-    });
-
-    this._serviceT.addDataMiner(data).subscribe({
-      next: (data: any) => {
-        Swal.fire({
-          icon:'success',
-          title: data.message,
-          showConfirmButton: false,
-          showCancelButton:false,
-          showCloseButton:true
-        })
-      }
-    })
+    if(this.Files.length > 0){
+      this.Files.forEach((file, index) => {
+        data.append(`files`, file);
+      });
+  
+      this._serviceT.addDataMiner(data).subscribe({
+        next: (data: any) => {
+          Swal.fire({
+            icon:'success',
+            title: data.message,
+            showConfirmButton: false,
+            showCancelButton:false,
+            showCloseButton:true
+          })
+          setTimeout(()=>{
+            this.dialogRef.close('Resultado opcional');
+          },2000)
+          this.isLoading = false;
+        }
+      })
+    }else{
+      Swal.fire({
+              icon: 'warning',
+              title: 'Porfavor agregue minimo un archivo'
+            })
+          this.isLoading = false;
+      return;
+    }
     
 
 

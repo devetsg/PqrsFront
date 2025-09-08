@@ -2,6 +2,10 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/typings"  // Aquí agregas la carpeta donde guardaste el archivo .d.ts
+    ],
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

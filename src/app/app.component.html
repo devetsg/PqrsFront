@@ -8,15 +8,15 @@
       <button *ngIf="isLogged == 'ANALISTA' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPqrs" mat-flat-button>Consultar PQR</button>    
       <button *ngIf="isLogged == 'DIRGENERAL' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDir" mat-flat-button>Aprobar PQR</button>
       <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button>Gestionar PQR´S</button>
-      <button *ngIf="isLogged == 'MINERO' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button>Mineria</button>
+      <button *ngIf="isLogged == 'MINERO' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button>Trazabilidad</button>
       <button *ngIf="isLogged == 'SUPERVISOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSupervisor" mat-flat-button>Supervisión</button>
       <button *ngIf="isLogged != 'MINERO' && isLogged != 'SUPERVISOR'" class="navbar--admin-btns" routerLink="/indexSend" mat-flat-button>Histórico PQR</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button>Tipos de PQR'S'</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button>Medios de Radicacion</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPrincipals" mat-flat-button>Problemas Centrales</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSecundaries" mat-flat-button>Motivos</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSenders" mat-flat-button>Correos</button>
-      <button *ngIf="isLogged == 'COORDINADOR' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Firmas</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button>Tipos de PQR'S'</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button>Medios de Radicacion</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexPrincipals" mat-flat-button>Problemas Centrales</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSecundaries" mat-flat-button>Motivos</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSenders" mat-flat-button>Correos</button>
+      <button *ngIf="isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Firmas</button>
       <button (click)="logout()" class="navbar--admin-btns" routerLink="/signatures" mat-flat-button>Cerrar Sesion</button>
     </mat-menu>
   </li>
@@ -28,15 +28,14 @@
     <app-navbar  style="width: 20% !important;"></app-navbar>
 
   </mat-drawer>
-
-  <div class="example-sidenav-content">
-    <button style="position: absolute;" *ngIf="isLogged" class="sideMenu-btn" type="button" mat-button (click)="onButtonClick()">
-      <i [ngClass]="iconClass"></i>
-    </button>
-  
-    <router-outlet></router-outlet>
-  </div>
-  <div *ngIf="isLogged != undefined && isLogged == 'COORDINADOR'" class="interval">
+  <mat-drawer-content>
+    <div class="example-sidenav-content">
+      <button style="position: absolute;" *ngIf="isLogged" class="sideMenu-btn" type="button" mat-button (click)="onButtonClick()">
+        <i [ngClass]="iconClass"></i>
+      </button>
+    
+      <router-outlet></router-outlet>
+      <div *ngIf="isLogged != undefined && isLogged == 'SUPERUSER'" class="interval">
     <mat-accordion class="interval-accordion">
       <mat-expansion-panel >
         <mat-expansion-panel-header>
@@ -57,6 +56,10 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
+    </div>
+  </mat-drawer-content>
+  
+  
 </mat-drawer-container>
 <!-- <app-footer ></app-footer> -->
 

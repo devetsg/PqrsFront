@@ -3,6 +3,7 @@ export interface PqrItem {
   attachmentUrls: string;
   minerUrls: string;
   body: string;
+  bodyPdf: string;
   cc: string;
   content: string | null;
   contentId: string | null;
@@ -17,7 +18,7 @@ export interface PqrItem {
   mean: string | null;
   meanRadicationId: number;
   messageId: string;
-  pqrType: string | null;
+  pqrType: any | null;
   pqrTypeId: number;
   regional: string;
   response: string | null;
@@ -30,4 +31,12 @@ export interface PqrItem {
   typeAttachment: string;
   userId: number;
   userName: string;
+  flow?: string;
+  isEditing: boolean;
+  observationFromMinerFac?:string;
+  observationFromMinerTs?:string;
+  observationFromMinerOp?:string;
+  observationToMinerFac?:string;
+  observationToMinerTs?:string;
+  observationToMinerOp?:string;
 }

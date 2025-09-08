@@ -4,7 +4,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PqrsService } from '../../services/pqrs.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PqrItem } from '../../interfaces/PqrItem';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -58,22 +58,39 @@ export class HistoryComponent {
   withAttachResponse = false;
 
   withAttachResponse2 = false;
+  bodyControl: FormControl;
 
 
   isOpen:boolean = false;
+  pqr:any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  tinyMceConfig = {
+    height: 500,
+    menubar: false,
+    base_url:'/tinymce',
+    suffix: '.min',
+    plugins: 'lists advlist link ',
+    toolbar: 'undo redo | bold italic | alignleft aligncenter alignjustify  alignright | numlist bullist outdent indent ',
+    content_style: 'body, p, ol, ul, li, table, th, td { font-family: "Century Gothic", sans-serif; font-size: 14px; }',
+    readonly: true,
+   
+  };
 
   constructor(private _serviceP: PqrsService, private _fb: FormBuilder, private _redirect: Router,
     private _route: ActivatedRoute, public dialog: MatDialog, private sanitizer: DomSanitizer
     , public dialogRef: MatDialogRef<HistoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private iconService: IconService) {
 
     this.ID = data.id;
+    this.bodyControl = new FormControl(''); 
+
     this.formResponse = _fb.group({
       pqrText: [{ value: '', disabled: true }],
       pqrSubject: [{ value: '', disabled: true }],
       response: [''],
+      body:this.bodyControl,
       comments: [''],
     })
 
@@ -160,14 +177,14 @@ export class HistoryComponent {
     const fileExtension = name.split('.').pop();
 
     if (fileExtension === 'pdf') {
-      let url = "http://10.128.50.17:4040/files/" + name.replace("Resources/Attach/", "");
+      let url = "https://www.backpqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
       this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.excelSrc = false
       this.isOpen = true
       console.log(this.pdfSrc)
     } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
       this.pdfSrc = false;
-      this.excelSrc = "http://10.128.50.17:4040/files/" + name.replace("Resources/Attach/", "");
+      this.excelSrc = "https://www.backpqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
       this.isOpen = true
     } else {
       console.log(`Extensión desconocida: ${fileExtension}`);
@@ -182,7 +199,7 @@ export class HistoryComponent {
   getPqr() {
     this._serviceP.getPqr(this.ID).subscribe({
       next: (data: PqrItem) => {
-        console.log(data)
+        this.pqr = data;
         if (data.response != null) {
           if (data.response.length > 0) {
             this.isDirector = true;
@@ -200,16 +217,21 @@ export class HistoryComponent {
             pqrText: data.body,
             //pqrSubject: data.subject
           })
+          
           this.pqrHeaders = data;
           if (this.pqrHeaders?.attachmentUrls) {
             this.filteredAttachments = this.pqrHeaders.attachmentUrls.split(',').filter(n => n);
           }
-          if (data.response != null && data.response.length > 0) {
+          if ((data.response != null && data.response.length > 0) 
+          && (data.bodyPdf != null && data.bodyPdf.length > 0)) {
             this.formResponse.patchValue({
-              response: data.response
+              response: data.response,
+              body: data.bodyPdf
             })
             this.formResponse.get('response')?.disable()
+            this.formResponse.get('body')?.disable()
           }
+          
 
         } else if (data.typeAttachment == 'AUDIO') {
           this.isAudio = true;

@@ -1,0 +1,292 @@
+@import '../../../styles.scss';
+@import '../select-aproved/select-aproved.component.scss';
+@import '../response-pqr/response-pqr.component.scss';
+
+.result {
+    max-height: 90vh;
+    &-container {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+  
+      &-texts {
+        margin-bottom: 20px;
+  
+        &-title {
+          font-size: 24px;
+          font-weight: bold;
+          color: #333;
+        }
+      }
+  
+      &-data {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+  
+        &-obs {
+          background-color: #fff;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+          
+        }
+        
+        &-title {
+            font: $h4-noto-sans;
+            font-size: 18px;
+            font-weight: bold;
+            color: $greenTSG;
+            margin-bottom: 10px;
+          }
+  
+          &-date {
+            font: $h4-noto-sans;
+            font-size: 14px;
+            color: #999;
+            margin: 0;
+
+          }
+  
+          &-content {
+            font: $h4-noto-sans;
+            font-size: 16px;
+            color: #444;
+            margin-top: 0;
+
+          }
+        
+      }
+    }
+}
+  
+input[type='range']{
+    accent-color: $greenTSG;
+    width: 250px;
+  }
+
+  .flex-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 5%;
+  }
+
+  .flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+  }
+
+  .logo{
+    margin-right: 15%;
+  }
+
+  .audioName{
+    margin-right: 14%;
+    font:$h3-noto-sans;
+    font-size: 13px;
+    color: $greenTSG;
+  }
+
+/*  REPRODUCTOR*/
+/* From Uiverse.io by ahmed150up */
+.audio-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33%;
+  height: 100px;
+  background-color: rgba(18, 107, 55, 0.9);
+  border-radius: 8px;
+  padding: 8px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.album-cover {
+  min-width: 25%;
+  height: 64px;
+  background: url("../../../assets/images/AudioETSG.svg");
+  background-size:contain;
+  background-repeat: no-repeat;
+  background-position-x: 15px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.player-controls {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.song-info {
+  margin-bottom: 4px;
+}
+
+.song-title {
+  font-size: 16px;
+  color: #fff;
+  margin: 0;
+}
+
+.artist {
+  font-size: 12px;
+  color: #b3b3b3;
+  margin: 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #4f4f4f;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress {
+  width: 50%;
+  height: 100%;
+  background-color: #1db954;
+  transform-origin: left;
+  animation: progress-animation 10s linear infinite;
+}
+
+.buttons {
+  display: flex;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.play-btn,
+.pause-btn {
+  font-size: 16px;
+  color: #fff;
+  margin-right: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.play-btn:hover,
+.pause-btn:hover {
+  transform: scale(1.2);
+}
+
+@keyframes progress-animation {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/*BUTTON NEW*/
+.button-new {
+  width: 100%;
+  height: 3em;
+  border-radius: 6px;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  cursor:pointer;
+  margin-top:5px;
+}
+
+.button-new::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, #126b37 0%, #126b11 100%);
+  transition: .8s ease;
+  display: block;
+  z-index: -1;
+}
+
+.button-new:hover::before {
+  width: 100%;
+}
+
+.span{
+    min-width:200px;
+}
+
+.gap{
+    gap:3px;
+}
+/*CARD*/
+.card {
+  position: relative; // Necesario para posicionar pseudo-elementos
+  border: 0; // Inicialmente sin borde
+  transition: all 2s ease;
+  overflow: hidden; // Evita desbordamiento del pseudo-elemento
+  border-bottom: 5px solid #126b37;
+
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 100%; // Empieza desde la parte inferior
+    left: 0;
+    width: 100%;
+    height: 0; // Inicialmente sin altura
+    border: 3px solid transparent; // Bordes transparentes
+
+    transition-delay: 1s;
+    box-sizing: border-box;
+    transition: height 2s ease, top 2s ease;
+  }
+
+  &:hover::before {
+    height: 100%; // Crece hasta la altura completa
+    top: 0; // Se desplaza hacia arriba
+    border: 3px solid #126b37; // Color progresivo de los bordes
+    border-top: none; // Mantener el efecto progresivo
+    border-bottom: none;
+    transition: height 2s ease, top 2s ease;
+  }
+}
+
+
+.reject{
+  width: 98%;
+  margin: auto;
+}
+
+.btns-container{
+  display: flex;
+  gap:10px;
+}
+
+.response--headers-container-data-miner{
+  width: 100% !important;
+  margin: auto;
+}
+
+.create--container-div1-form-container-form[_ngcontent-ng-c4213513289]{
+  width: 100% !important;
+}
+
+.response--headers-container.relative {
+    width: 92%;
+    margin-top: 2%;
+}

@@ -16,9 +16,49 @@ export class PqrsService {
   myAppUrlMe = "api/means/"
   myAppUrlIn = "api/Inbox/"
   myAppUrlS = 'api/Sender/';
+  myAppUrlM = 'api/Mail/';
 
   constructor(private _http: HttpClient, private _serviceA:AccountService) { }
 
+  //MAILS COPY
+  getMailCopy(id: number): Observable<any> {
+    let path = `${this.myApiUrl}${this.myAppUrlM}getMailCopy/${id}`;
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+
+    return this._http.get(path, { headers });
+  }
+
+  getMailsCopy(): Observable<any> {
+    let path = `${this.myApiUrl}${this.myAppUrlM}getMailsCopy`;
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+
+    return this._http.get(path, { headers });
+  }
+
+  createUpdateMailCopy(data:FormData,id?:number):Observable<any>{
+    let path = `${this.myApiUrl}${this.myAppUrlM}createUpdateMail`;
+    if (id != undefined || id != null) {
+      path += `/${id}`
+    }
+    let jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Autorization','Bearer '+ jwt);
+
+    return this._http.post(path,data,{headers});
+  }
+
+  deleteMailCopy(id:number):Observable<any>{
+    let path = `${this.myApiUrl}${this.myAppUrlM}deleteMail/${id}`;
+    let jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Autorization','Bearer ' + jwt);
+
+    return this._http.delete(path,{headers});
+  }
 
   //SENDERS
   getSenders(id?: number): Observable<any> {
@@ -94,11 +134,50 @@ export class PqrsService {
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqr/${id}`,{headers});
   }
 
+  getHistoryMiner(id: number):Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getHistoryMiner/${id}`,{headers});
+  }
+
+  getHistoryResponse(id: number):Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getHistoryResponse/${id}`,{headers});
+  }
+
   getPqrs(): Observable<any> {
     var jwt = this._serviceA.getJWT();
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + jwt);
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqrsDir`,{headers});
+  }
+
+  getPqrsByEdit(): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqrsByEdit`,{headers});
+  }
+
+  changeStatusView(id: number, status: number): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    
+    // Modificar la URL para incluir 'status'
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}changeStatusView/${id}/${status}`, { headers });
+  }
+  
+  changeStatusEdit(id: number, status: number): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    
+    // Modificar la URL para incluir 'status'
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}changeStatusEdit/${id}/${status}`, { headers });
   }
 
   getPqrsSend(): Observable<any> {
@@ -122,6 +201,20 @@ export class PqrsService {
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqrsCoord`,{headers});
   }
 
+  getPqrsGestion(): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqrsGestion`,{headers});
+  }
+
+  getPqrsContralor(): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getPqrsContralor`,{headers});
+  }
+
   getFullPqrs(): Observable<any> {
     var jwt = this._serviceA.getJWT();
     let headers = new HttpHeaders();
@@ -136,6 +229,13 @@ export class PqrsService {
     headers = headers.set('Authorization', 'Bearer ' + jwt);
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getServicesPqr/${id}`,{headers});
 
+  }
+
+  checkServices(id:number): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}checkServices/${id}`,{headers});
   }
 
   getAttach(data:FormData): Observable<any> {
@@ -165,6 +265,13 @@ export class PqrsService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + jwt);
     return this._http.post(`${this.myApiUrl}${this.myAppUrlP}createPqr`, data,{headers});
+  }
+
+  downloadFullHistory(data: FormData): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.post(`${this.myApiUrl}${this.myAppUrlP}getFullHistory`, data,{headers , responseType: 'blob'  });
   }
 
   updatePqr(data: FormData,id:number): Observable<any> {
@@ -223,6 +330,13 @@ export class PqrsService {
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Bearer ' + jwt);
     return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getUsers`,{headers});
+  }
+
+  GetClient(document:string): Observable<any> {
+    var jwt = this._serviceA.getJWT();
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', 'Bearer ' + jwt);
+    return this._http.get(`${this.myApiUrl}${this.myAppUrlP}getClient?document=${document}`,{headers});
   }
 
   GetHistory(id: number): Observable<any> {

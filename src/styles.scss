@@ -635,3 +635,8 @@ td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-statusMiner.mat-column-
   background-color: rgba(18, 107, 55, 0.9) !important;
   color: #fff !important;
 }
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+  height: 400px;
+  margin-bottom: 30px;
+}

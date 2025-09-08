@@ -26,10 +26,16 @@
       [ngClass]="{'active': currentUrl == '/indexSend'}" (click)="setActive('/indexSend')">Histórico PQR
     </button>
     <button *ngIf="actualRole == 'MINERO'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexMiner" mat-flat-button
-      [ngClass]="{'active': currentUrl == '/indexMiner'}" (click)="setActive('/indexMiner')">Mineria
+      [ngClass]="{'active': currentUrl == '/indexMiner'}" (click)="setActive('/indexMiner')">Trazabilidad
     </button>
     <button *ngIf="actualRole == 'COORDINADOR'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexCoord" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexCoord'}" (click)="setActive('/indexCoord')">Gestion PQR´S
+    </button>
+    <button *ngIf="actualRole == 'DIRGESTION'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexDirGestion" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexDirGestion'}" (click)="setActive('/indexDirGestion')">Dir. RRHH
+    </button>
+    <button *ngIf="actualRole == 'DIRCONTRALOR'  || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexContralor" mat-flat-button
+      [ngClass]="{'active': currentUrl == '/indexContralor'}" (click)="setActive('/indexContralor')">Contraloría
     </button>
     <button *ngIf="actualRole == 'SUPERVISOR' || actualRole == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/indexSupervisor" mat-flat-button
       [ngClass]="{'active': currentUrl == '/indexSupervisor'}" (click)="setActive('/indexSupervisor')">Supervisión
@@ -37,7 +43,7 @@
   </div>
 
 
-  <h2 *ngIf="actualRole == 'COORDINADOR' || actualRole == 'SUPERUSER'" [style.color]="textColorAdmin" class="icon--container-title" style="cursor:pointer;" (click)="showAdminFunc()">
+  <h2 *ngIf="actualRole == 'SUPERUSER'" [style.color]="textColorAdmin" class="icon--container-title" style="cursor:pointer;" (click)="showAdminFunc()">
     <i class="bi bi-clipboard2-pulse" [style.color]="textColorAdmin" style="font-size: 23px; cursor:pointer; margin-right: 10px;"></i>
     <span>Administracion</span>
     <div class="icon--container-icon">
@@ -45,7 +51,7 @@
     </div>
   </h2>
   
-  <div *ngIf="isLogged && (actualRole == 'COORDINADOR' || actualRole == 'SUPERUSER')" class="navbar--links" [@menuAnimation]="showAdmin ? 'visible' : 'hidden'">
+  <div *ngIf="isLogged && actualRole == 'SUPERUSER'" class="navbar--links" [@menuAnimation]="showAdmin ? 'visible' : 'hidden'">
     <button class="navbar--admin-btns" routerLink="/indexTypes" mat-flat-button 
           [ngClass]="{'active': currentUrl == '/indexTypes'}" (click)="setActive('indexTypes')">Tipos de PQR'S</button>
     <button class="navbar--admin-btns" routerLink="/indexMeans" mat-flat-button 
@@ -58,6 +64,8 @@
             [ngClass]="{'active': currentUrl == '/indexSenders'}" (click)="setActive('indexSenders')">Correos</button>
     <button class="navbar--admin-btns" routerLink="/signatures" mat-flat-button 
           [ngClass]="{'active': currentUrl == '/signatures'}" (click)="setActive('signatures')">Firmas</button>
+     <button class="navbar--admin-btns" routerLink="/indexMail" mat-flat-button 
+          [ngClass]="{'active': currentUrl == '/indexMail'}" (click)="setActive('indexMail')">CC</button>
     <!--<button class="navbar--admin-btns" routerLink="/inbox" mat-flat-button>Inbox</button>-->
   </div>
 

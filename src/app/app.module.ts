@@ -45,6 +45,16 @@ import { SupervisorComponent } from './components/supervisor/supervisor.componen
 import { ShowMinerComponent } from './components/show-miner/show-miner.component';
 import { SelectMinnerComponent } from './components/select-minner/select-minner.component';
 import { TestsComponent } from './components/tests/tests.component';
+import { IndexDirgestionComponent } from './components/index-dirgestion/index-dirgestion.component';
+import { IndexContralorComponent } from './components/index-contralor/index-contralor.component';
+import { HistoryMinerComponent } from './components/history-miner/history-miner.component';
+import { HistoryResponseComponent } from './components/history-response/history-response.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { CopyMailsComponent } from './components/copy-mails/copy-mails.component';
+import { CreateUpdateMailComponent } from './components/create-update-mail/create-update-mail.component';
+import { SeeMailComponent } from './components/see-mail/see-mail.component';
+// import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -84,12 +94,23 @@ import { TestsComponent } from './components/tests/tests.component';
     SupervisorComponent,
     ShowMinerComponent,
     SelectMinnerComponent,
-    TestsComponent
+    TestsComponent,
+    IndexDirgestionComponent,
+    IndexContralorComponent,
+    HistoryMinerComponent,
+    HistoryResponseComponent,
+    CopyMailsComponent,
+    CreateUpdateMailComponent,
+    SeeMailComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    EditorModule,
+    CKEditorModule
+
   ],
   providers: [
     provideClientHydration(),
@@ -98,7 +119,8 @@ import { TestsComponent } from './components/tests/tests.component';
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
-    { provide: APP_BASE_HREF, useValue: '/' }
+    { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: TINYMCE_SCRIPT_SRC,useValue: 'tinymce/tinymce.min.js'}
   ],
   bootstrap: [AppComponent]
 })

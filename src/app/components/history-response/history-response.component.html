@@ -1,0 +1,24 @@
+<div class="dialog">
+    <div class="dialog--container">
+      <div class="dialog--container-texts">
+        <h2 class="dialog--container-texts-title">Historial de Respuestas</h2>
+      </div>
+      <div class="dialog--container-cards">
+        <div *ngFor="let hist of histories; let i = index " 
+              class="dialog--container-cards-card" 
+              (click)="toggleCard(i)"
+              [ngStyle]="{'max-height': expandedCardIndex === i ? '9999px' : '95px'}" >
+            <div class="dialog--container-cards-card-dates">            
+                <h2 class="dialog--container-cards-card-dates-date"><span>Respuesta Redactada: </span> {{formatDate(hist.dateResponse)}}</h2>
+            </div>
+            <div class="dialog--container-cards-card-data">
+                <h2 class="dialog--container-cards-card-data-text"><span>Redactada por: </span>{{hist.responseBy}}</h2>
+                <h2 class="dialog--container-cards-card-data-text"><span>Respuesta: </span></h2>   
+                <div [innerHTML]="hist.response"></div>             
+            </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </div>

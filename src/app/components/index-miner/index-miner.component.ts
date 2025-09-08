@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PqrsService } from '../../services/pqrs.service';
@@ -13,7 +13,7 @@ import { SignalRServiceService } from '../../services/signal-rservice.service';
   templateUrl: './index-miner.component.html',
   styleUrl: './index-miner.component.scss'
 })
-export class IndexMinerComponent {
+export class IndexMinerComponent implements OnInit{
   displayedColumns: string[] = ['pqrId','reception','creation','document','usuario','radication','typepqr','regional','opts'];
   dataSource = new MatTableDataSource();
 
@@ -66,6 +66,7 @@ export class IndexMinerComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.getPqrs()
     });
   }
 

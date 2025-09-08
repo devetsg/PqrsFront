@@ -29,6 +29,12 @@ import { AddDataMinedComponent } from './components/add-data-mined/add-data-mine
 import { SupervisorComponent } from './components/supervisor/supervisor.component';
 import { ShowMinerComponent } from './components/show-miner/show-miner.component';
 import { TestsComponent } from './components/tests/tests.component';
+import { IndexDirgestionComponent } from './components/index-dirgestion/index-dirgestion.component';
+import { IndexContralorComponent } from './components/index-contralor/index-contralor.component';
+import { HistoryMinerComponent } from './components/history-miner/history-miner.component';
+import { CopyMailsComponent } from './components/copy-mails/copy-mails.component';
+import { CreateUpdateMailComponent } from './components/create-update-mail/create-update-mail.component';
+import { SeeMailComponent } from './components/see-mail/see-mail.component';
 
 
 
@@ -48,7 +54,7 @@ const routes: Routes = [
     component: ResponsePqrComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'ANALISTA,DIRGENERAL,MINERO,COORDINADOR,SUPERUSER' }
+    data: { expectedRoleSuper: 'ANALISTA,SUPERVISOR,DIRGESTION,DIRCONTRALOR,DIRGENERAL,MINERO,COORDINADOR,SUPERUSER' }
   },
   {
     path: "aprovedDir/:id",
@@ -62,7 +68,7 @@ const routes: Routes = [
     component: CreateUpdatePqrComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'ANALISTA,SUPERUSER' }
+    data: { expectedRoleSuper: 'ANALISTA,COORDINADOR,SUPERUSER' }
   },
   {
     path: "createUpdatePqr/:id",
@@ -160,7 +166,7 @@ const routes: Routes = [
     component: AddServicesComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'ANALISTA,SUPERUSER' }
+    data: { expectedRoleSuper: 'ANALISTA,COORDINADOR,SUPERUSER' }
   },
   {
     path: "inbox",
@@ -209,7 +215,7 @@ const routes: Routes = [
     component: IndexSendComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
-    data: { expectedRoleSuper: 'DIRGENERAL,ANALISTA,SUPERUSER,COORDINADOR' }
+    data: { expectedRoleSuper: 'DIRGENERAL,ANALISTA,SUPERUSER,COORDINADOR,DIRGESTION,DIRCONTRALOR' }
   },
   {
     path: "indexMiner",
@@ -240,8 +246,43 @@ const routes: Routes = [
     data: { expectedRoleSuper: 'SUPERVISOR,SUPERUSER' }
   },
   {
+    path: "indexDirGestion",
+    component: IndexDirgestionComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [supervisorGuard],
+    data: { expectedRoleSuper: 'DIRGESTION,SUPERUSER' }
+  },
+  {
+    path: "indexContralor",
+    component: IndexContralorComponent,
+    runGuardsAndResolvers: 'always',
+    canActivate: [supervisorGuard],
+    data: { expectedRoleSuper: 'DIRCONTRALOR,SUPERUSER' }
+  },
+  {
+    path:"indexMail",
+    component: CopyMailsComponent,
+    runGuardsAndResolvers:'always',
+    canActivate:[supervisorGuard],
+    data:{expectedRoleSuper: 'COORDINADOR,SUPERUSER'}
+  },
+  {
+    path: "createUpdateMail",
+    component: CreateUpdateMailComponent,
+    runGuardsAndResolvers:'always',
+    canActivate: [supervisorGuard],
+    data: {expectedRoleSuper:'COORDINADOR,SUPERUSER'}
+  },
+  {
+    path: "createUpdateMail/:id",
+    component: CreateUpdateMailComponent,
+    runGuardsAndResolvers:'always',
+    canActivate: [supervisorGuard],
+    data: {expectedRoleSuper:'COORDINADOR,SUPERUSER'}
+  },
+  {
     path: "tests",
-    component: TestsComponent,
+    component: SeeMailComponent,
     runGuardsAndResolvers: 'always',
     canActivate: [supervisorGuard],
     data: { expectedRoleSuper: 'SUPERVISOR,SUPERUSER' }

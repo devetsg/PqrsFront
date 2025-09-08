@@ -122,11 +122,18 @@
             </div>
 
 
-            <h2 class="response--labels">Respuesta Enviada</h2>
+            <h2 class="response--labels">Cuerpo del correo</h2>
             <mat-form-field appearance="fill">
               <mat-label></mat-label>
               <textarea class="response--fields" matInput formControlName="response"></textarea>
             </mat-form-field>
+
+            <h2 *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja')" class="response--labels">Cuerpo de la carta de respuesta</h2>
+
+            <editor
+              [init]="tinyMceConfig"
+              [formControl]="bodyControl"
+            ></editor>
 
             <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
               <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>

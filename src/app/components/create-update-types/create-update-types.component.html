@@ -12,6 +12,13 @@
             <input class="" matInput formControlName="name">
           </mat-form-field>
 
+          <mat-form-field>
+            <mat-label>Tipo de Flujo</mat-label>
+            <mat-select formControlName="flow">
+              <mat-option *ngFor="let flow of DataFlows" [value]="flow.value">{{flow.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
 
           <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary" *ngIf="ID > 0;else createbutton">
             {{'Actualizar'}} Tipo

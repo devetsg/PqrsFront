@@ -1,0 +1,65 @@
+@import "../add-services/add-services.component.scss";
+
+
+.step2 {
+  height: 100% !important;
+  /*background: rgba(58, 91, 34, 0.1);*/
+
+  &--container {
+    &-texts{
+      text-align: end;
+      &-title{
+        margin-top: 0;
+        padding-top: 2.5%;
+      }
+    }
+    &-index {
+      &-btn {
+        background: #126b37 !important;
+        z-index: 0;
+      }
+
+      &-flex {
+        display: flex;
+        gap: 40px;
+      }
+    }
+
+    &-table {
+
+      &-data {
+
+        &-container {
+          width: max-content;
+          // margin-left: 55% !important;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+.step {
+  height: 100%;
+  
+
+  &--btn {
+    background: $greenTSG;
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+
+  &-filters-container {
+    display: flex;
+    gap: 25px;
+  }
+}
+
+.center-buttons{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}

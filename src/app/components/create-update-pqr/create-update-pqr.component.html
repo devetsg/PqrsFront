@@ -45,7 +45,7 @@
 
           <div class="grid2">
             <mat-form-field>
-              <mat-label>Fecha de Recepcion</mat-label>
+              <mat-label>Fecha de correo recibido</mat-label>
               <input matInput type="datetime" [matDatepicker]="picker1" formControlName="dateReception">
               <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
               <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -55,7 +55,7 @@
 
           <div class="grid1">
             <mat-form-field class="create--container-form-container-form-field" appearance="fill">
-              <mat-label>Hora</mat-label>
+              <mat-label>Hora de correo recibido</mat-label>
               <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="hour">
               <ngx-material-timepicker #picker></ngx-material-timepicker>
             </mat-form-field>
@@ -70,17 +70,8 @@
           <!--------------------------------------------------------------->
           <!--------------------------------------------------------------->
 
-          <div class="grid2">
-            <mat-form-field>
-              <mat-label>Tipo de Documento</mat-label>
-              <mat-select formControlName="documentType">
-                <mat-option *ngFor="let type of typesdoc" [value]="type.nombre">{{type.nombre}}</mat-option>
-
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-
+          
+          
           <div class="grid1">
             <mat-form-field>
               <input type="text" matInput  [formControl]="usersControl" [matAutocomplete]="autoUser" placeholder="Numero de documento" #input>
@@ -91,7 +82,16 @@
               </mat-autocomplete>
             </mat-form-field>
           </div>
+          
+          <div class="grid2">
+            <mat-form-field>
+              <mat-label>Tipo de Documento</mat-label>
+              <mat-select formControlName="documentType">
+                <mat-option *ngFor="let type of typesdoc" [value]="type.nombre">{{type.nombre}}</mat-option>
 
+              </mat-select>
+            </mat-form-field>
+          </div>
 
 
           <div class="grid3">
@@ -163,7 +163,7 @@
 
           <div class="grid3" rowspan="1">
             <div style="display:flex;gap: 5px;flex-direction:column;"> 
-              <h3 class="create--type-title">* Tipo de archivo a andjuntar</h3>
+              <h3 class="create--type-title">* Tipo de archivo a adjuntar</h3>
               <div style="display:flex;gap: 10px;">
                 <mat-checkbox formControlName="isAudio" (change)="onCheckboxChange($event,'audio')" class="example-margin">Audio</mat-checkbox>
                 <mat-checkbox formControlName="isEmail" (change)="onCheckboxChange($event,'email')" class="example-margin">Correo</mat-checkbox>
@@ -174,7 +174,7 @@
 
           <div class="grid3" rowspan="1" >
             <div style="display:flex;gap: 5px;flex-direction:column;"> 
-              <h3 class="create--type-title">* Solicitar Mineria de Datos</h3>
+              <h3 class="create--type-title">* Solicitar Trazabilidad</h3>
               <div style="display:flex;gap: 10px;">
                 <mat-checkbox formControlName="isMinerOp" (change)="onCheckboxChangeMiner($event,'minerOp')" class="example-margin">Operativa</mat-checkbox>
                 <mat-checkbox formControlName="isMinerTs" (change)="onCheckboxChangeMiner($event,'minerTs')" class="example-margin">Transporte</mat-checkbox>
@@ -197,7 +197,7 @@
           
           <div *ngIf="isMinerTs" class="grid2" rowspan="1">
             <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-              <mat-label>Observacion para Trasnsporte</mat-label>
+              <mat-label>Observacion para Transporte</mat-label>
               <textarea class="" matInput formControlName="observationTs"></textarea>
             </mat-form-field>
           </div>

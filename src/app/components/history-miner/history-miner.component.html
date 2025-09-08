@@ -1,0 +1,43 @@
+<div class="dialog">
+    <div class="dialog--container">
+      <div class="dialog--container-texts">
+        <h2 class="dialog--container-texts-title">Historial de Trazabilidad</h2>
+      </div>
+      <div class="dialog--container-cards">
+        <div *ngFor="let hist of histories " class="dialog--container-cards-card">
+            <div class="dialog--container-cards-card-dates">
+                <h2 class="dialog--container-cards-card-dates-date"><span>Solicitud Recibida: </span> {{formatDate(hist.dateRequired)}}</h2>
+                <h2 class="dialog--container-cards-card-dates-date"><span>Respuesta Enviada: </span> {{formatDate(hist.dateResponse)}}</h2>
+            </div>
+            <div class="dialog--container-cards-card-data">
+                <h2 class="dialog--container-cards-card-data-text"><span>Area: </span>{{hist.areaName}}</h2>
+                <h2 class="dialog--container-cards-card-data-text"><span>Enviada por: </span>{{hist.sendBy}}</h2>
+                <h2 class="dialog--container-cards-card-data-text"><span>Requerimiento Analista: </span>{{hist.observationToMiner}}</h2>
+                <h2 class="dialog--container-cards-card-data-text"><span>Obervacion Minero: </span>{{hist.observationFromMiner}}</h2>
+                <!-- <h2 style="cursor: pointer;" (click)="downloadFile(hist.dataUrl)" class="dialog--container-cards-card-data-text"><span>Descargar:   </span><i style="color: #126b37;font-size: 24px;" class="bi bi-download"></i></h2> -->
+                <div *ngFor="let name of hist.dataUrl.split(',')" class="response--labels-data flex div-doc">
+                    <div style="cursor: pointer;" class="flex" (click)="getAttach(name)">
+                      <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+                      {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #fileTitle>
+    <label> Cargar Archivo</label>
+  </ng-template>
+  
+  
+  <div class="back-modal" *ngIf="isLoading">
+    <div class="modal-load">
+      <mat-spinner style="color: #126b37;"></mat-spinner>
+      <h2>Su Correo esta siendo enviado...</h2>
+    </div>
+  </div>
+  

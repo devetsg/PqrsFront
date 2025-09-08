@@ -23,7 +23,7 @@ export class SelectAprovedComponent {
   Files: File[] = [];
   senders: any;
   isLoading = false;
-
+  pqr:any;
   emailId: any;
 
   constructor(private _serviceT: PqrsService, private _fb: FormBuilder, public dialogRef: MatDialogRef<SelectAprovedComponent>
@@ -31,7 +31,8 @@ export class SelectAprovedComponent {
     this.formSend = _fb.group({
       addressee: [{ value: '', disabled: true }],
       subject: [{ value: '', disabled: true }],
-      body: ['']
+      response: [''],
+      body: [''],
     })
     console.log(this.file1);
 
@@ -47,19 +48,23 @@ export class SelectAprovedComponent {
     if (this.data.id > 0) {
       this._serviceT.getPqr(this.data.id).subscribe({
         next: (data: any) => {
+          this.pqr = data;
+          console.log(this.pqr)
           let email = data.from.match(/<(.+)>/)[1];  // Extrae lo que está dentro de <>
           this.emailId = data.messageId;
           if (data.subject.toString().includes("RE:")) {
             this.formSend.patchValue({
               addressee: email,
               subject: data.subject,
-              body: data.response
+              response: this.data.response,
+              body: this.data.body
             })
           } else {
             this.formSend.patchValue({
               addressee: email,
               subject: data.subject,
-              body: data.response
+              response: this.data.response,
+              body: this.data.body
             })
           }
           console.log(data)
@@ -82,13 +87,14 @@ export class SelectAprovedComponent {
 
 
   submit() {
-    console.log(this.formSend)
+    
     
     this.isLoading = true;
     const form = new FormData();
     form.append('id', this.data.id);
     form.append('addressee', this.formSend.get('addressee')!.value);
     form.append('subject', this.formSend.get('subject')!.value);
+    form.append('response', this.formSend.get('response')!.value);
     form.append('body', this.formSend.get('body')!.value);
     form.append('emailId', this.emailId);
     //for (let i = 0; i < this.file.length; i++) {
@@ -111,10 +117,21 @@ export class SelectAprovedComponent {
         }).then((result)=>{
           if(result.isConfirmed){
             this.dialogRef.close('Resultado opcional');
-
+            let role = this._roleService.getRole()
+            switch(role){
+              case "COORDINADOR":
+                this._router.navigate(["/indexCoord"])
+                break;
+              case "DIRGENERAL":
+                this._router.navigate(["/indexDir"])
+                break;
+            }
           }
         })
-        this._router.navigate(["/indexDir"])
+        setTimeout(()=>{
+          this.dialogRef.close('Resultado opcional');
+        },2000)
+        
       },
       error: error => {
         console.log(error);

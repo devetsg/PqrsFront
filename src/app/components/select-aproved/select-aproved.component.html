@@ -23,7 +23,12 @@
       </mat-form-field>
 
       <mat-form-field class="dialog--container-form-field" appearance="fill">
-        <mat-label>Contenido</mat-label>
+        <mat-label>Cuerpo del correo</mat-label>
+        <textarea class="dialog--container-form-input" matInput formControlName="response"></textarea>
+      </mat-form-field>
+
+      <mat-form-field style="display: none;" *ngIf="this.pqr.pqrType.name == 'Queja'" class="dialog--container-form-field" appearance="fill">
+        <mat-label>Cuerpo de la carta</mat-label>
         <textarea class="dialog--container-form-input" matInput formControlName="body"></textarea>
       </mat-form-field>
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, Pipe, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, Pipe, ViewChild, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PqrsService } from '../../services/pqrs.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-add-services',
@@ -31,10 +32,11 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
   formPQR3!: FormGroup;
   dataSource = new MatTableDataSource();
   services: any[] = [];
+  servicesTemp: any[] = [];
   principals: any;
   secundaries: any;
   ID: any;
-
+  checkboxesState: { [key: number]: boolean } = {};
   motivos: string = "";
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,7 +44,8 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
 
 
   constructor(private _fb: FormBuilder, private _serviceP: PqrsService, private _route: ActivatedRoute,
-              private _redirect: Router, private sanitizer: DomSanitizer) {
+              private _redirect: Router, private sanitizer: DomSanitizer,
+            private _roleService:RoleService,private cdr: ChangeDetectorRef) {
     this.ID = _route.snapshot.paramMap.get("id");
 
     this.formPQR2 = _fb.group({
@@ -144,15 +147,30 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
     return this.sanitizer.bypassSecurityTrustHtml(data);
   }
 
+  back(){
+    let role = this._roleService.getRole();
+    if(role == "ANALISTA"){
+      this._redirect.navigate(["/indexPqrs"])
+    }else if(role == "COORDINADOR"){
+      this._redirect.navigate(["/indexCoord"])
 
+    }
+  }
 
   onCheckboxChange(event: MatCheckboxChange, serviceId: number) {
     if (event.checked) {
+      console.log(serviceId)
       this._serviceP.GetDetails(serviceId).subscribe({
         next: (data: any) => {
           console.log(data)
-          this.services.push(data);
-          this.services.forEach((ser, i) => {
+          this.checkboxesState[serviceId] = true;
+          this.servicesTemp.push(data);
+          this.cdr.detectChanges()
+
+          this.servicesTemp.forEach((ser, i) => {
+            if(this.services.length > 0){
+              i = i + this.services.length
+            }
             if (this.formPQR3.contains(`id${i}`)) {
               return;
             }
@@ -160,20 +178,29 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
             this.formPQR3.addControl(`motivo${i}`, this._fb.control('', Validators.required));
             this.formPQR3.addControl(`problema${i}`, this._fb.control('', Validators.required));
 
-            this.formPQR3.get(`id${i}`)!.setValue(ser.id);
+            this.formPQR3.get(`id${i}`)!.setValue(serviceId);
             this.getPricipals();
             this.getSecundaries();
           });
+          this.services.push(data);
+          this.cdr.detectChanges()
+
         }
       })
+      this.cdr.detectChanges()
     } else {
+      this.checkboxesState[serviceId] = false;
+      
       const index = this.services.findIndex(service => service.id === serviceId);
       if (index !== -1) {
         this.services.splice(index, 1);
+        this.cdr.detectChanges()
+        this.servicesTemp.splice(index, 1);
         this.formPQR3.removeControl(`id${index}`);
         //this.formPQR3.removeControl(`motivo${index}`);
         this.formPQR3.removeControl(`problema${index}`);
       }
+
     }
   }
 
@@ -235,6 +262,10 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
         this._serviceP.deleteRelation(id).subscribe({
           next: (data: any) => {
             this.services = this.services.filter(x => x.id != id)
+            this.cdr.detectChanges()
+            this.servicesTemp = this.servicesTemp.filter(x => x.id != id)
+            this.checkboxesState[id] = false;
+            this.cdr.detectChanges()
             Swal.fire({
               icon: 'success',
               title: data.message
@@ -300,7 +331,7 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
     data.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
-
+    console.log(data);
     this._serviceP.FinishPqr(data).subscribe({
       next: (data: any) => {
         Swal.fire({

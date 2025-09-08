@@ -14,6 +14,10 @@ import { ShowMinerComponent } from '../show-miner/show-miner.component';
 import { SelectMinnerComponent } from '../select-minner/select-minner.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SignalRServiceService } from '../../services/signal-rservice.service';
+import { HistoryMinerComponent } from '../history-miner/history-miner.component';
+import { SeeMailComponent } from '../see-mail/see-mail.component';
+import { MatButtonToggle } from '@angular/material/button-toggle';
+import { RoleService } from '../../services/role.service';
 
 @Component({
   selector: 'app-index-pqrs',
@@ -44,14 +48,18 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   formFilter!: FormGroup;
   signatureValid: string = "";
   allPqrs:any;
+  pqrsByEditing:any;
+  actualRole = ""
+
 
   showElement = true;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
+  @ViewChild('pqrsToggle') pqrsToggle!: MatButtonToggle;
 
   constructor(private _serviceP: PqrsService, private datePipe: DatePipe, private _fb: FormBuilder, 
-    public dialog: MatDialog, private _redirect: Router,private signalRService: SignalRServiceService) {
+    public dialog: MatDialog, private _redirect: Router,private signalRService: SignalRServiceService,private _serviceR:RoleService) {
     this.formFilter = _fb.group({
       pqrType: ['']
     })
@@ -62,16 +70,26 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    setTimeout(() => {
+      // Usamos setTimeout para evitar ExpressionChangedAfterItHasBeenCheckedError
+      this.pqrsToggle.checked = true;
+      // También podemos llamar a la función si es necesario
+      this.showTotal();
+    });
   }
 
   ngOnInit():void{
+    this.actualRole = this._serviceR.getRole();
+
     // Iniciar conexión SignalR
     this.signalRService.startConnection().then(() => {
       this.signalRService.addCrudListener((action, data) => {
         console.log('Received notification:', action, data);
         // Aquí puedes manejar las acciones (Create, Update, Delete)
       this.getPqrs();
-
+      this.getByEditing();
+      this.pqrsToggle.checked = true;
       });
     });
 
@@ -79,6 +97,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     this.getPqrs();
     this.getRegionals();
     this.getTypes();
+    this.getByEditing();
     // this.getSignatureValid();
     
     setTimeout(() => {
@@ -183,6 +202,15 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     })
   }
 
+  getByEditing(){
+    this._serviceP.getPqrsByEdit().subscribe({
+      next: (data:any) => {
+        console.log(data)
+        this.pqrsByEditing = data;
+      }
+    })
+  }
+
   getTypes() {
     this._serviceP.getTypes().subscribe({
       next: (data: any) => {
@@ -211,6 +239,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
       console.log('Received notification:', action, data);
 
       this.getPqrs();
+      this.getByEditing();
     });
   }
 
@@ -340,11 +369,67 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     });
   }
 
+  openDialogToSee(id: number) {
+    const dialogRef = this.dialog.open(SeeMailComponent, {
+      width: '90%',
+      height: 'auto' ,
+      data: {
+        id: id,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.getPqrs()
+    });
+  }
+
+  openDialogHistory(id: number){
+    const dialogRef = this.dialog.open(HistoryMinerComponent, {
+      width: '90%',
+      height: 'auto' ,
+      data: {
+        id: id,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.getPqrs()
+    });
+  }
 
   closeDialog(): void {
     this.dialog.closeAll(); // Cierra el diálogo actual
   }
+
+  responsePqr(id:number){
+    this._serviceP.checkServices(id).subscribe({
+      next: (data:any)=>{        
+        if(data == true){
+          this._redirect.navigateByUrl(`/responsePqr/${id}`);
+        }else{
+          Swal.fire({
+            icon:'warning',
+            title: 'Agregar Servicios',
+            text: 'Para continuar con la redacción de la respuesta a la pqr debe asociar los servicios',
+            confirmButtonText:'Agregar Servicios',
+            showConfirmButton:true,
+            confirmButtonColor:'#14642c',
+            showCloseButton: true
+          }).then((response)=>{
+            if(response.isConfirmed){
+              this._redirect.navigateByUrl(`/addServices/${id}`)
+            }
+          })
+        }
+      }
+    })
+  }
   
+  showEdit(){
+    this.dataSource.data = this.pqrsByEditing;
+  }
 
   deletePqr(id: number) {
     Swal.fire({

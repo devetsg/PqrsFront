@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,7 +12,9 @@ import { saveAs } from 'file-saver';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import MsgReader from 'msgreader';
 import { Console } from 'console';
+import { DatePipe } from '@angular/common';
 
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
@@ -24,7 +26,7 @@ export const _filter = (opt: string[], value: string): string[] => {
   selector: 'app-create-update-pqr',
   templateUrl: './create-update-pqr.component.html',
   styleUrl: './create-update-pqr.component.scss',
-  providers: [
+  providers: [DatePipe,
     provideNativeDateAdapter(),
     { provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }
   ]
@@ -77,6 +79,9 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
   isMinerTs:boolean = false;
   isMinerFac:boolean = false;
 
+  documentNumber:any;
+  clientName:any;
+
 
   @ViewChild('input') inputElement!: ElementRef;
   @ViewChild('table') tableElement!: ElementRef;
@@ -92,7 +97,8 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
   @ViewChild('autoUser') matAutocomplete!: MatAutocomplete;
 
   constructor(private _fb: FormBuilder, private _serviceP: PqrsService, private _redirect: Router,
-              private _route: ActivatedRoute, private ngZone: NgZone) {
+              private _route: ActivatedRoute, private ngZone: NgZone,
+             private datePipe: DatePipe,private cdr: ChangeDetectorRef) {
 
     this.ID = _route.snapshot.paramMap.get("id");
     
@@ -103,7 +109,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
       pqrType: ['', Validators.required],
       dateReception: ['', Validators.required],
       hour: ['', Validators.required],
-      documentType: [''],
+      documentType: [{ value: '', disabled: true }],
       documentNumber: [''],
       userId: [{ value: '', disabled: true }],
       state: [{ value: '', disabled: true }],
@@ -261,8 +267,10 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     this._serviceP.getRegionals().subscribe({
       next: (data: any) => {
         this.regionals = data
+        this.cdr.detectChanges();
       }
     })
+
   }
 
   
@@ -367,6 +375,20 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
 
 
   getFile(event: any) {
+
+    const file = event.target.files[0];
+    if (!file) return;
+    const fileName = file.name;
+    const fileExtension = fileName.split('.').pop()?.toLowerCase();
+    if (fileExtension !== 'msg') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Extensión no permitida',
+        text: 'Solo se permiten archivos con extensión .msg',
+        confirmButtonColor : '#14642c'
+      });
+      return; // Detiene la ejecución si la extensión no es válida
+    }
     if(this.Files.length >= 1){
       // Swal.fire({
       //   icon:'warning',
@@ -377,8 +399,98 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
       this.namesFiles.push(event.target.files[0].name);
       this.fileInput.nativeElement.disabled = true;
       this.isFile = true
+      // Procesar el archivo .msg para extraer la fecha y la hora
+      this.readMsgFile(file);
     }
     
+  }
+
+  readMsgFile(file: File) {
+    const reader = new FileReader();
+  
+    reader.onload = (e: any) => {
+      // Procesamos el archivo .msg con MsgReader
+      const msg = new MsgReader(e.target.result);
+      const emailData = msg.getFileData(); // Obtiene los datos del archivo .msg
+  
+      if (emailData && emailData.headers) {
+        // Imprimir el contenido completo de las cabeceras
+        console.log("Cabeceras del correo:", emailData.headers);
+        
+        // Obtener las cabeceras del correo y dividirlas por línea
+        const headers = emailData.headers.split('\n');
+  
+        // Imprimir las cabeceras para ver qué tenemos
+        console.log("Cabeceras separadas:", headers);
+  
+        // Buscar la cabecera que contiene '(-05)' para obtener la fecha
+        const receivedHeader = headers.find((header: string) => header.includes('0500'));
+        console.log("Cabecera '(-05)' encontrada:", receivedHeader);
+  
+        if (receivedHeader) {
+          // Extraemos la fecha de la cabecera que contiene '(-05)'
+          let dateStr = "";
+          if(receivedHeader.includes(">;")){
+            dateStr = receivedHeader.split(">;");
+          }else{
+            dateStr = receivedHeader;
+          }
+  
+          if (dateStr) {
+            console.log("Fecha extraída:", dateStr);
+  
+            // Crear un objeto Date a partir de la fecha extraída
+            const emailDate = new Date(dateStr);
+  
+            // Restar 5 horas a la fecha para ajustar la zona horaria
+            emailDate.setHours(emailDate.getHours() - 5);
+
+            // Extraer la fecha y la hora ajustadas
+            const timeReceived = emailDate.toISOString().split('T')[1].split('.')[0].substring(0, 5); // Hora (HH:mm)
+          
+            const dateReceived = emailDate.toISOString().split('T')[0]; // Fecha (YYYY-MM-DD)
+  
+            // Establecer los valores en los inputs
+            this.setDateTimeInputs(dateReceived, timeReceived);
+          } else {
+            console.error('No se pudo extraer la fecha de la cabecera que contiene (-05)');
+          }
+        } else {
+          console.error('No se encontró una cabecera que contenga (-05)');
+        }
+      }
+    };
+  
+    reader.readAsArrayBuffer(file); // Lee el archivo como un ArrayBuffer
+  }
+  
+  // Método para extraer la fecha de la cabecera que contiene '(-05)'
+  extractDateFromReceivedHeader(receivedHeader: string): string | null {
+    // Buscar la fecha que termina con '(-05)\r' (zona horaria y retorno de carro)
+    const dateMatch = receivedHeader.match(/(\w{3},\s?\d{1,2}\s\w{3}\s\d{4}\s\d{2}:\d{2}:\d{2}\s[\+\-]\d{4}\s\([A-Za-z]{3}\))\r/);
+  
+    if (dateMatch && dateMatch[0]) {
+      return dateMatch[0]; // Devuelve la fecha en formato 'Fri, 23 Aug 2024 10:29:52 -0500 (-05)'
+    }
+  
+    return null;
+  }
+
+  
+  
+
+  setDateTimeInputs(date: string, time: string) {
+    // Asigna la fecha y hora a los inputs de fecha y hora
+    console.log(date)
+    console.log(time)
+    const dateNew = new Date(date);
+    // Format the date using Angular's DatePipe
+    const newFormat = this.datePipe.transform(new Date(dateNew.setDate(dateNew.getDate() + 2)), 'yyyy-MM-dd');
+    let localDate = new Date(dateNew.getUTCFullYear(), dateNew.getUTCMonth(), dateNew.getUTCDate() - 2);
+    
+    console.log(localDate)
+    this.formPQR.controls['dateReception'].setValue(localDate);
+    this.formPQR.controls['hour'].setValue(time);
   }
 
   deleteFile(file: string) {
@@ -424,10 +536,16 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
   
 
   onCheckboxChangeUser(cedula: string) {
-
+    this.documentNumber = cedula;
     this.getInfoUser(cedula);
     this.formPQR.patchValue({
       documentNumber: cedula
+    })
+    this._serviceP.GetClient(this.documentNumber).subscribe({
+      next: (dataClient:any)=>{
+        this.clientName = dataClient.result
+    
+      }
     })
     /*this.getInfoUser("0");*/
 
@@ -447,7 +565,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
 
       this._serviceP.GetInfoUser(data).subscribe({
         next: (data: any) => {
-          
+          console.log(data)
           this.formPQR.patchValue({
             userId: data.id,
             criticity: data.categoriaPasajero.nombre,
@@ -456,7 +574,8 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
             phone2: data.telefonoCelular2,
             whatsapp: data.whatsapp,
             observaciones: data.observaciones,
-            state: data.estado.nombre
+            state: data.estado.nombre,
+            documentType: data.tipoDocumento.nombre
           })
         }
       })
@@ -492,8 +611,9 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
       
       return; // Detener la función submit si el formulario es inválido
     }
-
+    console.log(this.formPQR.get("dateReception")!.value);
     let data = new FormData();
+    
     data.append("userId", this.formPQR.get("userId")!.value);
     data.append("means", this.formPQR.get("means")!.value);
     data.append("pqrType", this.formPQR.get("pqrType")!.value);
@@ -516,6 +636,7 @@ export class CreateUpdatePqrComponent implements OnInit, AfterViewInit{
     data.append("ObservationToMinerFac", this.formPQR.get("observationFac")!.value);
 
     data.append("interval", this.formPQR.get("interval")!.value);
+    data.append("client",this.clientName);
 
 
     this.Files.forEach((file, index) => {

@@ -44,3 +44,10 @@
 <ng-template #fileTitle>
     <label> Cargar Archivo</label>
   </ng-template>
+
+  <div class="back-modal" *ngIf="isLoading">
+    <div class="modal-load">
+      <mat-spinner style="color: #126b37;"></mat-spinner>
+      <h2>Cargando...</h2>
+    </div>
+  </div>

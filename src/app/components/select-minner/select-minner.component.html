@@ -2,14 +2,14 @@
     <div class="create--container">
       <div class="create--container-div1">
         <div class="create--container-div1-texts">
-          <h2 class="create--container-div1-texts-title">Solicitar Mineria</h2>
+          <h2 class="create--container-div1-texts-title">Solicitar Trazabilidad</h2>
         </div>
         <div class="create--container-div1-form-container">
           <form class="create--container-div1-form-container-form" [formGroup]="formMinner" (ngSubmit)="submit()">
   
             <div style="margin-bottom: 50px;" class="grid3" rowspan="1" >
                 <div style="display:flex;gap: 5px;flex-direction:column;"> 
-                  <h3 class="create--type-title">* Solicitar Mineria de Datos</h3>
+                  <h3 class="create--type-title">* Solicitar Trazabilidad</h3>
                   <div style="display:flex;gap: 10px;">
                     <mat-checkbox formControlName="isMinerOp" (change)="onCheckboxChangeMiner($event,'minerOp')" class="example-margin">Operativa</mat-checkbox>
                     <mat-checkbox formControlName="isMinerTs" (change)="onCheckboxChangeMiner($event,'minerTs')" class="example-margin">Transporte</mat-checkbox>
@@ -51,7 +51,7 @@
         
       </div>
       <div class="create--container-div2">
-        <img style="width: 100%;" class="create--container-div2-img" src="../../../assets/images/MINERO.svg" />
+        <img style="width: 150%;" class="create--container-div2-img" src="../../../assets/images/TRAZA.svg" />
       </div>
     </div>
   </div>

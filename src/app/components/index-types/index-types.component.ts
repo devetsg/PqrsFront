@@ -16,7 +16,8 @@ import { SignalRServiceService } from '../../services/signal-rservice.service';
   ]
 })
 export class IndexTypesComponent {
-  displayedColumns: string[] = ['No', 'Name', 'Actions'];
+  displayedColumns: string[] = ['No', 'Name','Flow', 'Actions'];
+  
   dataSource = new MatTableDataSource();
 
   constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PqrsService } from '../../services/pqrs.service';
 import Swal from 'sweetalert2';
+import { FlowPqrs } from '../../interfaces/FlowPqrs';
 
 @Component({
   selector: 'app-create-update-types',
@@ -15,11 +16,23 @@ export class CreateUpdateTypesComponent {
   errorMessages: string[] = [];
   ID: any;
   isDisable = false;
+  _flows:FlowPqrs = new FlowPqrs();
 
-
+  DataFlows: any[];
 
   constructor(private _fb: FormBuilder, private _redirect: Router,
     private _route: ActivatedRoute, private _serviceP: PqrsService) {
+
+    this.DataFlows =  [{
+      name : "General",
+      value : this._flows.General
+    },{
+      name : "Dir. Gestion y Contraloria",
+      value : this._flows.DirectivoContralor
+    },{
+      name : "Coordinador",
+      value : this._flows.Coordinador
+    }]
 
   }
 
@@ -29,7 +42,7 @@ export class CreateUpdateTypesComponent {
 
     this.formType = this._fb.group({
       name: ['', [Validators.required]],
-
+      flow: ['',Validators.required]
     })
 
     if (this.ID > 0) {
@@ -42,6 +55,7 @@ export class CreateUpdateTypesComponent {
       next: (data: any) => {
         this.formType.patchValue({
           name: data.name,
+          flow: data.flow
         })
         console.log(data);
       }
@@ -54,6 +68,7 @@ export class CreateUpdateTypesComponent {
     if (this.ID > 0) {
       let formData = new FormData();
       formData.append('name', this.formType.get("name")!.value);
+      formData.append('flow', this.formType.get("flow")!.value);
 
       this._serviceP.updateType(this.ID, formData).subscribe({
         next: (response: any) => {
@@ -74,6 +89,7 @@ export class CreateUpdateTypesComponent {
       let formData = new FormData();
 
       formData.append('name', this.formType.get("name")!.value);
+      formData.append('flow', this.formType.get("flow")!.value);
 
       this._serviceP.createType(formData).subscribe({
         next: (response: any) => {

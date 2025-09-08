@@ -1,0 +1,31 @@
+@import "../add-services/add-services.component.scss";
+
+.step2 {
+
+  &--container {
+
+    &-index {
+      &-btn {
+        background: #126b37 !important;
+        z-index: 0;
+      }
+
+      &-flex {
+        display: flex;
+        gap: 40px;
+        justify-content:space-between;
+      }
+    }
+
+    &-table {
+
+      &-data {
+
+        &-container {
+          width: 20% !important;
+          margin-left: 75% !important;
+        }
+      }
+    }
+  }
+}
