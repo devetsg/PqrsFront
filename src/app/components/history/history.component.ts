@@ -188,7 +188,7 @@ export class HistoryComponent {
 
   showPdf(){
     // let url = `https://localhost:44369/files/${this.documentNumber}.pdf`;
-    let url = `http://10.128.50.16:4545/files/${this.documentNumber}.pdf`;
+    let url = `https://www.pqr.etsg.com.co/files/${this.documentNumber}.pdf`;
     
     this.bodyPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // this.bodyPdfUrl = `https://backpqr.etsg.com.co/files/${this.documentNumber}.pdf`;

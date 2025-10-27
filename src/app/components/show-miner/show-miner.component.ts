@@ -234,7 +234,11 @@ export class ShowMinerComponent implements OnInit {
       this.pdfSrc = false;
       console.log(name)
       // this.audioUrl ="https://localhost:44369/files/" + name.replace("Resources\\Attach\\", "");
+<<<<<<< HEAD
       this.audioUrl ="http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
+=======
+      this.audioUrl ="https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+>>>>>>> bf2dbcb (pc zoft upload)
       this.sound = new Howl({
         src: [this.audioUrl],
         format: [this.getFormatFromType(fileExtension!)], // Ajusta el formato según el tipo de archivo

@@ -48,6 +48,25 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
       'undo','redo','|',
       'bold','italic','underline','|',
       'bulletedList','numberedList','|',
+      'indent','outdent','|',
+      'link','blockQuote','|',
+      'alignment:left','alignment:center','alignment:right','alignment:justify','|',
+      'fontSize','fontFamily',
+    ],
+    licenseKey: 'GPL',
+    height: 400,
+    contentStyles: `
+    ul ul { list-style-type: disc !important; }
+    ul ul ul { list-style-type: disc !important; }
+  `
+  };
+
+  public emailEditorConfig  = {
+    toolbar: [
+      'undo','redo','|',
+      'bold','italic','underline','|',
+      'bulletedList','numberedList','|',
+      'indent','outdent','|',
       'link','blockQuote','|',
       'alignment:left','alignment:center','alignment:right','alignment:justify','|',
       'fontSize','fontFamily'
@@ -56,18 +75,6 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
     height: 400
   };
 
-  public emailEditorConfig  = {
-    toolbar: [
-      'undo','redo','|',
-      'bold','italic','underline','|',
-      'bulletedList','numberedList','|',
-      'link','blockQuote','|',
-      'alignment:left','alignment:center','alignment:right','alignment:justify','|',
-      'fontSize','fontFamily'
-    ],
-    licenseKey: 'GPL',
-    height: 400
-  };
   quillConfig: any = {};
 
   private islocalAvailable = this.checkLocalStorage();
@@ -96,7 +103,8 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
   bodyPdfUrl!:SafeResourceUrl | null;
   documentNumber:any;
 
-  pdfSrc!: SafeResourceUrl;
+  pdfSrc: SafeResourceUrl | null = null;
+  imageSrc: SafeResourceUrl | null = null;
   excelSrc:string|boolean = "";
 
   urlFile: any;
@@ -138,6 +146,7 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
   private inactivityTimer: any;
   // private readonly INACTIVITY_TIMEOUT = 10 * 1000 ;
   private readonly INACTIVITY_TIMEOUT = 5 * 60 * 1000;
+  fileType: 'pdf' | 'image' | 'excel' | null = null;
 
   tinyMceConfig = {
     height: 500,
@@ -425,23 +434,45 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
 
   
   getAttach(name: string) {
-    const fileExtension = name.split('.').pop();
+      const fileExtension = name.split('.').pop()?.toLowerCase();
+      const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'];
+      const url = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      const fileName = name.replace("Resources/Attach/", "");
 
-    if (fileExtension === 'pdf') {
-      let url = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
-      this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-      this.excelSrc = false
-      this.isOpen = true
-    } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
-      this.pdfSrc = false;
-      this.excelSrc = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
-      this.isOpen = true
-    } else {
-      console.log(`Extensión desconocida: ${fileExtension}`);
-    }
-
+      if (fileExtension === 'pdf') {
+        this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        this.excelSrc = false;
+        this.imageSrc = null;
+        this.isOpen = true;
+      } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
+        this.pdfSrc = null;
+        this.excelSrc = url;
+        this.imageSrc = null;
+        this.isOpen = true;
+      } else if (imageExtensions.includes(fileExtension || '')) {
+        this.imageSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+        this.pdfSrc = null;
+        this.excelSrc = false;
+        this.isOpen = true;
+      } else {
+        // Para archivos sin visor, descargar directamente
+        console.log(`Descargando archivo: ${fileName} (${fileExtension})`);
+        this.downloadAttachment(url, fileName);
+      }
   }
 
+  // Método para descargar archivos individuales
+  downloadAttachment(url: string, filename: string) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  
   updateFormControl(content: string) {
     this.formResponse.controls['body'].setValue(content);
   }
@@ -611,10 +642,12 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
     })
   }
 
-  closeDoc(){
-    this.isOpen = false
+  closeDoc() {
+    this.isOpen = false;
+    this.pdfSrc = null;
+    this.excelSrc = false;
+    this.imageSrc = null;
   }
-
   aprovatedPqr() {
     
   }
@@ -679,7 +712,6 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
 
 
     this.fileInput.nativeElement.value = '';
-
   }
 
   getFormatFromType(type: string): string {

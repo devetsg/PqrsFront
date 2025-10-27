@@ -649,3 +649,7 @@ td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-statusMiner.mat-column-
 .mdc-text-field--filled {
     background: #fff !important;
 }
+
+:is(dir, menu, ol, ul) ul {
+    list-style-type: disc !important;
+}
