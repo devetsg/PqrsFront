@@ -1,7 +1,7 @@
 <ul *ngIf="this.screenWidth < 1200 && isLogged" style="list-style:none; padding-left: 5px;" class="navbar--list navbar--menu">
   <li>
     <button  mat-button [matMenuTriggerFor]="menu">
-      <i class="bi bi-list" style="font-size: 35px; color: #126b37;"></i>
+      <i class="bi bi-list" style="font-size: 35px; color: #075f47;"></i>
     </button>
     <mat-menu #menu="matMenu" class="flex menu-opts">
       <button *ngIf="isLogged == 'ANALISTA' || isLogged == 'SUPERUSER'" class="navbar--admin-btns" routerLink="/createUpdatePqr" mat-flat-button>Crear PQR</button>
@@ -28,7 +28,7 @@
     <app-navbar  style="width: 20% !important;"></app-navbar>
 
   </mat-drawer>
-  <mat-drawer-content>
+  <mat-drawer-content style="background-color: #f3f4f6;">
     <div class="example-sidenav-content">
       <button style="position: absolute;" *ngIf="isLogged" class="sideMenu-btn" type="button" mat-button (click)="onButtonClick()">
         <i [ngClass]="iconClass"></i>

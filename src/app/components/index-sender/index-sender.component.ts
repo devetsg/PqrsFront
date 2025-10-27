@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { SignalRServiceService } from '../../services/signal-rservice.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUpdateSenderComponent } from '../create-update-sender/create-update-sender.component';
+
 @Component({
   selector: 'app-index-sender',
   templateUrl: './index-sender.component.html',
@@ -19,7 +22,9 @@ export class IndexSenderComponent {
   displayedColumns: string[] = ['email', 'serverIMAP', 'serverSMTP', 'portIMAP', 'portSMTP', 'actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
+  constructor(private dialog: MatDialog,
+    private _serviceP: PqrsService,
+    private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,5 +82,31 @@ export class IndexSenderComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateUpdateSenderComponent, {
+      width: '600px', // Más ancho por los 6 campos
+      data: { isEdit: false, id: 0 }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getSenders();
+      }
+    });
+  }
+
+  openEditDialog(id: number) {
+    const dialogRef = this.dialog.open(CreateUpdateSenderComponent, {
+      width: '600px',
+      data: { isEdit: true, id: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getSenders();
+      }
+    });
   }
 }

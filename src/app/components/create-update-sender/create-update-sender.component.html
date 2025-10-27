@@ -1,61 +1,42 @@
-<div class="create">
-  <div class="create--container">
-    <div class="create--container-div1">
-      <div class="create--container-div1-texts">
-        <h2 class="create--container-div1-texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} Remitente</h2>
-      </div>
-      <div class="create--container-div1-form-container">
-        <form class="create--container-div1-form-container-form" [formGroup]="formSender" (ngSubmit)="submit()">
+<h2 class="cre-title" mat-dialog-title>{{data.isEdit ? 'Actualizar' : 'Crear'}} Remitente</h2>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Email</mat-label>
-            <input class="" matInput formControlName="Email">
-          </mat-form-field>
+<mat-dialog-content>
+  <form [formGroup]="formSender" (ngSubmit)="submit()">
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email">
+    </mat-form-field>
 
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Contraseña</mat-label>
+      <input type="password" matInput formControlName="Password">
+    </mat-form-field>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Contraseña</mat-label>
-            <input type="password" matInput formControlName="Password">
-          </mat-form-field>
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Puerto IMAP</mat-label>
+      <input matInput formControlName="PortIMAP">
+    </mat-form-field>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Puerto IMAP</mat-label>
-            <input class="" matInput formControlName="PortIMAP">
-          </mat-form-field>
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Puerto SMTP</mat-label>
+      <input matInput formControlName="PortSMTP">
+    </mat-form-field>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Puerto SMTP</mat-label>
-            <input matInput formControlName="PortSMTP">
-          </mat-form-field>
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Servidor IMAP</mat-label>
+      <input matInput formControlName="ServerIMAP">
+    </mat-form-field>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Servidor IMAP</mat-label>
-            <input matInput formControlName="ServerIMAP">
-          </mat-form-field>
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Servidor SMTP</mat-label>
+      <input matInput formControlName="ServerSMTP">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Servidor SMTP</mat-label>
-            <input matInput formControlName="ServerSMTP">
-          </mat-form-field>
-
-
-          <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary" *ngIf="ID > 0;else createbutton">
-            {{'Actualizar'}} Remitente
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="create--container-div2">
-      <img class="create--container-div2-img" src="../../../assets/images/sgFelicita.png" />
-    </div>
-  </div>
-</div>
-
-<ng-template #createtitle>
-  <h1 class="create--container-div1-texts-title">Crear Remitente</h1>
-</ng-template>
-<ng-template #createbutton>
-  <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary">Crear Remitente</button>
-</ng-template>
-
-
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button class="cre-btn" mat-raised-button color="primary" (click)="submit()">
+    {{data.isEdit ? 'Actualizar' : 'Crear'}} Remitente
+  </button>
+</mat-dialog-actions>

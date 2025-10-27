@@ -1,9 +1,11 @@
 <nav class="navbar scroll-theme">
-  <h2 class="navbar--title"> <img class="navbar--img" src="../../../assets/images/LogoTSG.png" /></h2>
 
+  <div class="navbar-bg-title">
+    <h2 class="navbar--title"> <img class="navbar--img" src="../../../assets/images/logoWhite.png" /></h2>
+  </div>
   
-  <h2 [style.color]="textColor" class="icon--container-title flex flex-start" style="cursor:pointer;" (click)="showMenuFunc()">
-    <i class="bi bi-ui-checks" [style.color]="textColor" style="font-size: 23px; cursor:pointer; margin-right: 10px; margin-left: 5px;"></i>
+  <h2 [style.background]="textColor" class="icon--container-title flex flex-start" style="cursor:pointer;color:white;" (click)="showMenuFunc()">
+    <i class="bi bi-ui-checks" style="color:white;font-size: 23px; cursor:pointer; margin-right: 10px; margin-left: 5px;"></i>
     <span>PQR´S</span>
     <div class="icon--container-icon">
       <mat-icon class="icon" [class.rotated]="showMenu" aria-hidden="false" aria-label="Example home icon">keyboard_arrow_down</mat-icon>
@@ -43,8 +45,8 @@
   </div>
 
 
-  <h2 *ngIf="actualRole == 'SUPERUSER'" [style.color]="textColorAdmin" class="icon--container-title" style="cursor:pointer;" (click)="showAdminFunc()">
-    <i class="bi bi-clipboard2-pulse" [style.color]="textColorAdmin" style="font-size: 23px; cursor:pointer; margin-right: 10px;"></i>
+  <h2 *ngIf="actualRole == 'SUPERUSER'" [style.background]="textColorAdmin" class="icon--container-title" style="cursor:pointer;color:white;" (click)="showAdminFunc()">
+    <i class="bi bi-clipboard2-pulse" style="font-size: 23px; cursor:pointer; margin-right: 10px;color:white;"></i>
     <span>Administracion</span>
     <div class="icon--container-icon">
       <mat-icon class="icon" [class.rotated]="showAdmin" aria-hidden="false" aria-label="Example home icon">keyboard_arrow_down</mat-icon>
@@ -69,7 +71,8 @@
     <!--<button class="navbar--admin-btns" routerLink="/inbox" mat-flat-button>Inbox</button>-->
   </div>
 
-  <h2 class="icon--container-title flex flex-start" style="cursor:pointer; color: white; margin-top: 16px;" (click)="logout()">
+  <h2 class="icon--container-title flex flex-start" style="cursor:pointer; color: white; margin-top: 16px;margin-top: auto;
+    margin-bottom: 2rem;padding: 0.7rem;" (click)="logout()">
     <i class="bi bi-door-open" style="font-size: 23px; color: white; cursor:pointer; margin-right: 10px;"></i>
     <span>Cerrar Sesion</span>
   </h2>

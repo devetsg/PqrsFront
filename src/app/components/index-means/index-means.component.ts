@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { SignalRServiceService } from '../../services/signal-rservice.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUpdateMeansComponent } from '../create-update-means/create-update-means.component';
+
 @Component({
   selector: 'app-index-means',
   templateUrl: './index-means.component.html',
@@ -19,7 +22,9 @@ export class IndexMeansComponent {
   displayedColumns: string[] = ['No', 'Name', 'Actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP:PqrsService,private signalRService: SignalRServiceService) { }
+  constructor(private dialog: MatDialog,
+  private _serviceP: PqrsService,
+  private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,5 +82,31 @@ export class IndexMeansComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateUpdateMeansComponent, {
+      width: '500px',
+      data: { isEdit: false, id: 0 }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getMeans();
+      }
+    });
+  }
+
+  openEditDialog(id: number) {
+    const dialogRef = this.dialog.open(CreateUpdateMeansComponent, {
+      width: '500px',
+      data: { isEdit: true, id: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getMeans();
+      }
+    });
   }
 }

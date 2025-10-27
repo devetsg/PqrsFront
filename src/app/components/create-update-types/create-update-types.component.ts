@@ -5,6 +5,9 @@ import { PqrsService } from '../../services/pqrs.service';
 import Swal from 'sweetalert2';
 import { FlowPqrs } from '../../interfaces/FlowPqrs';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
 @Component({
   selector: 'app-create-update-types',
   templateUrl: './create-update-types.component.html',
@@ -20,8 +23,10 @@ export class CreateUpdateTypesComponent {
 
   DataFlows: any[];
 
-  constructor(private _fb: FormBuilder, private _redirect: Router,
-    private _route: ActivatedRoute, private _serviceP: PqrsService) {
+  constructor(private _fb: FormBuilder,
+  private _serviceP: PqrsService,
+  public dialogRef: MatDialogRef<CreateUpdateTypesComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.DataFlows =  [{
       name : "General",
@@ -37,15 +42,14 @@ export class CreateUpdateTypesComponent {
   }
 
   ngOnInit(): void {
-    this.ID = Number(this._route.snapshot.paramMap.get("id"));
-    console.log(this.ID);
-
+    this.ID = this.data.id;
+    
     this.formType = this._fb.group({
       name: ['', [Validators.required]],
-      flow: ['',Validators.required]
-    })
+      flow: ['', Validators.required]
+    });
 
-    if (this.ID > 0) {
+    if (this.data.isEdit && this.ID > 0) {
       this.getType(this.ID);
     }
   }
@@ -65,19 +69,18 @@ export class CreateUpdateTypesComponent {
   submit() {
     this.submitted = true;
 
-    if (this.ID > 0) {
+    if (this.data.isEdit) {
       let formData = new FormData();
       formData.append('name', this.formType.get("name")!.value);
       formData.append('flow', this.formType.get("flow")!.value);
 
       this._serviceP.updateType(this.ID, formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexTypes")
           Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: error => {
           if (error.error.errors) {
@@ -93,12 +96,11 @@ export class CreateUpdateTypesComponent {
 
       this._serviceP.createType(formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexTypes")
-          Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+         Swal.fire({
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: error => {
           if (error.error.errors) {

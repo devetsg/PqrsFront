@@ -1,48 +1,65 @@
-<div class="form login">
-  <div class="form--container">
-    <div class="form--container-div1 w100-resp">
-      <div class="form--container-div1-texts-container w100-resp flex-resp text-center-resp">
-        <h2 class="form--container-div1-texts-container-title font-size-resp">Sistema De PQR´S</h2>
-        <h3 class="form--container-div1-texts-container-paragraph">Ingresa tus Credenciales para acceder</h3>
+<div class="login">
+  <div class="login-container">
+    <div class="login-container-box1">
+      <div class="login-container-box1-texts">
+        <h1 class="login-container-box1-texts-title">Gestión PQR</h1>
+        <h3 class="login-container-box1-texts-subtitle">Bienvenido de nuevo</h3>
+        <h4 class="login-container-box1-texts-subtitle2">Ingresa tus credenciales para acceder a tu cuenta.</h4>
       </div>
-      <form class="form--container-div1-form w100-resp" [formGroup]="formLogin" (ngSubmit)="submit()">
+      <div class="login-container-box1-form">
+        <form class="login-container-box1-form-container" [formGroup]="formLogin" (ngSubmit)="submit()">
+          <mat-form-field class="login-container-box1-form-container-field" appearance="fill">
+            <mat-label>Usuario</mat-label>
+            <input class="form--container-div1-form-field-input" 
+                   matInput 
+                   formControlName="UserName"
+                   autocomplete="username">
+          </mat-form-field>
 
-        <mat-form-field class="form--container-div1-form-field w90-resp" appearance="fill">
-          <mat-label>Usuario</mat-label>
-          <input class="form--container-div1-form-field-input" matInput formControlName="UserName">
-        </mat-form-field>
+          <mat-form-field class="login-container-box1-form-container-field" appearance="fill">
+            <mat-label>Contraseña</mat-label>
+            <div style="display: flex; align-items: center;">
+              <input
+                [type]="isPasswordVisible ? 'text' : 'password'"  
+                class="form--container-div1-form-field-input" 
+                matInput 
+                formControlName="Password"
+                autocomplete="current-password"
+                style="flex: 1;">
+              <button *ngIf="isPass"
+                style="padding: 0; height: auto; min-width: 40px; flex-shrink: 0;"
+                mat-icon-button 
+                type="button" 
+                (click)="isPasswordVisible = !isPasswordVisible"
+                [attr.aria-label]="isPasswordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña'">
+                <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </div>
+          </mat-form-field>
+          
+          <div class="login--border"></div>
 
-        <mat-form-field class="form--container-div1-form-field w90-resp" appearance="fill">
-          <mat-label>Contraseña</mat-label>
-          <div style="display: flex;">
-            <input
-            [type]="isPasswordVisible ? 'text' : 'password'"  
-            class="form--container-div1-form-field-input" type="password" matInput formControlName="Password">
-            <button *ngIf="isPass"
-              style="padding: 0;height: auto;"
-              mat-icon-button 
-              type="button" 
-              (click)="isPasswordVisible = !isPasswordVisible">
-              <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
-            </button>
-          </div>
-        </mat-form-field>
+          <!--<div *ngIf="errorMessages.length > 0">
+            <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
+          </div>-->
 
-        <!--<div *ngIf="errorMessages.length > 0">
-          <app-validation-messages [errorMessages]="errorMessages"></app-validation-messages>
-        </div>-->
-
-        <button type="submit" class="form--container-div1-form-btn w90-resp" mat-fab extended color="primary">
-          Iniciar Sesion
-        </button>
-
-      </form>
+          <button type="submit" 
+                  class="login-container-box1-form-container-btn" 
+                  mat-fab 
+                  extended 
+                  color="primary"
+                  [disabled]="formLogin.invalid">
+            Iniciar Sesión
+          </button>
+        </form>
+      </div>
+    </div>    
+    
+    <div class="login-container-box2">
+      <img class="login-container-box2-img" 
+           src="../../../assets/images/bgLoginPqrs.svg" 
+           alt="Imagen de fondo del sistema de gestión PQR"
+           loading="lazy" />
     </div>
-    <!-- <div class="form--container-div2"> -->
-      <!--<img class="form--container-div2-img" src="../../../assets/images/sgSeñala.png" />-->
-    <!-- </div> -->
   </div>
-</div>
-<div class="dp-hide-resp">
-  <img class="form--container-div2-img img-sign" src="../../../assets/images/sgSeñala.png" />
 </div>

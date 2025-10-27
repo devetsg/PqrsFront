@@ -1,634 +1,311 @@
-
-<section class="dp-flex">
- 
-  <!-- <button style="position: absolute; right: 0px; top: 13px;" mat-button [matMenuTriggerFor]="historyMenu" class="dp-show-resp">
-    <i class="bi bi-file-earmark-text" style="font-size: 35px; color: #126b37;"></i>
-  </button> -->
-
-  <!-- <mat-menu #historyMenu="matMenu" style="width: 100%;" panelClass="custom-menu" class="custom-menu" data-aos="zoom-in-down">
-    <div *ngIf="history != undefined && history.length > 0" class="history-fixed w20 relative overflow-y-auto scroll-theme w100-resp">
-      <div class="step--history-container grad-gold absolute">
-        <div class="overflow-y-auto scroll-theme h60vh separation w100-resp">
-          <div (click)="openDialog(hist.id)" class="step--history-container-card bg-white" *ngFor="let hist of history">
-            <h5 class="step--history-container-card-text">{{hist.dateReception | date}}</h5>
-            <h5 class="step--history-container-card-text">{{hist.userName}}</h5>
-            <h5 class="step--history-container-card-text">Tipo: <span style="font-weight:300;">{{hist.pqrType.name}}</span></h5>
-            <h5 class="step--history-container-card-text">Estado: <span style="font-weight:300;">{{hist.status}}</span></h5>
+<div class="resp">
+  <div class="resp--container">
+    <form  class="resp--container-form" [formGroup]="formResponse" (ngSubmit)="submit()">
+    <div class="resp--container-box1">
+      <div *ngIf="pqrHeaders != undefined" class="resp--container-box1-texts">
+        <h2 class="resp--labels">{{pqrHeaders.subject}}</h2>
+        <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
+      </div>
+      <div class="resp--container-box1-btns">
+        <div *ngIf="withMining" >
+          <div style="display:flex;gap: 10px;align-items:center;">
+            <button class="center-buttons c-button c-button--gooey" [matMenuTriggerFor]="menu" mat-icon-button>
+              <i style="font-size: 30px ;color: #075f47" class="bi bi-database-fill-check "></i>
+            </button>
+          
+            <mat-menu #menu="matMenu">
+              <button (click)="openDialogMiner(pqr.id,'TS')" *ngIf="this.pqr.observationToMinerTs != null && this.pqr.observationToMinerTs.length > 0" mat-menu-item>
+                <i class="bi bi-car-front" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"
+                  matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerTs == null"></i>
+                <span>Transporte</span>
+              </button>
+              <button (click)="openDialogMiner(pqr.id,'FAC')" *ngIf="this.pqr.observationToMinerFac != null && this.pqr.observationToMinerFac.length > 0" mat-menu-item>
+                <i class="bi bi-bank" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
+                  matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerFac == null"></i>
+                <span>Facturacion</span>
+              </button>
+              <button (click)="openDialogMiner(pqr.id,'OP')" *ngIf="this.pqr.observationToMinerOp != null && this.pqr.observationToMinerOp.length > 0" mat-menu-item>
+                <i class="bi bi-headset" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
+                  matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerOp == null"></i>
+                <span>Operacion</span>
+              </button>
+            </mat-menu>
           </div>
+          
         </div>
+
+        <i *ngIf="pqr != undefined && pqr.withHistory" (click)="openDialogHistory()" class="bi bi-clock-history" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
+
       </div>
     </div>
-  </mat-menu> -->
+    <div *ngIf="pqrHeaders != undefined" class="resp--container-box2">
 
-  <div class="step w100-resp" style="width:100%;" >
-
-    <div class="step2--container bg-gray" style="border-radius: 25px;">
-      <div class="response" style="padding: 30px;">
-        <div class="response--container">
-
-          <!--------------------------------->
-          <!-------------EMAIL--------------->
-          <!--------------------------------->
-
-          <form  class="response--container-form-container-form" [formGroup]="formResponse" (ngSubmit)="submit()">
-
-
-            <!--<app-file-viewer [fileUrl]="urlFile"></app-file-viewer>-->
-
-
-
-            <div *ngIf="pqrHeaders != null">
-              <div class="response--headers-container relative">
-                <div class="absolute" style="top: 10px; right: 12px;">
-                  <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
-                </div>
-
-                <div class="response--headers-container-data center">
-                  <h2 class="response--labels">{{pqrHeaders.subject}}</h2>
-                </div>
-
-                <div class="response--headers-container-data aling-center dp-block">
-                   <div class="circle-name relative">
-                     {{ getFirstLetter(pqrHeaders.from.replaceAll('"', '')) }}
-                   </div>
-                   <div class="">
-                    <h2 class="response--labels-data">{{pqrHeaders.from.replaceAll('"','')}}</h2>
-                    <div class="response--headers-container-data dp-block">
-                      <h2 class="response--labels">Para:</h2>
-                      <h2 class="response--labels-data">{{pqrHeaders.to.replaceAll('"','')}}</h2>
-                    </div>
-                   </div>
-                </div>
-
-                
-                <div *ngIf="pqrHeaders.cc" class="response--headers-container-data">
-                  <h2 class="response--labels">CC:</h2>
-                  <h2 class="response--labels-data">{{pqrHeaders.cc}}</h2>
-                </div>
-                
-
-
-
-                <div  class="response--headers-container-data cont">
-                  <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
-                  <!-- <div class="response--labels-data-attachments"> -->
-                    <div *ngFor="let name of filteredAttachments" class="response--labels-data flex div-doc">
-                      <div class="flex" (click)="getAttach(name)">
-                        <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
-                        {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
-                      </div>
-                    </div>
-                    
-                    
-                  <!-- </div> -->
-                </div>
-                <div *ngIf="withMining" class="step2--container-table-data-container new-btn" >
-                  <div style="display:flex;gap: 10px;align-items:center;">
-                    <button class="center-buttons c-button c-button--gooey" style="display:flex;border-radius:5px;" [matMenuTriggerFor]="menu" mat-icon-button>
-                      <i style="font-size: 30px ;color: #126b37" class="bi bi-database-fill-check "></i>
-                      <div class="c-button__blobs">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                    </button>
-                   
-                    <mat-menu #menu="matMenu">
-                      <button (click)="openDialogMiner(pqr.id,'TS')" *ngIf="this.pqr.observationToMinerTs != null && this.pqr.observationToMinerTs.length > 0" mat-menu-item>
-                        <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
-                           matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerTs == null"></i>
-                        <span>Transporte</span>
-                      </button>
-                      <button (click)="openDialogMiner(pqr.id,'FAC')" *ngIf="this.pqr.observationToMinerFac != null && this.pqr.observationToMinerFac.length > 0" mat-menu-item>
-                        <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
-                           matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerFac == null"></i>
-                        <span>Facturacion</span>
-                      </button>
-                      <button (click)="openDialogMiner(pqr.id,'OP')" *ngIf="this.pqr.observationToMinerOp != null && this.pqr.observationToMinerOp.length > 0" mat-menu-item>
-                        <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
-                           matBadge="1" matBadgeSize="small" [matBadgeHidden]="this.pqr.observationFromMinerOp == null"></i>
-                        <span>Operacion</span>
-                      </button>
-                    </mat-menu>
-                  </div>
-                  
-                </div>
-                <i *ngIf="pqr.withHistory" (click)="openDialogHistory()" class="bi bi-clock-history" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
-                <div  class="response--headers-container-data cont">
-                  <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
-                  <!-- <div class="response--labels-data-attachments"> -->
-                    <div *ngIf="minedAttachments.length > 0">
-                      <h2 style="margin-bottom: 15px;" class="response--labels">Datos Minados: <i style="font-size: 25px;" class="bi bi-database-fill-check"></i></h2>        
-                      <div *ngFor="let name of minedAttachments" class="response--labels-data flex div-doc">
-                        <div class="flex" (click)="getAttach(name)">
-                          <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
-                          {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
-                        </div>
-                      </div>
-                    </div>     
-                  <!-- </div> -->
-                </div>
-                
-
-
-              </div>
+      <div class="resp--container-box2-banners">
+        <div class="response--headers-container-data aling-center dp-block">
+          <div class="circle-name relative">
+            {{ getFirstLetter(pqrHeaders.from.replaceAll('"', '')) }}
+          </div>
+          <div class="">
+            <h2 class="response--labels-data">{{pqrHeaders.from.replaceAll('"','')}}</h2>
+            <div class="response--headers-container-data dp-block">
+              <h2 class="response--labels">Para:</h2>
+              <h2 class="response--labels-data">{{pqrHeaders.to.replaceAll('"','')}}</h2>
             </div>
+          </div>
+        </div>
+        <div *ngIf="pqrHeaders.cc" class="response--headers-container-data" style="padding: 1rem 0;">
+          <h2 class="response--labels">CC:</h2>
+          <h2 class="response--labels-data">{{pqrHeaders.cc}}</h2>
+        </div>
+      </div>
 
+      <div class="resp--container-box2-mail">
+        <mat-form-field appearance="fill">
+          <mat-label></mat-label>
+          <textarea  class="" matInput formControlName="pqrText"></textarea>
+        </mat-form-field>
+      </div>
 
+    </div>
+    <div class="resp--container-box3">
+        <h2 class="resp--container-box3-title">Adjuntos</h2>
+        <div class="resp--container-box3-attachs">
 
-            <div class="flex">
-
-            
-              <div class="w50 pl-1" [ngClass]="{'display-block': isOpen, 'display-none': !isOpen}">
-                <div class="flex w100 space-between">
-                  <h2 class="response--labels pl-3">Contenido PQR</h2>
-                  <i class="bi bi-x-circle" style="font-size: 20px; color: #126b37;cursor:pointer; " (click)="closeDoc()"></i>
-                </div>
-                <div class="response--visors-container-visor">
-                  <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
-                  <div *ngIf="pdfSrc">
-                    <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
-                      <p>
-                        Tu navegador no soporta la visualización de PDF. Puedes
-                        <a [href]="pdfSrc">descargar el archivo aquí</a>.
-                      </p>
-                    </object>
-
-                  </div>
-                  <div class="response--visors-container-visor-excel">
-                    <app-file-viewer-excel *ngIf="excelSrc != false" [fileUrl]="excelSrc!.toString()"></app-file-viewer-excel>
-                  </div>
-                </div>
-              </div>
-
-              <div [ngClass]="{'w50': isOpen, 'w100': !isOpen}" class="response--visors-container">
-                <div class="response--visors-container-content w100">
-                  <mat-form-field appearance="fill">
-                    <mat-label></mat-label>
-                    <textarea [ngClass]="{'response--fields-alt': isOpen, 'response--fields': !isOpen}" class="" matInput formControlName="pqrText"></textarea>
-                  </mat-form-field>
-                </div>
-              </div>
+          <div *ngFor="let name of filteredAttachments" class="resp--labels-data flex div-doc">
+            <div class="flex" (click)="getAttach(name)">
+              <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+              {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
             </div>
-
-
-            <h2 class="response--labels">Cuerpo del correo</h2>
-            <mat-form-field class="textareaclara" appearance="fill">
-              <mat-label></mat-label>
-              <textarea class="response--fields" matInput formControlName="response" required></textarea>
-            </mat-form-field>
-
-            <!-- <h2 *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="response--labels">Cuerpo de la carta de respuesta</h2>
-            <mat-form-field *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="textareaclara" appearance="fill">
-              <mat-label></mat-label>
-              <textarea class="response--fields" matInput formControlName="body" ></textarea>
-            </mat-form-field> -->
-            
-            <h2 *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="response--labels">Cuerpo de la carta de respuesta</h2>
-            <!-- <quill-editor #editor
-              class="response--fields"
-              [formControl]="bodyControl"
-              [style]="{height: '300px',width:'100%'}"
-              [modules]="quillConfig"
-              >
-            </quill-editor> -->
-            <!-- <editor style="margin-bottom: 30px;"
-              [init]="tinyMceConfig"
-              [formControl]="bodyControl"
-            ></editor> -->
-
-            <ckeditor *ngIf="Editor" 
-              [editor]="Editor" 
-              [config]="editorConfig"
-              [formControl]="bodyControl"
-              style="height: 400px;">
-              
-            </ckeditor>
-
-
-            <!-- <button (click)="saveContent()">Guardar</button> -->
-
-            <div *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="response--see-container">
-              <i *ngIf="role != 'ANALISTA' && !bodyPdfUrl" (click)="showPdf()" class="bi bi-eye-fill response--see-container-icon"></i>
-              <i *ngIf="role != 'ANALISTA' && bodyPdfUrl" (click)="closePdf()" class="bi bi-eye-slash-fill response--see-container-icon-close"></i>
-            </div>
-            <div *ngIf="bodyPdfUrl" class="response--visor">
-              <object [data]="this.bodyPdfUrl" type="application/pdf" width="100%" height="600px">
-                <p>
-                  Tu navegador no soporta la visualización de PDF. Puedes
-                  <a [href]="pdfSrc">descargar el archivo aquí</a>.
-                </p>
-              </object>
-
-            </div>
-
-            <!--input files-->
-
-            <div *ngIf="role == 'ANALISTA'" class="dialog--container-form-file-container">
-              <label class="dialog--container-form-file-container-label">
-                <span *ngIf="namesFiles.length > 0;else fileTitle">
-                  <span *ngFor="let file of namesFiles">
-                    {{file}}
-                    <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                  </span>
-                </span>
-
-              </label>
-              <input #fileInput style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile($event)" />
-            </div>   
-
-            <div class="response--attachs-response" *ngIf="role != 'ANALISTA'  && !withAttachResponse">
-              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
-            </div>
-
-            <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && withAttachResponse">
-              <h4 class="response--attachs-response-title" >Click para descargar los Archivos Adjuntos a la respuesta</h4>
-              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
-
-            </div>
-
-            
-            <!--chat-->
-
-            <div class="response--chat">
-              <div class="response--chat-conatiner">
-                <h2 class="response--chat-conatiner-title">Chat </h2>
-                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
-                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
-                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
-                  <div class="response--chat-conatiner-info">
-
-                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
-                  </div>
-                </div>
-              </div>
-              <h2></h2>
-              <div class="response--attachs-response2 flex-resp">
-                <mat-form-field appearance="fill">
-                  <mat-label>Escriba un mensaje</mat-label>
-                  <input matInput formControlName="comments">
-                </mat-form-field>
-                <div *ngIf="role == 'ANALISTA'" class="dialog--container-form-file-container2">
-                  <label class="dialog--container-form-file-container-label2">
-                    <span *ngIf="namesFiles2.length > 0;else fileTitle">
-                      <span *ngFor="let file of namesFiles2">
-                        {{file}}
-                        <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                      </span>
-                    </span>
-
-                  </label>
-                  <input #fileInput2 style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile2($event)" />
-                </div>
-                <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && !withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para El Chat</h4>
-                </div>
-
-                <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Click para descargar los Archivos Para El Chat</h4>
-                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
-                </div>
-              </div>
-
-            </div>
-
-
-            <div class="flex w100 flex-buttons">
-
-              <!-- ANALISTA -->
-              <button *ngIf="role == 'ANALISTA' || role == 'SUPERUSER'" (click)="sendRevision()" class="response--container-form-container-form-btn" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
-
-              <!-- DIR GENERAL -->
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
-
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="openSelect()" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Aprobar
-              </button>
-
-              <!-- COORDINADOR -->
-              <button *ngIf="(role == 'COORDINADOR' || role == 'SUPERUSER') && flow == 'GENERAL'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Aprobacion
-              </button>
-
-              <button *ngIf="(role == 'COORDINADOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Direccion RRHH
-              </button>
-
-              <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('FOLLOW')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Devolver a Seguimiento
-              </button>
-
-              <button *ngIf="role == 'COORDINADOR' && flow == 'COORDINADOR'" (click)="openSelect()" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Aprobar
-              </button>
-
-              <!-- DIR GESTION -->
-
-              <button *ngIf="role == 'DIRGESTION' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Devolver a Coordinador
-              </button>
-
-              <button *ngIf="(role == 'DIRGESTION' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('DIRCONTRALOR')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Contraloría
-              </button>
-
-              <!-- DIR CONTRALOR -->
-              <button *ngIf="(role == 'DIRCONTRALOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Devolver a Coordinador
-              </button>
-
-              <button *ngIf="(role == 'DIRCONTRALOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Aprobacion
-              </button>
-
-              <!-- SUPERVISOR -->
-
-              <button *ngIf="role == 'SUPERVISOR'" routerLink="/indexSupervisor" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Volver
-              </button>
-
-              <!-- MINERO -->
-
-              <button *ngIf="role == 'MINERO'" routerLink="/indexMiner" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
-                Volver
-              </button>
-
-              
-            </div>
-
-          </form>
-
-
-          <!--------------------------------->
-          <!-------------AUDIO--------------->
-          <!--------------------------------->
-
-          <h2 *ngIf="isAudio" class="response--labels">Audio Pqr</h2>
-          <div *ngIf="isAudio" class="response--audio-container">
-            <button (click)="play()" class="response--audio-container-btn" [disabled]="isPlaying">
-              <i class="bi bi-play-circle-fill response--audio-container-btn-icon"></i>
-            </button>
-            <button (click)="stop()" class="response--audio-container-btn" [disabled]="!isPlaying">
-              <i class="bi bi-stop-circle-fill response--audio-container-btn-icon"></i>
-            </button>
           </div>
 
-          <form *ngIf="isAudio" class="response--container-form-container-form" [formGroup]="formAudio" (ngSubmit)="submit()">
-
-            <h2 class="response--labels">Respuesta a Aprobar</h2>
-            <mat-form-field class="textareaclara" appearance="fill">
-              <mat-label></mat-label>
-              <textarea class="response--fields" matInput formControlName="response" required></textarea>
-            </mat-form-field>
-
-            <!--input files-->
-
-            <div *ngIf="isDirector != true" class="dialog--container-form-file-container">
-              <label class="dialog--container-form-file-container-label">
-                <span *ngIf="namesFiles.length > 0;else fileTitle">
-                  <span *ngFor="let file of namesFiles">
-                    {{file}}
-                    <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                  </span>
-                </span>
-
-              </label>
-              <input #fileInput style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile($event)" />
-            </div>
-
-            <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
-              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
-            </div>
-
-            <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse">
-              <h4 class="response--attachs-response-title">Click para descargar los Archivos Adjuntos a la respuesta</h4>
-              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
-            </div>
-
-
-            <!--chat-->
-
-            <div class="response--chat">
-              <div class="response--chat-conatiner">
-                <h2 class="response--chat-conatiner-title">Chat </h2>
-                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
-                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
-                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
-                  <div class="response--chat-conatiner-info">
-
-                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
-                  </div>
-                </div>
+          <div *ngIf="minedAttachments.length > 0">
+            <h2 style="margin-bottom: 15px;" class="response--labels">Datos Minados: <i style="font-size: 25px;" class="bi bi-database-fill-check"></i></h2>        
+            <div *ngFor="let name of minedAttachments" class="response--labels-data flex div-doc">
+              <div class="flex" (click)="getAttach(name)">
+                <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+                {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
               </div>
-              <h2></h2>
-              <div class="response--attachs-response2 flex-resp">
-                <mat-form-field appearance="fill">
-                  <mat-label>Escriba un mensaje</mat-label>
-                  <input matInput formControlName="comments">
-                </mat-form-field>
-                <div *ngIf="!isDirector" class="dialog--container-form-file-container2">
-                  <label class="dialog--container-form-file-container-label2">
-                    <span *ngIf="namesFiles2.length > 0;else fileTitle">
-                      <span *ngFor="let file of namesFiles2">
-                        {{file}}
-                        <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                      </span>
-                    </span>
+            </div>
+          </div>  
 
-                  </label>
-                  <input #fileInput2 style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile2($event)" />
-                </div>
-                <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para Director</h4>
-                </div>
+        </div>
+        
+        <div class="flex">          
+          <div class="w100 pl-1" [ngClass]="{'display-block': isOpen, 'display-none': !isOpen}">
+            <div class="flex w100 space-between">
+              <!-- <h2 class="response--labels pl-3">Contenido PQR</h2> -->
+              <i class="bi bi-x-circle" style="font-size: 20px; color: #075f47;cursor:pointer; " (click)="closeDoc()"></i>
+            </div>
+            <div class="response--visors-container-visor">
+              <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
+              <div *ngIf="pdfSrc">
+                <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
+                  <p>
+                    Tu navegador no soporta la visualización de PDF. Puedes
+                    <a [href]="pdfSrc">descargar el archivo aquí</a>.
+                  </p>
+                </object>
 
-                <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Click para descargar los Archivos para Director</h4>
-                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
-                </div>
               </div>
-
-            </div>
-
-            <div class="flex w100 flex-buttons">
-              <button *ngIf="role == 'ANALISTA' || role == 'SUPERUSER'" (click)="sendRevision()" class="response--container-form-container-form-btn" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
-
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('OK')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Aprobar
-              </button>
-
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
-
-              <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Aprobacion
-              </button>
-
-              <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('FOLLOW')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Seguimiento
-              </button>
-            </div>
-
-
-
-          </form>
-
-
-
-          <!---------------------------------->
-          <!-------------FORMAT--------------->
-          <!---------------------------------->
-
-          <div *ngIf="isFormat">
-            <!--<ngx-extended-pdf-viewer *ngIf="pdfSrc" [src]="pdfSrc" useBrowserLocale="true" [textLayer]="true"></ngx-extended-pdf-viewer>-->
-            <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
-            <!--<div style="overflow-x:scroll;">
-            <app-file-viewer-excel *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer-excel>
-            </div>-->
-            <!--<app-file-viewer-word *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer-word>-->
-
-            <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
-              <p>
-                Tu navegador no soporta la visualización de PDF. Puedes
-                <a [href]="pdfSrc">descargar el archivo aquí</a>.
-              </p>
-            </object>
-          </div>
-
-          <form *ngIf="isFormat" class="response--container-form-container-form" [formGroup]="formFormat" (ngSubmit)="submit()">
-
-            <h2 class="response--labels">Respuesta a Aprobar</h2>
-            <mat-form-field class="textareaclara" appearance="fill">
-              <mat-label></mat-label>
-              <textarea class="response--fields" matInput formControlName="response" required></textarea>
-            </mat-form-field>
-
-            <!--input files-->
-
-            <div *ngIf="!isDirector" class="dialog--container-form-file-container">
-              <label class="dialog--container-form-file-container-label">
-                <span *ngIf="namesFiles.length > 0;else fileTitle">
-                  <span *ngFor="let file of namesFiles">
-                    {{file}}
-                    <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                  </span>
-                </span>
-
-              </label>
-              <input #fileInput style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile($event)" />
-            </div>
-
-            <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse">
-              <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
-            </div>
-
-            <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse">
-              <h4 class="response--attachs-response-title">Click para descargar los Archivos Adjuntos a la respuesta</h4>
-              <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
-            </div>
-
-
-            <!--chat-->
-
-
-            <div class="response--chat">
-              <div class="response--chat-conatiner">
-                <h2 class="response--chat-conatiner-title">Chat </h2>
-                <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
-                  <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
-                  <h5 class="width-msgs font-400">{{msg.content}}</h5>
-                  <div class="response--chat-conatiner-info">
-
-                    <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
-                  </div>
-                </div>
+              <div class="response--visors-container-visor-excel">
+                <app-file-viewer-excel *ngIf="excelSrc != false" [fileUrl]="excelSrc!.toString()"></app-file-viewer-excel>
               </div>
-              <h2></h2>
-              <div class="response--attachs-response2 flex-resp">
-                <mat-form-field appearance="fill">
-                  <mat-label>Escriba un mensaje</mat-label>
-                  <input matInput formControlName="comments">
-                </mat-form-field>
-                <div *ngIf="!isDirector" class="dialog--container-form-file-container2">
-                  <label class="dialog--container-form-file-container-label2">
-                    <span *ngIf="namesFiles2.length > 0;else fileTitle">
-                      <span *ngFor="let file of namesFiles2">
-                        {{file}}
-                        <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
-                      </span>
-                    </span>
-
-                  </label>
-                  <input #fileInput2 style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile2($event)" />
-                </div>
-                <div class="response--attachs-response" *ngIf="isDirector && !withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para Director</h4>
-                </div>
-
-                <div class="response--attachs-response" *ngIf="isDirector && withAttachResponse2">
-                  <h4 class="response--attachs-response-title">Click para descargar los Archivos para Director</h4>
-                  <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
-                </div>
-              </div>
-
             </div>
+          </div>          
+        </div>
 
+    </div>
 
-            <div class="flex w100 flex-buttons">
-              <button *ngIf="role == 'ANALISTA' || role == 'SUPERUSER'" (click)="sendRevision()" class="response--container-form-container-form-btn" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
+    <div class="resp--container-box4">
+      <h2 class="resp--container-box3-title">Cuerpo del correo</h2>
 
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('OK')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Aprobar
-              </button>
+      <ckeditor *ngIf="Editor"
+        [editor]="Editor"
+        [config]="emailEditorConfig"
+        formControlName="response"
+        style="min-height: 240px;">
+      </ckeditor>
+    </div>
 
-              <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Revisión
-              </button>
+    <div class="resp--container-box5">
+      <h2 *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="resp--container-box3-title">Cuerpo de la carta de respuesta</h2>
+      <div class="resp--container-box5-editor">
+        <ckeditor *ngIf="Editor" 
+          [editor]="Editor" 
+          [config]="editorConfig"
+          [formControl]="bodyControl"
+          style="height: 400px;">
+          
+        </ckeditor>
+        <div *ngIf="role == 'ANALISTA'" class="dialog--container-form-file-container">
+          <label class="dialog--container-form-file-container-label">
+            <span *ngIf="namesFiles.length > 0;else fileTitle">
+              <span *ngFor="let file of namesFiles">
+                {{file}}
+                <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
+              </span>
+            </span>
 
-              <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Aprobacion
-              </button>
+          </label>
+          <input #fileInput style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile($event)" />
+        </div>  
 
-              <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('FOLLOW')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
-                Enviar a Seguimiento
-              </button>
-            </div>
+         <div class="response--attachs-response" *ngIf="role != 'ANALISTA'  && !withAttachResponse">
+          <h4 class="response--attachs-response-title">Respuesta Sin Archivos Adjuntos</h4>
+         </div>
 
-          </form>
-
-
+        <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && withAttachResponse">
+          <h4 class="response--attachs-response-title" >Click para descargar los Archivos Adjuntos a la respuesta</h4>
+          <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile()"></i>
 
         </div>
       </div>
+
+      <div class="resp--container-box5-see">
+        <div *ngIf="(this.pqr != undefined && this.pqr.pqrType.name == 'Queja') && (role != 'MINERO')" class="response--see-container">
+          <i *ngIf="role != 'ANALISTA' && !bodyPdfUrl" (click)="showPdf()" class="bi bi-eye-fill response--see-container-icon"></i>
+          <i *ngIf="role != 'ANALISTA' && bodyPdfUrl" (click)="closePdf()" class="bi bi-eye-slash-fill response--see-container-icon-close"></i>
+        </div>
+        <div *ngIf="bodyPdfUrl" class="response--visor">
+          <object [data]="this.bodyPdfUrl" type="application/pdf" width="100%" height="600px">
+            <p>
+              Tu navegador no soporta la visualización de PDF. Puedes
+              <a [href]="pdfSrc">descargar el archivo aquí</a>.
+            </p>
+          </object>
+
+        </div>
+        
+      </div>
     </div>
+
+    <div class="resp--container-box6">
+      <div class="response--chat">
+        <div class="response--chat-title-container">
+          <h2 class="response--chat-conatiner-title">Chat </h2>
+        </div>
+        <div class="response--chat-conatiner">
+          <div class="relative" *ngFor="let msg of messages" [ngClass]="{'user-class': msg.type === 'USER', 'dir-class': msg.type === 'DIR'}">
+            <h5 class="response--chat-conatiner-info-data absolute name-color">{{msg.sendBy}}</h5>
+            <h5 class="width-msgs font-400">{{msg.content}}</h5>
+            <div class="response--chat-conatiner-info">
+
+              <h5 class="response--chat-conatiner-info-data name-color">{{msg.dateMessage | date: 'dd/MM/yyyy, HH:mm' }}</h5>
+            </div>
+          </div>
+        </div>
+        <h2></h2>
+        <div class="response--attachs-response2 flex-resp">
+          <mat-form-field appearance="fill">
+            <mat-label>Escriba un mensaje</mat-label>
+            <input matInput formControlName="comments">
+          </mat-form-field>
+          <div *ngIf="role == 'ANALISTA'" class="dialog--container-form-file-container2">
+            <label class="dialog--container-form-file-container-label2">
+              <span *ngIf="namesFiles2.length > 0;else fileTitle">
+                <span *ngFor="let file of namesFiles2">
+                  {{file}}
+                  <i (click)="deleteFile(file)" class="bi bi-trash" style="font-size:25px;color:red;cursor:pointer;"></i>,
+                </span>
+              </span>
+
+            </label>
+            <input #fileInput2 style="cursor:pointer;" type="file" class="dialog--container-form-file-container-input" (change)="getFile2($event)" />
+          </div>
+          <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && !withAttachResponse2">
+            <h4 class="response--attachs-response-title">Sin Archivos Adjuntos Para El Chat</h4>
+          </div>
+
+          <div class="response--attachs-response" *ngIf="role != 'ANALISTA' && withAttachResponse2">
+            <h4 class="response--attachs-response-title">Click para descargar los Archivos Para El Chat</h4>
+            <i class="bi bi-cloud-download-fill" style="font-size:25px;cursor:pointer;" (click)="downloadFile2()"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="resp--container-box7">
+      <div class="flex w100 flex-buttons">
+        <!-- ANALISTA -->
+        <button *ngIf="role == 'ANALISTA' || role == 'SUPERUSER'" (click)="sendRevision()" class="response--container-form-container-form-btn" mat-fab extended color="primary">
+          Enviar a Revisión
+        </button>
+
+        <!-- DIR GENERAL -->
+        <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Enviar a Revisión
+        </button>
+
+        <button *ngIf="role == 'DIRGENERAL' || role == 'SUPERUSER'" (click)="openSelect()" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Aprobar
+        </button>
+
+        <!-- COORDINADOR -->
+        <button *ngIf="(role == 'COORDINADOR' || role == 'SUPERUSER') && flow == 'GENERAL'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Enviar a Aprobacion
+        </button>
+
+        <button *ngIf="(role == 'COORDINADOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Enviar a Direccion RRHH
+        </button>
+
+        <button *ngIf="role == 'COORDINADOR' || role == 'SUPERUSER'" (click)="sendFollow('FOLLOW')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Devolver a Seguimiento
+        </button>
+
+        <button *ngIf="role == 'COORDINADOR' && flow == 'COORDINADOR'" (click)="openSelect()" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Aprobar
+        </button>
+
+        <!-- DIR GESTION -->
+
+        <button *ngIf="role == 'DIRGESTION' || role == 'SUPERUSER'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Devolver a Coordinador
+        </button>
+
+        <button *ngIf="(role == 'DIRGESTION' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('DIRCONTRALOR')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Enviar a Contraloría
+        </button>
+
+        <!-- DIR CONTRALOR -->
+        <button *ngIf="(role == 'DIRCONTRALOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('COORD')" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Devolver a Coordinador
+        </button>
+
+        <button *ngIf="(role == 'DIRCONTRALOR' || role == 'SUPERUSER') && flow == 'DIRECTIVO'" (click)="sendFollow('PENDING')" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+          Enviar a Aprobacion
+        </button>
+
+        <!-- SUPERVISOR -->
+
+        <button *ngIf="role == 'SUPERVISOR'" routerLink="/indexSupervisor" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Volver
+        </button>
+
+        <!-- MINERO -->
+
+        <button *ngIf="role == 'MINERO'" routerLink="/indexMiner" class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+          Volver
+        </button>
+
+        
+      </div>
+    </div>
+
+
+
+    </form>
   </div>
-
-  <!-- <div class=""> -->
-    <div *ngIf="history != undefined && history.length > 0" class="history-fixed w20 relative overflow-y-auto scroll-theme dp-hide-resp" data-aos="zoom-in-down">
-      <div class="step--history-container grad-gold absolute">
-        <div class="overflow-y-auto scroll-theme h60vh separation">
-          <div (click)="openDialog(hist.id)" class="step--history-container-card bg-white" *ngFor="let hist of history">
+  <div *ngIf="history != undefined && history.length > 0" class="resp--container-history">
+    <div (click)="openDialog(hist.id)" class="resp--container-history-card bg-white" *ngFor="let hist of history">
             <h5 class="step--history-container-card-text">{{hist.dateReception | date}}</h5>
             <h5 class="step--history-container-card-text">{{hist.userName}}</h5>
             <h5 class="step--history-container-card-text">Tipo: <span style="font-weight:300;">{{hist.pqrType.name}}</span></h5>
             <h5 class="step--history-container-card-text">Estado: <span style="font-weight:300;">{{formatStatus(hist.status)}}</span></h5>
-          </div>
-        </div>
-      </div>
     </div>
-  <!-- </div> -->
-
-</section>
-
+  </div>
+</div>
 
 <ng-template #fileTitle>
   <label> Cargar Archivo</label>
@@ -636,7 +313,7 @@
 
 <div class="back-modal" *ngIf="isLoading">
   <div class="modal-load">
-    <mat-spinner style="color: #126b37;"></mat-spinner>
+    <mat-spinner style="color: #075f47;"></mat-spinner>
     <h2>Enviando Respuesta</h2>
   </div>
 </div>

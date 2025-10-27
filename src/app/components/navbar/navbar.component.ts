@@ -33,8 +33,8 @@ export class NavbarComponent {
   showFiller = false;
   showMenu = false;
   showAdmin = false;
-  textColor = 'white';
-  textColorAdmin = 'white';
+  textColor = '#075f47';
+  textColorAdmin = '#075f47';
   activeButton: string = '';
   currentUrl: string = '';
   actualRole = ""
@@ -62,24 +62,24 @@ export class NavbarComponent {
   showMenuFunc() {
     if (this.showMenu) {
       this.showMenu = false;
-      this.textColor = 'white'
+      this.textColor = '#075f47'
     } else {
       this.showMenu = true;
       this.showAdmin = false;
-      this.textColor = 'black'
-      this.textColorAdmin = 'white'
+      this.textColor = '#057857'
+      this.textColorAdmin = '#075f47'
     }
   }
 
   showAdminFunc() {
     if (this.showAdmin) {
       this.showAdmin = false;
-      this.textColorAdmin = 'white'
+      this.textColorAdmin = '#075f47'
     } else {
       this.showAdmin = true;
       this.showMenu = false;
-      this.textColor = 'white'
-      this.textColorAdmin = 'black'
+      this.textColor = '#075f47'
+      this.textColorAdmin = '#057857'
     }
   }
 

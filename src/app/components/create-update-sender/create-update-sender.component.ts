@@ -5,6 +5,9 @@ import { AccountService } from '../../services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PqrsService } from '../../services/pqrs.service';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
 @Component({
   selector: 'app-create-update-sender',
   templateUrl: './create-update-sender.component.html',
@@ -19,14 +22,16 @@ export class CreateUpdateSenderComponent {
   areas: any;
   subareas: any = 0;
 
-  constructor(private _fb: FormBuilder, private _serviceA: AccountService, private _redirect: Router,
-    private _route: ActivatedRoute, private _serviceT: PqrsService) {
+  constructor(private _fb: FormBuilder,
+    private _serviceA: AccountService,
+    private _serviceT: PqrsService,
+    public dialogRef: MatDialogRef<CreateUpdateSenderComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
 
   ngOnInit(): void {
-    this.ID = Number(this._route.snapshot.paramMap.get("id"));
-    console.log(this.ID);
+    this.ID = this.data.id;
 
     this.formSender = this._fb.group({
       Email: ['', [Validators.required, Validators.pattern('^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$')]],
@@ -35,13 +40,11 @@ export class CreateUpdateSenderComponent {
       PortSMTP: ['', [Validators.required]],
       ServerIMAP: ['', [Validators.required]],
       ServerSMTP: ['', [Validators.required]],
-    })
+    });
 
-    if (this.ID > 0) {
+    if (this.data.isEdit && this.ID > 0) {
       this.getSender(this.ID);
     }
-
-   
   }
 
   getSender(id: number) {
@@ -81,12 +84,11 @@ export class CreateUpdateSenderComponent {
 
       this._serviceT.postSender(this.ID, formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexSenders")
-          Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+         Swal.fire({
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: (error:any) => {
           if (error.error.errors) {
@@ -107,12 +109,11 @@ export class CreateUpdateSenderComponent {
 
       this._serviceT.postSender(undefined, formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexSenders")
           Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: (error: any) => {
           if (error.error.errors) {

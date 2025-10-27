@@ -30,7 +30,8 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
   displayedColumns: string[] = ['id', 'date', 'actions'];
   formPQR2!: FormGroup;
   formPQR3!: FormGroup;
-  dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<any>([]);   // 👈 tipado
+  pageSize = 5;
   services: any[] = [];
   servicesTemp: any[] = [];
   principals: any;
@@ -115,9 +116,9 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
             this.formPQR3.get(`motivo${i}`)!.disable();
 
 
-            this.formPQR3.addControl(`problema${i}`, this._fb.control('', Validators.required));
-            this.formPQR3.get(`problema${i}`)!.setValue(ser.principalId);
-            this.formPQR3.get(`problema${i}`)!.disable();
+            // this.formPQR3.addControl(`problema${i}`, this._fb.control('', Validators.required));
+            // this.formPQR3.get(`problema${i}`)!.setValue(ser.principalId);
+            // this.formPQR3.get(`problema${i}`)!.disable();
 
 
 
@@ -176,7 +177,7 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
             }
             this.formPQR3.addControl(`id${i}`, this._fb.control({ value: '', disabled: true }, Validators.required));
             this.formPQR3.addControl(`motivo${i}`, this._fb.control('', Validators.required));
-            this.formPQR3.addControl(`problema${i}`, this._fb.control('', Validators.required));
+            // this.formPQR3.addControl(`problema${i}`, this._fb.control('', Validators.required));
 
             this.formPQR3.get(`id${i}`)!.setValue(serviceId);
             this.getPricipals();
@@ -198,7 +199,7 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
         this.servicesTemp.splice(index, 1);
         this.formPQR3.removeControl(`id${index}`);
         //this.formPQR3.removeControl(`motivo${index}`);
-        this.formPQR3.removeControl(`problema${index}`);
+        // this.formPQR3.removeControl(`problema${index}`);
       }
 
     }
@@ -307,9 +308,9 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
     
 
     this._serviceP.PostPQR(data).subscribe({
-      next: (data: any) => {
-        console.log(data)
-        this.dataSource.data = data;
+      next: (resp: any) => {
+        this.dataSource.data = resp;
+        this.paginator?.firstPage();
       }
     })
 
@@ -322,7 +323,7 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
     this.services.forEach((ser, i) => {
       data.append(`id${i}`, this.formPQR3.get(`id${i}`)!.value);
       data.append(`motivo${i}`, this.formPQR3.get(`motivo${i}`)!.value.toString().replace("  \r\n",","));
-      data.append(`problema${i}`, this.formPQR3.get(`problema${i}`)!.value);
+      // data.append(`problema${i}`, this.formPQR3.get(`problema${i}`)!.value);
     });
 
     data.append("pqrId", this.formPQR3.get("pqrId")!.value)
@@ -349,9 +350,23 @@ export class AddServicesComponent implements OnInit, AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if (this.paginator) {
+      this.paginator.firstPage();
     }
+  }
+
+  getStatusClass(status: string): string {
+    if (!status) return '';
+    
+    const statusClass = status.toLowerCase().replace(/\s+/g, '-');
+    return `status-${statusClass}`;
+  }
+
+  get pagedData(): any[] {
+    const data = this.dataSource.filteredData ?? [];
+    const size = this.paginator?.pageSize ?? this.pageSize;
+    const index = (this.paginator?.pageIndex ?? 0) * size;
+    return data.slice(index, index + size);
   }
 
 }

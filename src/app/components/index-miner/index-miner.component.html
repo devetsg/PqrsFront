@@ -68,16 +68,16 @@
                   class="row-odd">
                 <div class="step2--container-table-data-container">
                   <div style="display:flex;gap: 10px;align-items:center;">
-                    <button [matMenuTriggerFor]="menu" mat-icon-button>
+                    <button [matMenuTriggerFor]="menu" mat-icon-button class="btn-actions" style="display:flex;border-radius:5px;">
                       <mat-icon>more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
                       <button mat-menu-item routerLink="/responsePqr/{{row.id}}">
-                        <i class="bi bi-eye-fill" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                        <i class="bi bi-eye-fill" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                         <span>Ver PQR</span>
                       </button>
                       <button mat-menu-item (click)="openDialog(row.id)">
-                        <i class="bi bi-folder2" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                        <i class="bi bi-folder2" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                         <span>Adjuntar Datos</span>
                       </button>
                     </mat-menu>

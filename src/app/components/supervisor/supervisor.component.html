@@ -168,7 +168,7 @@
                 <ng-container *ngIf="row.statusMiner === 'MINING'; else miningElse">
 
                   <ng-container *ngIf="row.statusMiner === 'MINING'; else noAplica">
-                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-database-fill-check"></i> -->
+                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#075f47 ;" class="bi bi-database-fill-check"></i> -->
                     <div *ngIf="row.status == 'MINING'" class="step2--container-table-data-container new-btn">
                       <div style="display:flex;gap: 10px;align-items:center;">
                         <button class="center-buttons c-button c-button--gooey" style="display:flex;border-radius:5px;" [matMenuTriggerFor]="menu" mat-icon-button>
@@ -182,17 +182,17 @@
 
                         <mat-menu #menu="matMenu">
                           <button (click)="openDialogMiner(row.id,'TS')" *ngIf="row.observationTs != null && row.observationTs.length > 0" mat-menu-item>
-                            <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                            <i class="bi bi-car-front" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
                             <span>Transporte</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.observationFac != null && row.observationFac.length > 0" mat-menu-item>
-                            <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-bank" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
                             <span>Facturacion</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.observationOp != null && row.observationOp.length > 0" mat-menu-item>
-                            <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-headset" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
                             <span>Operacion</span>
                           </button>
@@ -204,7 +204,7 @@
                 </ng-container>
                 <ng-template #miningElse>
                   <ng-container *ngIf="row.statusMiner === 'MINED'; else noAplica">
-                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-database-fill-check"></i> -->
+                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#075f47 ;" class="bi bi-database-fill-check"></i> -->
                     <div *ngIf="row.status != 'MINING'" class="step2--container-table-data-container new-btn">
                       <div style="display:flex;gap: 10px;align-items:center;">
                         <button class="center-buttons c-button c-button--gooey" style="display:flex;border-radius:5px;" [matMenuTriggerFor]="menu" mat-icon-button>
@@ -217,17 +217,17 @@
                         </button>
                         <mat-menu #menu="matMenu">
                           <button (click)="openDialogMiner(row.id,'TS')" *ngIf="row.minerUrlsTs != null && row.minerUrlsTs.length > 0" mat-menu-item>
-                            <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                            <i class="bi bi-car-front" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
                             <span>Transporte</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.minerUrlsFac != null && row.minerUrlsFac.length > 0" mat-menu-item>
-                            <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-bank" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
                             <span>Facturacion</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.minerUrlsOp != null && row.minerUrlsOp.length > 0" mat-menu-item>
-                            <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-headset" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                                matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
                             <span>Operacion</span>
                           </button>
@@ -249,7 +249,7 @@
               class="row-odd">
   
                 <div routerLink="/responsePqr/{{row.id}}"  style="width: max-content; padding: 10px 15px;">
-                    <i class="bi bi-search" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                    <i class="bi bi-search" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                   </div>
                 
               </td>

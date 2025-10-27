@@ -1,40 +1,26 @@
-<div class="create">
-  <div class="create--container">
-    <div class="create--container-div1">
-      <div class="create--container-div1-texts">
-        <h2 class="create--container-div1-texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} Tipo</h2>
-      </div>
-      <div class="create--container-div1-form-container">
-        <form class="create--container-div1-form-container-form" [formGroup]="formType" (ngSubmit)="submit()">
+<h2 class="cre-title" mat-dialog-title>{{data.isEdit ? 'Actualizar' : 'Crear'}} Tipo</h2>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Nombre del Medio</mat-label>
-            <input class="" matInput formControlName="name">
-          </mat-form-field>
+<mat-dialog-content>
+  <form [formGroup]="formType" (ngSubmit)="submit()">
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Nombre del Medio</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Tipo de Flujo</mat-label>
+      <mat-select formControlName="flow">
+        <mat-option *ngFor="let flow of DataFlows" [value]="flow.value">
+          {{flow.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
 
-          <mat-form-field>
-            <mat-label>Tipo de Flujo</mat-label>
-            <mat-select formControlName="flow">
-              <mat-option *ngFor="let flow of DataFlows" [value]="flow.value">{{flow.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-
-          <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary" *ngIf="ID > 0;else createbutton">
-            {{'Actualizar'}} Tipo
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="create--container-div2">
-      <img class="create--container-div2-img" src="../../../assets/images/sgFelicita.png" />
-    </div>
-  </div>
-</div>
-
-<ng-template #createtitle>
-  <h1 class="create--container-div1-texts-title">Crear Tipo</h1>
-</ng-template>
-<ng-template #createbutton>
-  <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary">Crear Tipo</button>
-</ng-template>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button class="cre-btn" mat-raised-button color="primary" (click)="submit()">
+    {{data.isEdit ? 'Actualizar' : 'Crear'}} Tipo
+  </button>
+</mat-dialog-actions>

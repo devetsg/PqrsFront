@@ -8,7 +8,7 @@
         <mat-label>Filter</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
       </mat-form-field>
-      <button routerLink="/createUpdateType" class="step2--container-index-btn" mat-fab extended color="primary">
+      <button (click)="openCreateDialog()" class="step2--container-index-btn" mat-fab extended color="primary">
         Agregar Tipo
       </button>
     </div>
@@ -46,7 +46,7 @@
             </th>
             <td mat-cell *matCellDef="let row">
               <div class="flex">
-                <i routerLink="/createUpdateType/{{row.id}}" class="bi bi-pencil" style="font-size:25px;color:blue;cursor:pointer;margin-right:20px;"></i>
+                <i (click)="openEditDialog(row.id)" class="bi bi-pencil" style="font-size:25px;color:blue;cursor:pointer;margin-right:20px;"></i>
                 <i class="bi bi-trash" (click)="deleteType(row.id)" style="font-size:25px;color:red;cursor:pointer;"></i>
               </div>
             </td>

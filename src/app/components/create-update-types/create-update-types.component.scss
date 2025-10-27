@@ -1,0 +1,19 @@
+@import "../../../styles.scss";
+
+
+.cre{
+
+    &-title{
+        font: $font;
+        background: $greenTSG;
+        margin-bottom: 1rem;
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    &-btn{
+        background-color: $greenTSG;
+        color: #fff;
+    }
+}

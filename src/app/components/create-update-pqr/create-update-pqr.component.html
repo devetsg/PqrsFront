@@ -1,10 +1,9 @@
-<div class="create--container">
+<!-- <div class="create--container">
   <div class="create--container-texts">
     <h2 class="create--container-texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} PQR</h2>
   </div>
   <div class="create--container-form-container">
     <form class="create--container-form-container-form" [formGroup]="formPQR" (ngSubmit)="submit()" (reset)="onResetForm()">
-      <!-- <mat-grid-list cols="6" rowHeight="5:2" gutterSize="1%"> -->
         <div class="grid"> 
 
           <div class="grid1">
@@ -47,7 +46,6 @@
             <mat-form-field>
               <mat-label>Fecha de correo recibido</mat-label>
               <input matInput type="datetime" [matDatepicker]="picker1" formControlName="dateReception">
-              <!-- <mat-hint>DD/MM/YYYY</mat-hint> -->
               <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
@@ -59,7 +57,7 @@
               <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="hour">
               <ngx-material-timepicker #picker></ngx-material-timepicker>
             </mat-form-field>
-          </div>
+          </div> -->
 
 
         
@@ -72,7 +70,7 @@
 
           
           
-          <div class="grid1">
+          <!-- <div class="grid1">
             <mat-form-field>
               <input type="text" matInput  [formControl]="usersControl" [matAutocomplete]="autoUser" placeholder="Numero de documento" #input>
               <mat-autocomplete #autoUser="matAutocomplete">
@@ -99,7 +97,7 @@
               <mat-label>Nombre del Usuario</mat-label>
               <input matInput formControlName="name">
             </mat-form-field>
-          </div>
+          </div> -->
 
             
 
@@ -109,7 +107,7 @@
           <!--------------------------------------------------------------->
           <!--------------------------------------------------------------->
 
-          <div class="grid1">
+          <!-- <div class="grid1">
             <mat-form-field class="example-full-width">
               <mat-label>ID Usuario</mat-label>
               <input matInput formControlName="userId">
@@ -179,10 +177,7 @@
                 <mat-checkbox formControlName="isMinerOp" (change)="onCheckboxChangeMiner($event,'minerOp')" class="example-margin">Operativa</mat-checkbox>
                 <mat-checkbox formControlName="isMinerTs" (change)="onCheckboxChangeMiner($event,'minerTs')" class="example-margin">Transporte</mat-checkbox>
                 <mat-checkbox formControlName="isMinerFac" (change)="onCheckboxChangeMiner($event,'minerFac')" class="example-margin">Facturacion</mat-checkbox>
-                <!-- <label for="numero" class="form-label"
-                *ngIf="isMinerTs || isMinerOp || isMinerFac">* Intervalo de Notificacion(hrs):</label>
-                <input type="number" id="numero" formControlName="interval" name="numero" class="form-input" min="1" max="12"
-                *ngIf="isMinerTs || isMinerOp || isMinerFac"> -->
+
               </div>
             </div>
           </div>
@@ -243,7 +238,7 @@
           </div>
 
         </div>
-      <!-- </mat-grid-list> -->
+
     </form>
   </div>
 </div>
@@ -254,7 +249,7 @@
 
 <mat-grid-list cols="1" rowHeight="6:0.5">
   <div style="text-align: center;">
-    <i class="bi bi-cloud-download-fill" style="font-size:60px;cursor:pointer;color:#126b37;" *ngIf="containFile" (click)="downloadFile()"></i>
+    <i class="bi bi-cloud-download-fill" style="font-size:60px;cursor:pointer;color:#075f47;" *ngIf="containFile" (click)="downloadFile()"></i>
   </div>
 </mat-grid-list>
 
@@ -275,4 +270,260 @@
 
 <ng-template #fileTitle>
   <label> Cargar Archivo</label>
+</ng-template> -->
+
+
+<div class="pqr-container">
+  <div class="pqr-header">
+    <h1 class="pqr-title" *ngIf="ID > 0;else createtitle">Actualizar PQR</h1>
+  </div>
+
+  <div class="pqr-card">
+    <form class="pqr-form" [formGroup]="formPQR" (ngSubmit)="submit()" (reset)="onResetForm()">
+
+      <!-- Upload de archivos -->
+      <div class="pqr-upload-section">
+        <div class="pqr-upload-area">
+          <div class="pqr-upload-content">
+            <mat-icon class="pqr-upload-icon">cloud_upload</mat-icon>
+            <div class="pqr-upload-text">
+              <span class="pqr-upload-title">Cargar Archivo</span>
+              <span class="pqr-upload-subtitle">Arrastra y suelta o haz clic para subir</span>
+            </div>
+            <input #fileInput type="file" class="pqr-upload-input" (change)="getFile($event)" />
+          </div>
+          
+          <!-- Lista de archivos -->
+          <div *ngIf="namesFiles.length > 0" class="pqr-files-list">
+            <div *ngFor="let file of namesFiles" class="pqr-file-item">
+              <span>{{file}}</span>
+              <mat-icon (click)="deleteFile(file)" class="pqr-file-delete">delete</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Primera fila de campos principales -->
+      <div class="pqr-grid-main">
+        
+        <div class="pqr-field">
+          <mat-form-field appearance="outline" class="pqr-form-field">
+            <mat-label>Medio de Radicación</mat-label>
+            <mat-select formControlName="means">
+              <mat-option *ngFor="let mean of means" [value]="mean.id">{{mean.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="pqr-field">
+          <mat-form-field appearance="outline" class="pqr-form-field">
+            <mat-label>Tipo de PQR</mat-label>
+            <mat-select formControlName="pqrType">
+              <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="pqr-field">
+          <form [formGroup]="formRegional">
+            <mat-form-field appearance="outline" class="pqr-form-field">
+              <mat-label>Regional</mat-label>
+              <input type="text" matInput formControlName="regionalControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let reg of filteredRegionals | async" [value]="reg.name">
+                  {{ reg.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+        </div>
+
+        <div class="pqr-field">
+          <mat-form-field appearance="outline" class="pqr-form-field">
+            <mat-label>Fecha de correo recibido</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName="dateReception">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="pqr-field">
+          <mat-form-field appearance="outline" class="pqr-form-field">
+            <mat-label>Hora de correo recibido</mat-label>
+            <input matInput [ngxTimepicker]="picker" [format]="24" formControlName="hour">
+            <ngx-material-timepicker #picker></ngx-material-timepicker>
+          </mat-form-field>
+        </div>
+
+        <!-- Campo de documento que faltaba en la primera fila -->
+        <div class="pqr-field">
+          <mat-form-field appearance="outline" class="pqr-form-field">
+            <mat-label>Número de documento*</mat-label>
+            <input type="text" matInput [formControl]="usersControl" [matAutocomplete]="autoUser" #input>
+            <mat-autocomplete #autoUser="matAutocomplete">
+              <mat-option (click)="onCheckboxChangeUser(usr.numeroDocumento)" *ngFor="let usr of finalUsers | async" [value]="usr.numeroDocumento">
+                {{ usr.numeroDocumento }} - {{usr.primerNombre}} {{usr.primerApellido}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <!-- Panel de información del usuario -->
+      <div class="pqr-user-info">
+        <div class="pqr-grid-info">
+          
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Tipo de Documento</mat-label>
+              <mat-select formControlName="documentType">
+                <mat-option *ngFor="let type of typesdoc" [value]="type.nombre">{{type.nombre}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Nombre del Usuario</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>ID Usuario</mat-label>
+              <input matInput formControlName="userId">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Estado</mat-label>
+              <input matInput formControlName="state">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Criticidad</mat-label>
+              <input matInput formControlName="criticity">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Teléfono Celular 1</mat-label>
+              <input matInput formControlName="phone1">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>Teléfono Celular 2</mat-label>
+              <input matInput formControlName="phone2">
+            </mat-form-field>
+          </div>
+
+          <div class="pqr-info-item">
+            <mat-form-field appearance="outline" class="pqr-form-field-readonly">
+              <mat-label>WhatsApp</mat-label>
+              <input matInput formControlName="whatsapp">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="pqr-field-full">
+        <mat-form-field appearance="outline" class="pqr-form-field-full">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput formControlName="observaciones" rows="3" placeholder="No Aplica"></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Checkboxes -->
+      <div class="pqr-checkbox-section">
+        
+        <div class="pqr-checkbox-group">
+          <h3 class="pqr-checkbox-title">Tipo de archivo a adjuntar*</h3>
+          <div class="pqr-checkbox-items">
+            <mat-checkbox formControlName="isAudio" (change)="onCheckboxChange($event,'audio')" class="pqr-checkbox">Audio</mat-checkbox>
+            <mat-checkbox formControlName="isEmail" (change)="onCheckboxChange($event,'email')" class="pqr-checkbox">Correo</mat-checkbox>
+            <mat-checkbox formControlName="isFormat" (change)="onCheckboxChange($event,'format')" class="pqr-checkbox">Excel</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="pqr-checkbox-group">
+          <h3 class="pqr-checkbox-title">Solicitar Trazabilidad*</h3>
+          <div class="pqr-checkbox-items">
+            <mat-checkbox formControlName="isMinerOp" (change)="onCheckboxChangeMiner($event,'minerOp')" class="pqr-checkbox">Operativa</mat-checkbox>
+            <mat-checkbox formControlName="isMinerTs" (change)="onCheckboxChangeMiner($event,'minerTs')" class="pqr-checkbox">Transporte</mat-checkbox>
+            <mat-checkbox formControlName="isMinerFac" (change)="onCheckboxChangeMiner($event,'minerFac')" class="pqr-checkbox">Facturación</mat-checkbox>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Campos condicionales de observación -->
+      <div class="pqr-conditional-fields">
+        <div *ngIf="isMinerOp" class="pqr-field-conditional">
+          <mat-form-field appearance="outline" class="pqr-form-field-conditional">
+            <mat-label>Observación para Operación</mat-label>
+            <textarea matInput formControlName="observationOp"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="isMinerTs" class="pqr-field-conditional">
+          <mat-form-field appearance="outline" class="pqr-form-field-conditional">
+            <mat-label>Observación para Transporte</mat-label>
+            <textarea matInput formControlName="observationTs"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="isMinerFac" class="pqr-field-conditional">
+          <mat-form-field appearance="outline" class="pqr-form-field-conditional">
+            <mat-label>Observación para Facturación</mat-label>
+            <textarea matInput formControlName="observationFac"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      
+
+      <!-- Botones -->
+      <div class="pqr-actions">
+        <button type="reset" mat-raised-button class="pqr-btn-cancel">
+          Cancelar
+        </button>
+        
+        <button type="submit" mat-raised-button color="primary" class="pqr-btn-submit" 
+                *ngIf="ID > 0;else createbutton"
+                [ngClass]="{'pqr-btn-disabled': !isFile}" 
+                [disabled]="!isFile">
+          Actualizar PQR
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- Download section -->
+<div class="pqr-download-section" *ngIf="containFile">
+  <mat-icon class="pqr-download-icon" (click)="downloadFile()">cloud_download</mat-icon>
+</div>
+
+<!-- Templates -->
+<ng-template #createtitle>
+  <h1 class="pqr-title">Crear PQR</h1>
+</ng-template>
+
+<ng-template #createbutton>
+  <button type="submit" mat-raised-button color="primary" class="pqr-btn-submit"
+          [ngClass]="{'pqr-btn-disabled': !isFile}" 
+          [disabled]="!isFile">
+    Crear PQR
+  </button>
 </ng-template>

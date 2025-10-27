@@ -204,7 +204,8 @@ export class ShowMinerComponent implements OnInit {
       'audio/mpeg': 'mp3',
       'audio/ogg': 'ogg',
       'audio/wav': 'wav',
-      'audio/aac': 'aac'
+      'audio/aac': 'aac',
+      'audio/gsm': 'gsm'
       // Agrega otros tipos MIME según sea necesario
     };
     
@@ -216,23 +217,24 @@ export class ShowMinerComponent implements OnInit {
     const fileExtension = name.split('.').pop();
     this.audioName = this.truncateFilename(name.replace('Resources/Attach/', ''),20);
     if (fileExtension === 'pdf') {
-      let url = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      let url = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
       this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.excelSrc = false
       this.isAudio = false
       this.isOpen = true
     } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
       this.pdfSrc = false;
-      this.excelSrc = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      this.excelSrc = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
       this.isOpen = true
     }else if(fileExtension == 'mp3' || fileExtension == 'ogg'
-      || fileExtension == 'wav'|| fileExtension == 'acc'
+      || fileExtension == 'wav'|| fileExtension == 'acc'|| fileExtension == 'gsm'
     ){
       this.isAudio = true;
       this.excelSrc = false
       this.pdfSrc = false;
-
-      this.audioUrl ="https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      console.log(name)
+      // this.audioUrl ="https://localhost:44369/files/" + name.replace("Resources\\Attach\\", "");
+      this.audioUrl ="http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
       this.sound = new Howl({
         src: [this.audioUrl],
         format: [this.getFormatFromType(fileExtension!)], // Ajusta el formato según el tipo de archivo
@@ -246,43 +248,42 @@ export class ShowMinerComponent implements OnInit {
   }
 
   submit(){
-      let data = new FormData();
-      data.append("isMinerOp", this.formMinner.get("isMinerOp")!.value);
-      data.append("isMinerTs", this.formMinner.get("isMinerTs")!.value);
-      data.append("isMinerFac", this.formMinner.get("isMinerFac")!.value);
-  
-      data.append("observationOp", this.formMinner.get("observationOp")!.value);
-      data.append("observationTs", this.formMinner.get("observationTs")!.value);
-      data.append("observationFac", this.formMinner.get("observationFac")!.value);
-      data.append("id", this.data.id);
-    
-      if(this.formMinner.get("observationOp")!.value.length < 1 ||
-         this.formMinner.get("observationOp")!.value.length < 1 ||
-         this.formMinner.get("observationOp")!.value.length < 1){          
-         Swal.fire({
-            icon: 'warning',
-            title: 'Porfavor Complete los campos obligatorios'
-        })
-          return;
-      }
+    let data = new FormData();
+    data.append("isMinerOp", this.formMinner.get("isMinerOp")!.value);
+    data.append("isMinerTs", this.formMinner.get("isMinerTs")!.value);
+    data.append("isMinerFac", this.formMinner.get("isMinerFac")!.value);
 
-      this._serviceP.sendToMiner(data).subscribe({
-        next:(data:any)=>{
-          Swal.fire({
-            icon:'success',
-            title: data.message,
-            showCancelButton: false,
-            showConfirmButton:false,
-            showCloseButton:true,
-            allowOutsideClick:false
-          }).then((result)=> {
-            if(result.dismiss){
-              this.dialogRef.close()
-            }
-          })
+    data.append("observationOp", this.formMinner.get("observationOp")!.value);
+    data.append("observationTs", this.formMinner.get("observationTs")!.value);
+    data.append("observationFac", this.formMinner.get("observationFac")!.value);
+    data.append("id", this.data.id);
   
-          
-        }
+    // ✅ CORRECTO - Valida según el área activa
+    if((this.isMinerOp && this.formMinner.get("observationOp")!.value.length < 1) ||
+       (this.isMinerTs && this.formMinner.get("observationTs")!.value.length < 1) ||
+       (this.isMinerFac && this.formMinner.get("observationFac")!.value.length < 1)){          
+       Swal.fire({
+          icon: 'warning',
+          title: 'Porfavor Complete los campos obligatorios'
       })
+        return;
     }
+
+    this._serviceP.sendToMiner(data).subscribe({
+      next:(data:any)=>{
+        Swal.fire({
+          icon:'success',
+          title: data.message,
+          showCancelButton: false,
+          showConfirmButton:false,
+          showCloseButton:true,
+          allowOutsideClick:false
+        }).then((result)=> {
+          if(result.dismiss){
+            this.dialogRef.close()
+          }
+        })
+      }
+    })
+}
 }

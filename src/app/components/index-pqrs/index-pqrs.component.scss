@@ -18,7 +18,7 @@
     
     &-index {
       &-btn {
-        background: #126b37 !important;
+        background: #075f47 !important;
         z-index: 0;
       }
 
@@ -73,4 +73,94 @@
 .editing-row {
   opacity: 0.2;
   pointer-events: none;
+}
+
+.index{
+  padding: 5rem 3rem 2rem;
+  background: #f3f4f6;
+
+  &--container{
+  
+    &-banner-top{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &-filters{}
+
+    &-btn{}
+
+    &-table{
+      background: #fff;
+      border-radius: 7px;
+      padding: 1rem 0;
+    }
+    &-table{
+      background: #fff;
+      border-radius: 7px;
+    }
+
+  }
+}
+
+/* Barra contenedora */
+.chipbar { display: flex; align-items: center; gap: 12px; }
+
+.chipbar__group {
+  display: flex; gap: 12px; border: 0; box-shadow: none;
+  .mat-button-toggle + .mat-button-toggle { margin-left: 0; }
+}
+
+/* Chip base (sin fondo) */
+.chip,
+.mat-button-toggle.chip {
+  --green: #16a34a;         /* verde */
+  --green-bg: #dcfce7;      /* fondo verde claro */
+  --text: #64748b;
+  --text-hover: #0f172a;
+
+  /* 🔸 quita los !important aquí */
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  padding: 6px 10px;
+  line-height: 1;
+  border-radius: 7px;
+  font-weight: 500;
+  cursor: pointer;
+  min-height: auto;
+
+  &:hover { color: var(--text-hover); }
+  &:active { color: var(--text-hover); }
+
+  .mat-ripple-element { display: none !important; }
+
+  .chip__label {
+    position: relative; display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  /* ✅ Estado ACTIVO */
+  &.mat-button-toggle-checked,
+  &.mat-button-toggle-checked .mat-button-toggle-button {
+    background: var(--green-bg) !important;   /* fondo verde claro */
+    color: var(--green) !important;           /* texto verde */
+    border-radius: 7px;
+  }
+
+  
+
+  /* Botón de icono Edit */
+  &.chip--icon {
+    display: inline-flex; align-items: center; gap: 6px; padding: 0;margin-bottom:7px;color:red;
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+    &:not([disabled]):hover { color: var(--text-hover); }
+    &:disabled { opacity: .25; pointer-events: none; }
+  }
+}
+
+/* Accesibilidad/teclado */
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content { padding: 0; }
+.btn-actions{
+  background-color: $greenTSG;
 }

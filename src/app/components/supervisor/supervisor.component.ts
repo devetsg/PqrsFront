@@ -236,8 +236,8 @@ export class SupervisorComponent {
     //   showCancelButton:true,
     //   confirmButtonText:'Operación',
     //   cancelButtonText:'Transporte',
-    //   confirmButtonColor:'#126b37',
-    //   cancelButtonColor:'#126b37'
+    //   confirmButtonColor:'#075f47',
+    //   cancelButtonColor:'#075f47'
     // }).then((response)=>{
     //   if(response.isConfirmed){
     //     this._serviceP.messageMinersOp().subscribe();

@@ -1,33 +1,17 @@
-<div class="create">
-  <div class="create--container">
-    <div class="create--container-div1">
-      <div class="create--container-div1-texts">
-        <h2 class="create--container-div1-texts-title" *ngIf="ID > 0;else createtitle">{{'Actualizar'}} Medio</h2>
-      </div>
-      <div class="create--container-div1-form-container">
-        <form class="create--container-div1-form-container-form" [formGroup]="formMean" (ngSubmit)="submit()">
+<h2 class="cre-title" mat-dialog-title>{{data.isEdit ? 'Actualizar' : 'Crear'}} Medio</h2>
 
-          <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
-            <mat-label>Nombre del Medio</mat-label>
-            <input class="" matInput formControlName="name">
-          </mat-form-field>
+<mat-dialog-content>
+  <form [formGroup]="formMean" (ngSubmit)="submit()">
+    <mat-form-field class="create--container-div1-form-container-form-field" appearance="fill">
+      <mat-label>Nombre del Medio</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
 
-
-          <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary" *ngIf="ID > 0;else createbutton">
-            {{'Actualizar'}} Medio
-          </button>
-        </form>
-      </div>
-    </div>
-    <div class="create--container-div2">
-      <img class="create--container-div2-img" src="../../../assets/images/sgFelicita.png" />
-    </div>
-  </div>
-</div>
-
-<ng-template #createtitle>
-  <h1 class="create--container-div1-texts-title">Crear Medio</h1>
-</ng-template>
-<ng-template #createbutton>
-  <button type="submit" class="create--container-div1-form-container-form-btn" mat-fab extended color="primary">Crear Medio</button>
-</ng-template>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button class="cre-btn" mat-raised-button color="primary" (click)="submit()">
+    {{data.isEdit ? 'Actualizar' : 'Crear'}} Medio
+  </button>
+</mat-dialog-actions>

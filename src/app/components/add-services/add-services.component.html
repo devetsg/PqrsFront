@@ -3,7 +3,7 @@
 <!--------------------------------------------------------------->
 <!--------------------------------------------------------------->
 
-
+<!-- 
 <div class="step2">
   <div class="step2--container" >
     <div class="step2--container-texts">
@@ -29,12 +29,6 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
 
-            <!--@if (range.controls.start.hasError('matStartDateInvalid')) {
-            <mat-error>Invalid start date</mat-error>
-            }
-            @if (range.controls.end.hasError('matEndDateInvalid')) {
-            <mat-error>Invalid end date</mat-error>
-            }-->
           </mat-form-field>
         </mat-grid-tile>
 
@@ -49,7 +43,7 @@
       </mat-grid-list>
     </form>
 
-    <!-- TABLE SERVICES-->
+
     <mat-form-field>
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
@@ -88,7 +82,7 @@
                   <h2 class="step2--container-table-data-2"> {{row.destinyNameDir}}</h2>
                 </div>
                 <div>
-                  <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #126b37; "></i>
+                  <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #075f47; "></i>
                 </div>
               </div>
             </div>
@@ -101,7 +95,7 @@
           <th class="row-even"   mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let row">
             <mat-checkbox [id]="row.id" [(ngModel)]="checkboxesState[row.id]" style="" (change)="onCheckboxChange($event,row.id)" class="example-margin"></mat-checkbox>
-            <!--<i (click)="getDetails(row.serviceId)" class="bi bi-info-square-fill" style="cursor:pointer;width: 100px;"></i>-->
+            
           </td>
         </ng-container>
 
@@ -110,7 +104,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <!-- Row shown when there is no matching data. -->
+       
         <tr class="mat-row" *matNoDataRow>
           <td class="mat-cell row-odd" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
@@ -128,7 +122,7 @@
               <h2 class="step2--container-table-data"> <strong>Fecha Recogida: </strong>{{splitDate(ser.dateCollection)}}</h2>
               <h2 class="step2--container-table-data"> <strong>Fecha Servicio: </strong>{{splitDate(ser.dateService)}}</h2>
             </div>
-            <i (click)="deleteRelation(ser.id)" style="font-size: 30px; color: #126b37;cursor:pointer; " class="bi bi-x-circle"></i>
+            <i (click)="deleteRelation(ser.id)" style="font-size: 30px; color: #075f47;cursor:pointer; " class="bi bi-x-circle"></i>
           </div>
 
           <h2 class="step2--container-table-data"> <strong>Cliente: </strong>{{ser.cliente}}</h2>
@@ -144,7 +138,7 @@
               <h2 class="step2--container-table-data-2"> {{ser.destinyNameDir}}</h2>
             </div>
             <div>
-              <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #126b37; "></i>
+              <i class="bi bi-geo-alt-fill" style="font-size: 30px; color: #075f47; "></i>
             </div>
           </div>
 
@@ -191,4 +185,337 @@
   </div>
 
 
+</div> -->
+
+<div class="services-assignment">
+  <div class="services-container">
+    
+    <!-- Header -->
+    <header class="services-header">
+      <h1 class="services-title">Asignación de Servicios</h1>
+    </header>
+
+    <!-- Form Section -->
+    <div class="services-form-card">
+      <form [formGroup]="formPQR2" (ngSubmit)="submit2()" class="services-form">
+        <div class="form-grid">
+          
+          <div class="form-field">
+            <mat-form-field class="full-width">
+              <mat-label>Número de Documento</mat-label>
+              <input matInput formControlName="documentNumber">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field">
+            <mat-form-field class="full-width">
+              <mat-label>Rango de fechas</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+              </mat-date-range-input>
+              <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+
+          <div class="form-buttons">
+            <button class="btn-primary" type="submit" mat-flat-button>
+              Consultar servicios
+            </button>
+            <button class="btn-secondary" type="button" (click)="back()" mat-flat-button>
+              Omitir
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    <div class="results-card">
+      
+      <!-- Results Header with Filter -->
+      <div class="results-header">
+        <h2 class="results-title">Resultados</h2>
+        <div class="filter-container">
+          <mat-form-field class="filter-field">
+            <mat-label>Filtrar resultados...</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Services Cards -->
+      <div class="services-cards">
+        
+        <!-- Card per service -->
+        <div class="service-card" *ngFor="let service of pagedData">
+          
+          <div class="card-content">
+            
+            <!-- Left Section: Dates and ID -->
+            <div class="card-dates">
+              <p class="service-id">ID: <span class="id-number">{{$any(service).id}}</span></p>
+              
+              <div class="date-info">
+                <p class="date-label">Fecha Recogida:</p>
+                <p class="date-value">{{splitDate($any(service).dateCollection)}}</p>
+              </div>
+              
+              <div class="date-info">
+                <p class="date-label">Fecha Servicio:</p>
+                <p class="date-value">{{splitDate($any(service).dateService)}}</p>
+              </div>
+            </div>
+
+            <!-- Middle Section: Service Details -->
+            <div class="card-details">
+              <div class="detail-item">
+                <span class="detail-label">Cliente:</span>
+                <span class="detail-value">{{$any(service).cliente}}</span>
+              </div>
+              
+              <div class="detail-item">
+                <span class="detail-label">Usuario:</span>
+                <span class="detail-value">{{$any(service).userName}}</span>
+              </div>
+              
+              <div class="detail-item">
+                <span class="detail-label">Estado:</span>
+                <span class="status-badge" [ngClass]="getStatusClass($any(service).status)">
+                  {{$any(service).status}}
+                </span>
+              </div>
+              
+              <div class="detail-item">
+                <span class="detail-label">Criticidad:</span>
+                <span class="detail-value">{{$any(service).criticity}}</span>
+              </div>
+              
+              <div class="detail-item">
+                <span class="detail-label">Procedimiento:</span>
+                <span class="detail-value">{{$any(service).procedimient}}</span>
+              </div>
+            </div>
+
+            <!-- Right Section: Locations -->
+            <div class="card-locations">
+              <div class="location-section">
+                <div class="location-info">
+                  <p class="location-label">Origen:</p>
+                  <p class="location-address">{{$any(service).originDepCity}}</p>
+                  <p class="location-address">{{$any(service).originNameDir}}</p>
+                </div>
+                
+                <div class="location-info">
+                  <p class="location-label">Destino:</p>
+                  <p class="location-address">{{$any(service).destinyDepCity}}</p>
+                  <p class="location-address">{{$any(service).destinyNameDir}}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="card-actions">
+              <mat-icon class="location-icon">place</mat-icon>
+              <mat-checkbox 
+                [id]="$any(service).id" 
+                [(ngModel)]="checkboxesState[$any(service).id]" 
+                (change)="onCheckboxChange($event, $any(service).id)"
+                class="service-checkbox">
+              </mat-checkbox>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- No Data Message -->
+        <div class="no-data" *ngIf="dataSource.filteredData.length === 0">
+          <mat-icon style="font-size: 3rem;color: #9ca3af;margin-bottom: 8px;width: min-content;height: min-content;">
+            event
+          </mat-icon>
+          <p style="color: #6b7280; font-size: 15px; margin: 0; text-align: center;">
+            Seleccione un rango de fechas y haga clic en 
+            <strong style="color:#374151;">Consultar servicios</strong>
+            para ver resultados.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <mat-paginator
+        class="services-paginator"
+        [length]="dataSource.filteredData.length"  
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        showFirstLastButtons>
+      </mat-paginator>
+
+    </div>
+
+  </div>
+  <div class="service-details" *ngIf="services != undefined && services.length > 0">
+  
+    <form class="service-details-form" [formGroup]="formPQR3" (ngSubmit)="submitPQR()">
+      
+      <!-- Services Grid -->
+      <div class="services-grid">
+        
+        <!-- Service Detail Card -->
+        <div class="service-detail-card" *ngFor="let ser of services; let i = index">
+          
+          <!-- Card Header -->
+          <header class="card-header">
+            <div class="header-info">
+              <h2 class="card-title">Detalles del Servicio</h2>
+              <p class="service-id">ID Service: {{ser.id}}</p>
+            </div>
+            <button 
+              type="button" 
+              (click)="deleteRelation(ser.id)" 
+              class="close-button"
+              aria-label="Cerrar servicio">
+              <mat-icon>close</mat-icon>
+            </button>
+          </header>
+
+          <!-- Service Information Grid -->
+          <div class="service-info-grid">
+            <div class="info-item">
+              <p class="info-label">Fecha Recogida:</p>
+              <p class="info-value">{{splitDate(ser.dateCollection)}}</p>
+            </div>
+            
+            <div class="info-item">
+              <p class="info-label">Fecha Servicio:</p>
+              <p class="info-value">{{splitDate(ser.dateService)}}</p>
+            </div>
+            
+            <div class="info-item">
+              <p class="info-label">Cliente:</p>
+              <p class="info-value">{{ser.cliente}}</p>
+            </div>
+            
+            <div class="info-item">
+              <p class="info-label">Procedimiento:</p>
+              <p class="info-value">{{ser.procedimient}}</p>
+            </div>
+          </div>
+
+          <!-- Location Section -->
+          <div class="location-section">
+            
+            <!-- Origin -->
+            <div class="location-item">
+              <div class="location-content">
+                <mat-icon class="location-icon origin-icon">trip_origin</mat-icon>
+                <div class="location-details">
+                  <p class="location-label">Origen:</p>
+                  <p class="location-address">{{ser.originDepCity}}</p>
+                  <p class="location-address">{{ser.originNameDir}}</p>
+                </div>
+                <button type="button" class="map-button" aria-label="Ver en mapa">
+                  <mat-icon>place</mat-icon>
+                </button>
+              </div>
+            </div>
+
+            <!-- Separator -->
+            <div class="location-separator"></div>
+
+            <!-- Destination -->
+            <div class="location-item">
+              <div class="location-content">
+                <mat-icon class="location-icon destination-icon">location_on</mat-icon>
+                <div class="location-details">
+                  <p class="location-label">Destino:</p>
+                  <p class="location-address">{{ser.destinyDepCity}}</p>
+                  <p class="location-address">{{ser.destinyNameDir}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Form Section -->
+          <div class="form-section">
+            
+            <!-- Hidden Service ID Field -->
+            <mat-form-field class="service-id-field" appearance="outline">
+              <mat-label>ID Servicio</mat-label>
+              <input matInput [value]="ser.id" formControlName="id{{i}}" readonly>
+            </mat-form-field>
+
+            <!-- Old Service Display -->
+            <div class="old-service-info" *ngIf="ser.isOld">
+              <div class="old-service-content" [innerHTML]="replaceBr(ser.secundaryId)"></div>
+            </div>
+
+            <!-- New Service Forms -->
+            <div class="new-service-forms" *ngIf="!ser.isOld">
+              
+              <!-- Motivos Selection -->
+              <div class="motivos-section">
+                <mat-expansion-panel class="motivos-panel">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      <mat-icon>list</mat-icon>
+                      Selección de motivos
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  
+                  <div class="motivos-content">
+                    <div class="motivos-list">
+                      <mat-checkbox 
+                        *ngFor="let sec of secundaries" 
+                        [id]="sec.id" 
+                        (change)="changeSec($event.checked, sec.id, i)"
+                        class="motivo-checkbox">
+                        {{sec.name}}
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+
+              <!-- Hidden Motivo Field -->
+              <input type="hidden" [value]="ser.id" formControlName="motivo{{i}}">
+
+              <!-- Problema Central -->
+              <!-- <div class="problema-section">
+                <mat-form-field class="problema-field" appearance="outline">
+                  <mat-label>Problema Central*</mat-label>
+                  <mat-select formControlName="problema{{i}}">
+                    <mat-option *ngFor="let pri of principals" [value]="pri.id">
+                      {{pri.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix>assignment_late</mat-icon>
+                </mat-form-field>
+              </div> -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-actions" *ngIf="services.length > 0">
+        <button 
+          type="submit" 
+          class="submit-button" 
+          mat-flat-button>
+          <mat-icon>save</mat-icon>
+          Guardar Servicios
+        </button>
+      </div>
+
+    </form>
+
+  </div>
 </div>

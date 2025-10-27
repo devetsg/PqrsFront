@@ -22,12 +22,19 @@
         <input class="dialog--container-form-input" matInput formControlName="subject">
       </mat-form-field>
 
-      <mat-form-field class="dialog--container-form-field" appearance="fill">
-        <mat-label>Cuerpo del correo</mat-label>
-        <textarea class="dialog--container-form-input" matInput formControlName="response"></textarea>
-      </mat-form-field>
+      <div class="dialog--container-form-field">
+        <label class="mat-body-1">Cuerpo del correo</label>
+        <ckeditor
+          *ngIf="Editor"
+          [editor]="Editor"
+          [config]="emailEditorConfig"
+          formControlName="response"
+          style="display:block; min-height:240px;">
+        </ckeditor>
+      </div>
 
-      <mat-form-field style="display: none;" *ngIf="this.pqr.pqrType.name == 'Queja'" class="dialog--container-form-field" appearance="fill">
+
+      <mat-form-field style="display: none;" *ngIf="pqr?.pqrType?.name == 'Queja'" class="dialog--container-form-field" appearance="fill">
         <mat-label>Cuerpo de la carta</mat-label>
         <textarea class="dialog--container-form-input" matInput formControlName="body"></textarea>
       </mat-form-field>
@@ -48,7 +55,7 @@
 
 <div class="back-modal" *ngIf="isLoading">
   <div class="modal-load">
-    <mat-spinner style="color: #126b37;"></mat-spinner>
+    <mat-spinner style="color: #075f47;"></mat-spinner>
     <h2>Su Correo esta siendo enviado...</h2>
   </div>
 </div>

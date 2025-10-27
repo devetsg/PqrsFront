@@ -84,7 +84,7 @@
               </div>
               <div class="reject">
                 
-                <button style="margin-top: 10px;" (click)="showReject()"  class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                <button style="margin-top: 10px;" (click)="showReject()" type="button" *ngIf="!showInput && role == 'ANALISTA'" class="response--container-form-container-form-btn-red" mat-fab extended color="primary">
                   Rechazar Respuesta
                 </button>
 
@@ -99,10 +99,10 @@
 
                 
                 <div style="display: flex;gap: 30px;">
-                  <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerOp && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+                  <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerFac && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
                     Cancelar
                   </button>
-                  <button style="margin-top: 10px;" *ngIf="isMinerOp && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                  <button style="margin-top: 10px;" *ngIf="isMinerFac && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
                     Enviar Solicitud
                   </button>
                 </div>
@@ -123,7 +123,7 @@
             </div>
             <div class="reject">
               
-              <button style="margin-top: 10px;" *ngIf="!showInput && role == 'ANALISTA'" (click)="showReject()"  class="response--container-form-container-form-btn-red" mat-fab extended color="primary">
+              <button style="margin-top: 10px;" *ngIf="!showInput && role == 'ANALISTA'" (click)="showReject()" type="button"  class="response--container-form-container-form-btn-red" mat-fab extended color="primary">
                 Rechazar Respuesta
               </button>
               <h2 *ngIf="isMinerOp && showInput" style="margin-bottom: 15px;margin-top: 15px;" class="response--labels">Solicitar Trazabilidad: </h2>
@@ -158,7 +158,7 @@
             </div>
             <div class="reject">
              
-              <button style="margin-top: 10px;" (click)="showReject()"  class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+              <button style="margin-top: 10px;" (click)="showReject()" type="button" *ngIf="!showInput && role == 'ANALISTA'"  class="response--container-form-container-form-btn-red" mat-fab extended color="primary">
                 Rechazar Respuesta
               </button>
               <h2 *ngIf="isMinerTs && showInput" style="margin-bottom: 15px;margin-top: 15px;" class="response--labels">Solicitar Trazabilidad: </h2>
@@ -171,10 +171,10 @@
               </div>
         
               <div style="display: flex;gap: 30px;">
-                <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerOp && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
+                <button style="margin-top: 10px;margin-bottom: 10px;" *ngIf="isMinerTs && showInput" (click)="showReject()"  class="response--container-form-container-form-btn-dev" mat-fab extended color="primary">
                   Cancelar
                 </button>
-                <button style="margin-top: 10px;" *ngIf="isMinerOp && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
+                <button style="margin-top: 10px;" *ngIf="isMinerTs && showInput" type="submit" class="response--container-form-container-form-btn-sec" mat-fab extended color="primary">
                   Enviar Solicitud
                 </button>
               </div>

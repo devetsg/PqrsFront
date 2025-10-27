@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import saveAs from 'file-saver';
 import { IconService } from '../../services/icon.service';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-history',
@@ -31,6 +32,12 @@ export class HistoryComponent {
   ID: any;
   messages: any;
 
+  public Editor: any = null;
+  public editorConfig = {
+     licenseKey: 'GPL',
+    height: 400
+  };
+
   isEmail: boolean = false;
   isAudio: boolean = false;
   isFormat: boolean = false;
@@ -47,7 +54,8 @@ export class HistoryComponent {
 
   pdfSrc!: SafeResourceUrl;
   excelSrc:string|boolean = "";
-
+  editorContent: string = '';
+  quillEditor: any = null;
   urlFile: any;
 
   pqrHeaders!: PqrItem;
@@ -60,9 +68,16 @@ export class HistoryComponent {
   withAttachResponse2 = false;
   bodyControl: FormControl;
 
+  minedAttachments: string[] = [];
 
   isOpen:boolean = false;
   pqr:any;
+  isBrowser: boolean;
+
+  bodyPdfUrl!:SafeResourceUrl | null;
+  documentNumber:any;
+
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -81,7 +96,8 @@ export class HistoryComponent {
 
   constructor(private _serviceP: PqrsService, private _fb: FormBuilder, private _redirect: Router,
     private _route: ActivatedRoute, public dialog: MatDialog, private sanitizer: DomSanitizer
-    , public dialogRef: MatDialogRef<HistoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private iconService: IconService) {
+    , public dialogRef: MatDialogRef<HistoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private iconService: IconService,
+  @Inject(PLATFORM_ID) private platformId: Object) {
 
     this.ID = data.id;
     this.bodyControl = new FormControl(''); 
@@ -103,6 +119,13 @@ export class HistoryComponent {
       response: [''],
       comments: [''],
     })
+    this.isBrowser = isPlatformBrowser(this.platformId);
+
+    if (isPlatformBrowser(this.platformId)) {
+          import('@ckeditor/ckeditor5-build-classic').then((module) => {
+            this.Editor = module.default;
+          });
+        }
   }
 
 
@@ -144,6 +167,15 @@ export class HistoryComponent {
 
   }
 
+
+  saveContent() {
+    // Obtener el contenido en HTML del editor (quill)
+    const editorContent = this.bodyControl.value;
+
+    // Imprimir el contenido HTML en consola
+    console.log('Contenido HTML:', editorContent); // Este es el contenido del editor
+  }
+
   truncateFilename(name: string, limit: number): string {
     if (name.length <= limit) {
       return name;
@@ -152,6 +184,14 @@ export class HistoryComponent {
     const start = name.substring(0, limit / 2);
     const end = name.substring(name.length - (limit / 2), name.length);
     return `${start}...${end}`;
+  }
+
+  showPdf(){
+    // let url = `https://localhost:44369/files/${this.documentNumber}.pdf`;
+    let url = `http://10.128.50.16:4545/files/${this.documentNumber}.pdf`;
+    
+    this.bodyPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    // this.bodyPdfUrl = `https://backpqr.etsg.com.co/files/${this.documentNumber}.pdf`;
   }
 
   getFirstLetter(text: string): string {
@@ -221,6 +261,9 @@ export class HistoryComponent {
           this.pqrHeaders = data;
           if (this.pqrHeaders?.attachmentUrls) {
             this.filteredAttachments = this.pqrHeaders.attachmentUrls.split(',').filter(n => n);
+          }
+          if (this.pqrHeaders?.minerUrls) {
+            this.minedAttachments = this.pqrHeaders.minerUrls.split(',').filter(n => n);
           }
           if ((data.response != null && data.response.length > 0) 
           && (data.bodyPdf != null && data.bodyPdf.length > 0)) {

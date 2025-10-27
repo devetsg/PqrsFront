@@ -1,103 +1,91 @@
-<section class="result">
-    <div class="result-container">
-        <div class="dialog--container-texts">
-            <h2 class="dialog--container-texts-title">Informacion de Pqr</h2>
-        </div>
-        <div *ngIf="pqrHeaders != undefined" class="response--headers-container relative">
-            <div class="absolute" style="top: 10px; right: 12px;">
-              <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
-            </div>
 
-            <div class="response--headers-container-data center">
-              <h2 class="response--labels">{{pqrHeaders.subject}}</h2>
-            </div>
+ <div class="resp">
+  <div class="dialog--container-texts">
+    <h2 class="dialog--container-texts-title">
+      <span class="material-icons" style="
+        font-size: 8rem;
+        padding: 2rem;">
+        info
+      </span>
+    </h2>
+  </div>
+  <div class="resp--container">
+    <div class="resp--container-box1">
+      <div class="resp--container-box1-texts">
+        <h2 class="resp--labels">{{pqrHeaders.subject}}</h2>
+        <h2 class="response--labels-data">{{pqrHeaders.sentTime}}</h2>
+      </div>      
+    </div>
+    <div class="resp--container-box2">
 
-            <div class="response--headers-container-data aling-center dp-block">
-               <div class="circle-name relative">
-                 {{ getFirstLetter(pqrHeaders.from.replaceAll('"', '')) }}
-               </div>
-               <div class="">
-                <h2 class="response--labels-data">{{pqrHeaders.from.replaceAll('"','')}}</h2>
-                <div class="response--headers-container-data dp-block">
-                  <h2 class="response--labels">Para:</h2>
-                  <h2 class="response--labels-data">{{pqrHeaders.to.replaceAll('"','').replaceAll("<"," ").replaceAll(">"," ")}}</h2>
-                </div>
-               </div>
-            </div>
-
-            
-            <div *ngIf="pqrHeaders.cc" class="response--headers-container-data">
-              <h2 class="response--labels">CC:</h2>
-              <h2 class="response--labels-data">{{pqrHeaders.cc.replaceAll("<"," ").replaceAll(">"," ")}}</h2>
-            </div>
-            
-
-
-
-            <div  class="response--headers-container-data cont">
-              <!-- <h2 class="response--labels">Adjuntos</h2><br/> -->
-              <!-- <div class="response--labels-data-attachments"> -->
-                <div *ngFor="let name of filteredAttachments" class="response--labels-data flex div-doc">
-                  <div class="flex" (click)="getAttach(name)">
-                    <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
-                    {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
-                  </div>
-                </div>
-                
-                
-              <!-- </div> -->
-            </div>         
-
-        </div>
-        <div class="flex">
-
-            
-            <div class="w50 pl-1" [ngClass]="{'display-block': isOpen, 'display-none': !isOpen}">
-              <div class="flex w100 space-between">
-                <h2 class="response--labels pl-3">Contenido PQR</h2>
-                <i class="bi bi-x-circle" style="font-size: 20px; color: #126b37;cursor:pointer; " (click)="closeDoc()"></i>
-              </div>
-              <div class="response--visors-container-visor">
-                <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
-                <div *ngIf="pdfSrc">
-                  <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
-                    <p>
-                      Tu navegador no soporta la visualización de PDF. Puedes
-                      <a [href]="pdfSrc">descargar el archivo aquí</a>.
-                    </p>
-                  </object>
-
-                </div>
-                <div class="response--visors-container-visor-excel">
-                  <app-file-viewer-excel *ngIf="excelSrc != false" [fileUrl]="excelSrc!.toString()"></app-file-viewer-excel>
-                </div>
-              </div>
-            </div>
-
-            <div [ngClass]="{'w50': isOpen, 'w100': !isOpen}" class="response--visors-container">
-              <div class="response--visors-container-content w100">
-                <mat-form-field appearance="fill">
-                  <mat-label></mat-label>
-                  <textarea 
-                    [ngClass]="{'response--fields-alt': isOpen, 'response--fields': !isOpen}" 
-                    class="" 
-                    matInput 
-                    [(ngModel)]="textVariable"
-                    [readonly]="isReadonly"
-                    >
-                </textarea>
-                </mat-form-field>
-              </div>
+      <div class="resp--container-box2-banners">
+        <div class="response--headers-container-data aling-center dp-block">
+          <div class="circle-name relative">
+            {{ getFirstLetter(pqrHeaders.from.replaceAll('"', '')) }}
+          </div>
+          <div class="">
+            <h2 class="response--labels-data">{{pqrHeaders.from.replaceAll('"','')}}</h2>
+            <div class="response--headers-container-data dp-block">
+              <h2 class="response--labels">Para:</h2>
+              <h2 class="response--labels-data">{{pqrHeaders.to.replaceAll('"','')}}</h2>
             </div>
           </div>
-    </div>
-  </section>
+        </div>
+        <div *ngIf="pqrHeaders.cc" class="response--headers-container-data" style="padding: 1rem 0;">
+          <h2 class="response--labels">CC:</h2>
+          <h2 class="response--labels-data">{{pqrHeaders.cc}}</h2>
+        </div>
+      </div>
 
-  
-  
-  
-  
-  <ng-template #noResponse>
-    <span>Esperando respuesta del area asignada</span>
-  </ng-template>
-  
+      <div class="resp--container-box2-mail">
+        <mat-form-field appearance="fill">
+          <mat-label></mat-label>
+          <textarea  class="" matInput [(ngModel)]="textVariable" [readonly]="isReadonly"></textarea>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="resp--container-box3">
+        <h2 class="resp--container-box3-title">Adjuntos</h2>
+        <div class="resp--container-box3-attachs">
+
+          <div *ngFor="let name of filteredAttachments" class="resp--labels-data flex div-doc">
+            <div class="flex" (click)="getAttach(name)">
+              <img [src]="getIcon(name)" alt="Icon" style="width: 30px; height: 30px; margin-right: 10px;">
+              {{ truncateFilename(name.replace('Resources/Attach/', ''), 20) }}
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex">          
+          <div class="w100 pl-1" [ngClass]="{'display-block': isOpen, 'display-none': !isOpen}">
+            <div class="flex w100 space-between">
+              <!-- <h2 class="response--labels pl-3">Contenido PQR</h2> -->
+              <i class="bi bi-x-circle" style="font-size: 20px; color: #075f47;cursor:pointer; " (click)="closeDoc()"></i>
+            </div>
+            <div class="response--visors-container-visor">
+              <!--<app-file-viewer *ngIf="pdfSrc.length > 0" [fileUrl]="pdfSrc"></app-file-viewer>-->
+              <div *ngIf="pdfSrc">
+                <object [attr.data]="pdfSrc" type="application/pdf" width="100%" height="600px">
+                  <p>
+                    Tu navegador no soporta la visualización de PDF. Puedes
+                    <a [href]="pdfSrc">descargar el archivo aquí</a>.
+                  </p>
+                </object>
+
+              </div>
+              <div class="response--visors-container-visor-excel">
+                <app-file-viewer-excel *ngIf="excelSrc != false" [fileUrl]="excelSrc!.toString()"></app-file-viewer-excel>
+              </div>
+            </div>
+          </div>          
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #fileTitle>
+  <label> Cargar Archivo</label>
+</ng-template>
+

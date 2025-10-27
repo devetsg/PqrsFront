@@ -40,7 +40,7 @@ export class PqrsService {
   }
 
   createUpdateMailCopy(data:FormData,id?:number):Observable<any>{
-    let path = `${this.myApiUrl}${this.myAppUrlM}createUpdateMail`;
+    let path = id != undefined || id != null ? `${this.myApiUrl}${this.myAppUrlM}updateMail` : `${this.myApiUrl}${this.myAppUrlM}createMail`;
     if (id != undefined || id != null) {
       path += `/${id}`
     }

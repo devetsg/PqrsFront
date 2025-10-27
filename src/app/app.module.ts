@@ -54,6 +54,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CopyMailsComponent } from './components/copy-mails/copy-mails.component';
 import { CreateUpdateMailComponent } from './components/create-update-mail/create-update-mail.component';
 import { SeeMailComponent } from './components/see-mail/see-mail.component';
+import { MatDialogModule } from '@angular/material/dialog';
 // import { QuillModule } from 'ngx-quill';
 
 @NgModule({
@@ -109,7 +110,8 @@ import { SeeMailComponent } from './components/see-mail/see-mail.component';
     AppRoutingModule,
     SharedModule,
     EditorModule,
-    CKEditorModule
+    CKEditorModule,
+    MatDialogModule
 
   ],
   providers: [

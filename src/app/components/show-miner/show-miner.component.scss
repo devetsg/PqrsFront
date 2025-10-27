@@ -215,7 +215,7 @@ button {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: linear-gradient(to right, #126b37 0%, #126b11 100%);
+  background-image: linear-gradient(to right, #075f47 0%, #126b11 100%);
   transition: .8s ease;
   display: block;
   z-index: -1;
@@ -238,7 +238,7 @@ button {
   border: 0; // Inicialmente sin borde
   transition: all 2s ease;
   overflow: hidden; // Evita desbordamiento del pseudo-elemento
-  border-bottom: 5px solid #126b37;
+  border-bottom: 5px solid #075f47;
 
 
 
@@ -259,7 +259,7 @@ button {
   &:hover::before {
     height: 100%; // Crece hasta la altura completa
     top: 0; // Se desplaza hacia arriba
-    border: 3px solid #126b37; // Color progresivo de los bordes
+    border: 3px solid #075f47; // Color progresivo de los bordes
     border-top: none; // Mantener el efecto progresivo
     border-bottom: none;
     transition: height 2s ease, top 2s ease;

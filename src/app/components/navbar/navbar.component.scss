@@ -13,12 +13,24 @@
     width: 20% !important;
   }
 
+  &-bg-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #154e3b;
+    width: 85%;
+    height: 25%;
+    margin-top: 2rem;
+  }
+
   &--links {
     display: flex;
     flex-direction: column;
     gap: 10px;
     min-width: 14.5em;
-    margin-left: 20%;
+    margin-left: auto;
+    margin-right: 1.35rem;
+    width: 80%;
   }
 
   &--admin {
@@ -38,7 +50,7 @@
 
 
       &:hover {
-        color: #000 !important;
+        color: #fff !important;
       }
     }
   }
@@ -82,7 +94,7 @@
     &:hover {
       font-size: 18px;
       font-weight: 500;
-      border-bottom: 2px solid #126b37;
+      border-bottom: 2px solid #075f47;
     }
   }
 
@@ -97,9 +109,8 @@
 
 
   &--img {
-    width: 55%;
-    margin: 0;
-    margin-left: 20%;
+    width: 100%;
+
   }
 }
 
@@ -161,19 +172,25 @@ li span {
       font-weight: 400;
       display: flex;
       align-items: center;
-      justify-content:space-between;
-      width:60%;
+      // justify-content:space-between;
+      width: 85%;
+      padding: 0.3rem;
+      border-radius: 7px;
+      margin: 0.4rem 0;
+      &:hover{
+        background-color: #057857 !important ;
+      }
     }
   }
 }
 
 .icon.rotated {
   transform: rotate(180deg);
-  color: #000 !important;
+  color: #fff !important;
 }
 
 .navbar--admin-btns:hover{
-  background: #1c9b51 !important;
+  background: #057857 !important;
 }
 
 .scroll-theme::-webkit-scrollbar {
@@ -213,6 +230,6 @@ li span {
 }
 
 .navbar--admin-btns.active {
-  background-color: white!important; /* Cambia este color al que prefieras */
-  color: black !important; /* Color del texto */
+  background-color: #057857 !important; /* Cambia este color al que prefieras */
+  color: white !important; /* Color del texto */
 }

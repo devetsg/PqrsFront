@@ -26,6 +26,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 
 
@@ -43,7 +44,28 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
   @ViewChild('fileInput') fileInput2!: ElementRef;
   public Editor: any = null;
   public editorConfig = {
-     licenseKey: 'GPL',
+    toolbar: [
+      'undo','redo','|',
+      'bold','italic','underline','|',
+      'bulletedList','numberedList','|',
+      'link','blockQuote','|',
+      'alignment:left','alignment:center','alignment:right','alignment:justify','|',
+      'fontSize','fontFamily'
+    ],
+    licenseKey: 'GPL',
+    height: 400
+  };
+
+  public emailEditorConfig  = {
+    toolbar: [
+      'undo','redo','|',
+      'bold','italic','underline','|',
+      'bulletedList','numberedList','|',
+      'link','blockQuote','|',
+      'alignment:left','alignment:center','alignment:right','alignment:justify','|',
+      'fontSize','fontFamily'
+    ],
+    licenseKey: 'GPL',
     height: 400
   };
   quillConfig: any = {};
@@ -149,11 +171,20 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
       body:this.bodyControl,
       comments: [''],
     })
+    // if (isPlatformBrowser(this.platformId)) {
+    //   import('@ckeditor/ckeditor5-build-classic').then((module) => {
+    //     this.Editor = module.default;
+    //   });
+    // }
     if (isPlatformBrowser(this.platformId)) {
-      import('@ckeditor/ckeditor5-build-classic').then((module) => {
-        this.Editor = module.default;
+      import('../../../ckeditor5/build/ckeditor.js').then((m: any) => {
+        this.Editor = m.default || m.ClassicEditor || m;  // 👈 solo la clase
       });
     }
+
+
+
+
    
 
 
@@ -330,6 +361,15 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
     this._serviceP.changeStatusView(this.ID,0).subscribe();
     this.redirect();
   }
+
+  @HostListener('window:beforeunload', ['$event'])
+  handleBeforeUnload(event: Event): void {
+    if (this.ID) {
+      this._serviceP.changeStatusEdit(this.ID,0).subscribe();
+      this._serviceP.changeStatusView(this.ID,0).subscribe();
+      this.redirect();
+    }
+  }
  
    ngOnDestroy() {
     if (this.audioUrl) {
@@ -388,13 +428,13 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
     const fileExtension = name.split('.').pop();
 
     if (fileExtension === 'pdf') {
-      let url = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      let url = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
       this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
       this.excelSrc = false
       this.isOpen = true
     } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
       this.pdfSrc = false;
-      this.excelSrc = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+      this.excelSrc = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
       this.isOpen = true
     } else {
       console.log(`Extensión desconocida: ${fileExtension}`);
@@ -413,7 +453,7 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
 
   showPdf(){
     // let url = `https://localhost:44369/files/${this.documentNumber}.pdf`;
-    let url = `https://www.pqr.etsg.com.co/files/${this.documentNumber}.pdf`;
+    let url = `http://10.128.50.16:4545/files/${this.documentNumber}.pdf`;
     
     this.bodyPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
     // this.bodyPdfUrl = `https://backpqr.etsg.com.co/files/${this.documentNumber}.pdf`;
@@ -463,6 +503,7 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
             body: data.bodyPdf
           })
           this.pqrHeaders = data;
+          console.log(this.pqrHeaders)
           if (this.pqrHeaders?.attachmentUrls) {
             this.filteredAttachments = this.pqrHeaders.attachmentUrls.split(',').filter(n => n);
           }
@@ -827,7 +868,7 @@ export class ResponsePqrComponent implements OnInit, OnDestroy, AfterViewInit{
       data.append("client",this.clientName);
     }
 
-
+    console.log( this.formResponse.get('response')!.value);
 
 
     this._serviceP.sendFollow(data).subscribe({

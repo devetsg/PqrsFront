@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { SignalRServiceService } from '../../services/signal-rservice.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUpdatePrincipalComponent } from '../create-update-principal/create-update-principal.component';
+
 @Component({
   selector: 'app-index-principal',
   templateUrl: './index-principal.component.html',
@@ -19,7 +22,9 @@ export class IndexPrincipalComponent {
   displayedColumns: string[] = ['No', 'Name', 'Actions'];
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
+  constructor(private dialog: MatDialog,
+    private _serviceP: PqrsService,
+    private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -77,5 +82,31 @@ export class IndexPrincipalComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateUpdatePrincipalComponent, {
+      width: '500px',
+      data: { isEdit: false, id: 0 }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getPrincipals();
+      }
+    });
+  }
+
+  openEditDialog(id: number) {
+    const dialogRef = this.dialog.open(CreateUpdatePrincipalComponent, {
+      width: '500px',
+      data: { isEdit: true, id: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getPrincipals();
+      }
+    });
   }
 }

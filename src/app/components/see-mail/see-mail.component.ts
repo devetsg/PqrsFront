@@ -111,13 +111,13 @@ export class SeeMailComponent {
       const fileExtension = name.split('.').pop();
   
       if (fileExtension === 'pdf') {
-        let url = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+        let url = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
         this.pdfSrc = this.sanitizer.bypassSecurityTrustResourceUrl(url);
         this.excelSrc = false
         this.isOpen = true
       } else if (fileExtension === 'xlsx' || fileExtension === 'xls') {
         this.pdfSrc = false;
-        this.excelSrc = "https://www.pqr.etsg.com.co/files/" + name.replace("Resources/Attach/", "");
+        this.excelSrc = "http://10.128.50.16:4545/files/" + name.replace("Resources/Attach/", "");
         this.isOpen = true
       } else {
         console.log(`Extensión desconocida: ${fileExtension}`);

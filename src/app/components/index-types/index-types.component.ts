@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { MyCustomPaginatorIntl } from '../../interfaces/paginator';
 import { SignalRServiceService } from '../../services/signal-rservice.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { CreateUpdateTypesComponent } from '../create-update-types/create-update-types.component';
+
 @Component({
   selector: 'app-index-types',
   templateUrl: './index-types.component.html',
@@ -20,7 +23,7 @@ export class IndexTypesComponent {
   
   dataSource = new MatTableDataSource();
 
-  constructor(private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
+  constructor(private dialog: MatDialog,private _serviceP: PqrsService,private signalRService: SignalRServiceService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -71,5 +74,33 @@ export class IndexTypesComponent {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  
+  }
+
+  openCreateDialog() {
+    const dialogRef = this.dialog.open(CreateUpdateTypesComponent, {
+      width: '500px',
+      data: { isEdit: false, id: 0 }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Refrescar tu tabla aquí
+        this.getTypes(); // o como sea que cargues los datos
+      }
+    });
+  }
+
+  openEditDialog(id: number) {
+    const dialogRef = this.dialog.open(CreateUpdateTypesComponent, {
+      width: '500px',
+      data: { isEdit: true, id: id }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getTypes(); // refrescar tabla
+      }
+    });
   }
 }

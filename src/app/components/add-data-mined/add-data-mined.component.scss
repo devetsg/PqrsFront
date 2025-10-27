@@ -3,11 +3,15 @@
 @import "../add-services/add-services.component.scss";
 
 .miner{
+  background: ghostwhite;
+
     &--container{
+        background: ghostwhite;
 
         &-form-container{
-            width: 60%;
+            width: 80%;
             margin: 5% auto;
+            background: ghostwhite;
 
             
         }
@@ -42,3 +46,16 @@
     left: 0;
   }
   
+  .step2--container-texts-title[_ngcontent-ng-c2014835071] {
+    font: normal 600 51px / 51px "Century Gothic";
+    color: #fff;
+    padding-top: 3rem;
+    margin: 0;
+  }
+
+  .step2--container-texts[_ngcontent-ng-c2014835071] {
+    text-align: center;
+    background: $greenTSG;
+    padding-bottom: 1rem;
+    /* color: #fff; */
+}

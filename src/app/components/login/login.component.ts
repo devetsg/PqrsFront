@@ -90,6 +90,7 @@ export class LoginComponent {
   }
 
   ngAfterViewInit(){
+    this._serviceA.logout();
     if(this.formLogin.get('Password')?.value.lenght > 0){
       this.isPass = true;
     }

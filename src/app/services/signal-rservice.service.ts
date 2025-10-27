@@ -14,7 +14,7 @@ export class SignalRServiceService {
   private createConnection(): void {
     if (!this.hubConnection) {
       this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:44369/crudhub', {
+        .withUrl('/crudhub', {
           withCredentials: true,
         })
         .withAutomaticReconnect()

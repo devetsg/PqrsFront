@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PqrsService } from '../../services/pqrs.service';
 import Swal from 'sweetalert2';
 
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+
 @Component({
   selector: 'app-create-update-principal',
   templateUrl: './create-update-principal.component.html',
@@ -18,21 +21,21 @@ export class CreateUpdatePrincipalComponent {
 
 
 
-  constructor(private _fb: FormBuilder, private _redirect: Router,
-    private _route: ActivatedRoute, private _serviceP: PqrsService) {
+  constructor( private _fb: FormBuilder,
+    private _serviceP: PqrsService,
+    public dialogRef: MatDialogRef<CreateUpdatePrincipalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
 
   ngOnInit(): void {
-    this.ID = Number(this._route.snapshot.paramMap.get("id"));
-    console.log(this.ID);
-
+    this.ID = this.data.id;
+    
     this.formPrincipal = this._fb.group({
       name: ['', [Validators.required]],
+    });
 
-    })
-
-    if (this.ID > 0) {
+    if (this.data.isEdit && this.ID > 0) {
       this.getPrincipal(this.ID);
     }
   }
@@ -57,12 +60,11 @@ export class CreateUpdatePrincipalComponent {
 
       this._serviceP.updatePrincipal(this.ID, formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexPrincipals")
           Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: error => {
           if (error.error.errors) {
@@ -77,12 +79,11 @@ export class CreateUpdatePrincipalComponent {
 
       this._serviceP.createPrincipal(formData).subscribe({
         next: (response: any) => {
-          console.log(response);
-          this._redirect.navigateByUrl("/indexPrincipals")
-          Swal.fire({
-            icon: 'success',
-            title: response.message
-          })
+           Swal.fire({
+          icon: 'success',
+          title: response.message
+        });
+        this.dialogRef.close(true);
         },
         error: error => {
           if (error.error.errors) {

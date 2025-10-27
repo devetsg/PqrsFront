@@ -1,16 +1,345 @@
+// .login {
+//   background: url("/assets/images/marcoBottom.png");
+//   background-size: 100%;
+//   background-repeat: no-repeat;
+//   background-position-y: 92%;
+// }
+
+// .img-sign{
+//   position: absolute;
+//   width: 38%;
+//   left: auto;
+//   top: -20px;
+//   z-index: -1;
+//   right: 0;
+// }
+
+@import '../../../styles.scss';
+
 .login {
-  background: url("/assets/images/marcoBottom.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position-y: 92%;
+  min-height: 100vh;
+  
+  &-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    overflow: hidden;
+    
+    &-box1 {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f3f4f6;
+      padding: 2rem 1rem;
+      
+      &-texts {
+        width: 70%;
+        max-width: 400px;
+        
+        &-title {
+          font-family: $font;
+          font-size: 3rem;
+          font-weight: 600;
+          margin-bottom: 0.3rem;
+          line-height: 1.2;
+        }
+        
+        &-subtitle {
+          font-family: $font;
+          font-weight: 400;
+          margin: 0 0 1rem;
+          font-size: 1.5rem;
+          line-height: 1.3;
+          
+          &2 {
+            font-family: sans-serif;
+            font-weight: 100;
+            margin: 0 0 1rem;
+            color: gray;
+            font-size: 1rem;
+            line-height: 1.4;
+          }
+        }
+      }
+      
+      &-form {
+        width: 70%;
+        max-width: 400px;
+        margin-top: 2rem;
+        
+        &-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          
+          &-btn {
+            border-radius: 7px !important;
+            background-color: $greenTSG;
+            margin-top: 2rem;
+            width: 100%;
+            height: 48px;
+          }
+          
+          &-field {
+            width: 100%;
+          }
+        }
+      }
+    }
+    
+    &-box2 {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      &-texts {
+        width: 70%;
+        text-align: center;
+        
+        &-title {
+          font-family: $font;
+          margin-top: -1rem;
+          margin-bottom: 0.5rem;
+          color: #fff;
+          font-weight: 500;
+          font-size: 2.2rem;
+        }
+        
+        &-subtitle {
+          font-family: $font;
+          margin: 0;
+          color: #fff;
+          font-weight: 300;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  
+  &--border {
+    width: 100%;
+    border-bottom: 2px solid darkgray;
+  }
 }
 
-.img-sign{
-  position: absolute;
-  width: 38%;
-  left: auto;
-  top: -20px;
-  z-index: -1;
-  right: 0;
+// Responsive breakpoints
+@media (max-width: 1200px) {
+  .login {
+    &-container {
+      &-box1 {
+        &-texts {
+          width: 80%;
+          
+          &-title {
+            font-size: 2.5rem;
+          }
+          
+          &-subtitle {
+            font-size: 1.3rem;
+          }
+        }
+        
+        &-form {
+          width: 80%;
+        }
+      }
+    }
+  }
 }
 
+@media (max-width: 992px) {
+  .login {
+    &-container {
+      &-box1 {
+        &-texts {
+          width: 85%;
+          
+          &-title {
+            font-size: 2.2rem;
+          }
+          
+          &-subtitle {
+            font-size: 1.2rem;
+          }
+        }
+        
+        &-form {
+          width: 85%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .login {
+    &-container {
+      flex-direction: column;
+      
+      &-box1 {
+        width: 100%;
+        min-height: 100vh;
+        padding: 2rem 1.5rem;
+        
+        &-texts {
+          width: 90%;
+          text-align: center;
+          
+          &-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+          }
+          
+          &-subtitle {
+            font-size: 1.1rem;
+            
+            &2 {
+              font-size: 0.9rem;
+            }
+          }
+        }
+        
+        &-form {
+          width: 90%;
+          margin-top: 1.5rem;
+        }
+      }
+      
+      &-box2 {
+        display: none; // Ocultar la imagen en móviles
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .login {
+    &-container {
+      &-box1 {
+        padding: 1.5rem 1rem;
+        
+        &-texts {
+          width: 95%;
+          
+          &-title {
+            font-size: 1.8rem;
+          }
+          
+          &-subtitle {
+            font-size: 1rem;
+            
+            &2 {
+              font-size: 0.85rem;
+            }
+          }
+        }
+        
+        &-form {
+          width: 95%;
+          margin-top: 1rem;
+          
+          &-container {
+            &-btn {
+              height: 44px;
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .login {
+    &-container {
+      &-box1 {
+        padding: 1rem 0.5rem;
+        
+        &-texts {
+          width: 100%;
+          
+          &-title {
+            font-size: 1.6rem;
+          }
+          
+          &-subtitle {
+            font-size: 0.95rem;
+            
+            &2 {
+              font-size: 0.8rem;
+            }
+          }
+        }
+        
+        &-form {
+          width: 100%;
+          
+          &-container {
+            &-btn {
+              height: 42px;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive para pantallas muy grandes
+@media (min-width: 1400px) {
+  .login {
+    &-container {
+      &-box1 {
+        &-texts {
+          width: 60%;
+          
+          &-title {
+            font-size: 3.5rem;
+          }
+          
+          &-subtitle {
+            font-size: 1.6rem;
+          }
+        }
+        
+        &-form {
+          width: 60%;
+        }
+      }
+    }
+  }
+}
+
+// Orientación landscape en tablets
+@media (max-width: 1024px) and (orientation: landscape) {
+  .login {
+    &-container {
+      &-box1 {
+        &-texts {
+          &-title {
+            font-size: 2rem;
+          }
+          
+          &-subtitle {
+            font-size: 1.1rem;
+          }
+        }
+        
+        &-form {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+}

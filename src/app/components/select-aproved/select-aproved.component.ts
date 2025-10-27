@@ -1,10 +1,11 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PqrsService } from '../../services/pqrs.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { RoleService } from '../../services/role.service';
 import Swal from 'sweetalert2';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-select-aproved',
@@ -25,9 +26,22 @@ export class SelectAprovedComponent {
   isLoading = false;
   pqr:any;
   emailId: any;
+  isBrowser: boolean;
+  public Editor: any = null;
+  public emailEditorConfig  = {
+    toolbar: [
+      'undo','redo','|',
+      'bold','italic','underline','|',
+      'bulletedList','numberedList','|',
+      'link','blockQuote','|',
+      'alignment:left','alignment:center','alignment:right','alignment:justify'
+    ],
+    licenseKey: 'GPL',
+    height: 400
+  };
 
   constructor(private _serviceT: PqrsService, private _fb: FormBuilder, public dialogRef: MatDialogRef<SelectAprovedComponent>
-    , @Inject(MAT_DIALOG_DATA) public data: any, private _router: Router, private _roleService: RoleService) {
+    , @Inject(MAT_DIALOG_DATA) public data: any, private _router: Router, private _roleService: RoleService,@Inject(PLATFORM_ID) private platformId: Object) {
     this.formSend = _fb.group({
       addressee: [{ value: '', disabled: true }],
       subject: [{ value: '', disabled: true }],
@@ -35,7 +49,17 @@ export class SelectAprovedComponent {
       body: [''],
     })
     console.log(this.file1);
-
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    // if (isPlatformBrowser(this.platformId)) {
+    //       import('@ckeditor/ckeditor5-build-classic').then((module) => {
+    //         this.Editor = module.default;
+    //       });
+    // }
+    if (isPlatformBrowser(this.platformId)) {
+          import('../../../ckeditor5/build/ckeditor.js').then((m: any) => {
+            this.Editor = m.default || m.ClassicEditor || m;  // 👈 solo la clase
+          });
+        }
   }
 
   ngOnInit(): void {

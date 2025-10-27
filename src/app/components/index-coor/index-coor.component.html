@@ -1,73 +1,60 @@
-<div class="step">
-    <div class="step2--container">
-      <div class="step2--container-texts" data-aos="fade-left">
-        <h2 class="step2--container-texts-title font-size-resp">Gestion de PQR´S</h2>
-      </div>
+
+
+
   
-      <mat-form-field data-aos="fade-left" style="max-width: 22%;">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-      </mat-form-field>
-      <div class="btns-new">
-        <mat-button-toggle-group name="fontStyle" aria-label="Font Style" [(value)]="selectedToggle">
-          <mat-button-toggle style="border-right:2px solid #126b37;" (click)="showFollow()" class="c-button--left c-button c-button--gooey " value="analistas">
-            Analistas
-            <div class="c-button__blobs">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </mat-button-toggle>
-          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
-            <defs>
-              <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
-                <feBlend in="SourceGraphic" in2="goo"></feBlend>
-              </filter>
-            </defs>
-          </svg>
-          <mat-button-toggle (click)="showTotal()" class="c-button  c-button--gooey " value="coordinacion">
-            Coordinacion
-            <div class="c-button__blobs">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </mat-button-toggle>
-          <mat-button-toggle 
-            [ngStyle]="(pqrsByEditing == undefined || pqrsByEditing?.length < 1) ? 
-                        {'opacity': '0.2', 'pointer-events': 'none'} : {}" 
-            (click)="showEdit()" 
-            class="red c-button--right c-button c-button--gooey">
-            <i class="bi bi-pencil-square"></i>
-            <div class="c-button__blobs">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </mat-button-toggle>
-        </mat-button-toggle-group>
-        <div >
-          <!--<button routerLink="/createUpdatePqr" class="step--btn w100-resp" mat-fab extended color="primary">
+<div class="index">
+  <div class="index--container">
+    <div class="index--container-banner-top">
+      <!-- Filters-->
+      <div class="index--container-filters">
+         <mat-form-field data-aos="fade-left" >
+          <mat-label>Filter</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+        </mat-form-field>
+      </div>
+      
+      <!-- Btn create pqr-->
+      <div class="index--container-btn">
+        <div style="margin-bottom: 20px;">
+          <button routerLink="/createUpdatePqr" class="step--btn w100-resp" mat-fab extended color="primary">
             Registrar Pqr
-          </button>-->
-          <button style="height: 3.2rem;" routerLink="/createUpdatePqr" class="button2 button button-item">
-            <span class="button-bg">
-              <span class="button-bg-layers">
-                <span class="button-bg-layer button-bg-layer-1 -purple"></span>
-                <span class="button-bg-layer button-bg-layer-2 -turquoise"></span>
-                <span class="button-bg-layer button-bg-layer-3 -yellow"></span>
-              </span>
-            </span>
-            <span class="button-inner">
-              <span class="button-inner-static">Registrar Pqr</span>
-              <span class="button-inner-hover">Registrar Pqr</span>
-            </span>
           </button>
+          
         </div>
       </div>
-      <div class="scroll mat-elevation-z8" data-aos="zoom-in-up">
+    </div>
+    <div class="index--container-table">
+
+      <div class="chipbar">
+        <mat-button-toggle-group
+          class="chipbar__group"
+          appearance="standard"
+          [value]="'seg'">
+          
+          <mat-button-toggle (click)="showFollow()" value="pqrs" class="chip" [disableRipple]="true">
+            <span class="chip__label">Analistas</span>
+          </mat-button-toggle>
+
+          <mat-button-toggle (click)="showTotal()" value="seg" class="chip" [disableRipple]="true">
+            <span class="chip__label">Coordinacion</span>
+          </mat-button-toggle>
+
+        </mat-button-toggle-group>
+
+        <!-- Ícono de editar como cuarto chip -->
+        <button *ngIf="pqrsByEditing?.length >= 1"
+          mat-button
+          class="chip chip--icon"
+          (click)="showEdit()"
+          [ngStyle]="(pqrsByEditing == undefined || pqrsByEditing?.length < 1) ? 
+                        {'opacity': '0.2', 'pointer-events': 'none'} : {}" >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+
+      <!--Table-->
+      <div class="index--container-table-material">
+        <div class="scroll mat-elevation-z8" data-aos="zoom-in-up">
         <div class="resp-table">
           <table mat-table [dataSource]="dataSource" matSort class="mb-20 row-odd">
     
@@ -127,7 +114,7 @@
                 <ng-container  *ngIf="row.statusMiner === 'MINING'; else miningElse">
                   
                   <ng-container  *ngIf="row.statusMiner === 'MINING'; else noAplica">
-                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-database-fill-check"></i> -->
+                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#075f47 ;" class="bi bi-database-fill-check"></i> -->
                     <div *ngIf="row.status == 'MINING'" class="step2--container-table-data-container">
                       <div style="display:flex;gap: 10px;align-items:center;">
                         <button class="center-buttons" [matMenuTriggerFor]="menu" mat-icon-button>
@@ -135,17 +122,17 @@
                         </button>
                         <mat-menu #menu="matMenu">
                           <button  (click)="openDialogMiner(row.id,'TS')" *ngIf="row.observationTs != null && row.observationTs.length > 0" mat-menu-item>
-                            <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                            <i class="bi bi-car-front" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
                             <span >Transporte</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.observationFac != null && row.observationFac.length > 0" mat-menu-item >
-                            <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-bank" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
                             <span >Facturacion</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.observationOp != null && row.observationOp.length > 0" mat-menu-item >
-                            <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-headset" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
                             <span>Operacion</span>
                           </button>
@@ -157,25 +144,25 @@
                 </ng-container>
                 <ng-template #miningElse>
                   <ng-container  *ngIf="row.statusMiner === 'MINED'; else noAplica">
-                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#126b37 ;" class="bi bi-database-fill-check"></i> -->
+                    <!-- <i (click)="openDialogMiner(row.id)" style="font-size: 30px;color:#075f47 ;" class="bi bi-database-fill-check"></i> -->
                     <div *ngIf="row.status != 'MINING'" class="step2--container-table-data-container">
                       <div style="display:flex;gap: 10px;align-items:center;"  >
                         <button class="center-buttons" [matMenuTriggerFor]="menu" mat-icon-button >
-                          <i  style="font-size: 30px;color:#126b37 ;" class="bi bi-database-fill-check"></i>
+                          <i  style="font-size: 30px;color:#075f47 ;" class="bi bi-database-fill-check"></i>
                         </button>
                         <mat-menu #menu="matMenu">
                           <button (click)="openDialogMiner(row.id,'TS')" *ngIf="row.minerUrlsTs != null && row.minerUrlsTs.length > 0" mat-menu-item>
-                            <i class="bi bi-car-front" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"
+                            <i class="bi bi-car-front" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerTs == null"></i>
                             <span >Transporte</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'FAC')" *ngIf="row.minerUrlsFac != null && row.minerUrlsFac.length > 0" mat-menu-item>
-                            <i class="bi bi-bank" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-bank" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerFac == null"></i>
                             <span>Facturacion</span>
                           </button>
                           <button (click)="openDialogMiner(row.id,'OP')" *ngIf="row.minerUrlsOp != null && row.minerUrlsOp.length > 0" mat-menu-item >
-                            <i class="bi bi-headset" style="font-size: 23px; color: #126b37;cursor:pointer; margin-right: 10px;"
+                            <i class="bi bi-headset" style="font-size: 23px; color: #075f47;cursor:pointer; margin-right: 10px;"
                             matBadge="1" matBadgeSize="small" [matBadgeHidden]="row.responseMinerOp == null"></i>
                             <span>Operacion</span>
                           </button>
@@ -196,7 +183,7 @@
               <td mat-cell *matCellDef="let row;let i = index; "
               class="row-odd">
                 <div routerLink="/responsePqr/{{row.id}}"  style="width: max-content; padding: 10px 15px;">
-                  <i class="bi bi-search" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                  <i class="bi bi-search" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                 </div>
               </td> -->
               <th class="row-even"   mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
@@ -204,21 +191,16 @@
 
               <div *ngIf="row.status != 'MINING'" class="step2--container-table-data-container new-btn">
                 <div style="display:flex;gap: 10px;align-items:center;">
-                  <button [matMenuTriggerFor]="menu" mat-icon-button class="c-button c-button--gooey" style="display:flex;border-radius:5px;">
-                    <mat-icon>more_vert</mat-icon>
-                    <div class="c-button__blobs">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
+                  <button [matMenuTriggerFor]="menu" mat-icon-button class="btn-actions" style="display:flex;border-radius:5px;">
+                      <mat-icon>more_vert</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="openDialogToSee(row.id)">
-                      <i (click)="openDialogToSee(row.id)" class="bi bi-eye" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <i (click)="openDialogToSee(row.id)" class="bi bi-eye" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                       <span>Ver Pqr</span>
                     </button>
                     <button mat-menu-item (click)="responsePqr(row.id)">
-                      <i class="bi bi-send-arrow-up" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <i class="bi bi-send-arrow-up" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                       <span>Respuesta de PQR</span>
                     </button> 
                     <button *ngIf="actualRole == 'COORDINADOR' || actualRole == 'SUPERUSER'" mat-menu-item (click)="deletePqr(row.id)">
@@ -231,17 +213,12 @@
               </div>
               <div *ngIf="row.status == 'MINING'" class="step2--container-table-data-container new-btn">
                 <div style="display:flex;gap: 10px;align-items:center;">
-                  <button [matMenuTriggerFor]="menu" mat-icon-button class="c-button c-button--gooey" style="display:flex;border-radius:5px;">
+                  <button [matMenuTriggerFor]="menu" mat-icon-button class="btn-actions" style="display:flex;border-radius:5px;">
                     <mat-icon>more_vert</mat-icon>
-                    <div class="c-button__blobs">
-                      <div></div>
-                      <div></div>
-                      <div></div>
-                    </div>
                   </button>
                   <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="exitMinerPqr(row.id)">
-                      <i class="bi bi-recycle" style="font-size: 23px; color: #126b37; cursor: pointer; margin-right: 10px;"></i>
+                      <i class="bi bi-recycle" style="font-size: 23px; color: #075f47; cursor: pointer; margin-right: 10px;"></i>
                       <span>Eliminar solicitud</span>
                     </button>
                   </mat-menu>
@@ -264,6 +241,10 @@
   
         <mat-paginator class="row-odd"  [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
       </div>
+      </div>
+      
     </div>
+    
   </div>
 
+</div>

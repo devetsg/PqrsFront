@@ -56,7 +56,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('dialogTemplate') dialogTemplate!: TemplateRef<any>;
-  @ViewChild('pqrsToggle') pqrsToggle!: MatButtonToggle;
+  @ViewChild('pqrsToggle') pqrsToggle?: MatButtonToggle;
 
   constructor(private _serviceP: PqrsService, private datePipe: DatePipe, private _fb: FormBuilder, 
     public dialog: MatDialog, private _redirect: Router,private signalRService: SignalRServiceService,private _serviceR:RoleService) {
@@ -73,7 +73,10 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       // Usamos setTimeout para evitar ExpressionChangedAfterItHasBeenCheckedError
-      this.pqrsToggle.checked = true;
+      if(this.pqrsToggle != undefined){
+        this.pqrsToggle.checked = true;
+
+      }
       // También podemos llamar a la función si es necesario
       this.showTotal();
     });
@@ -89,7 +92,10 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
         // Aquí puedes manejar las acciones (Create, Update, Delete)
       this.getPqrs();
       this.getByEditing();
-      this.pqrsToggle.checked = true;
+      if(this.pqrsToggle != undefined){
+        this.pqrsToggle.checked = true;
+
+      }
       });
     });
 
@@ -120,7 +126,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
         console.log("from 1")
         this._serviceP.getFullPqrs().subscribe({
           next: (data: any) => {
-            const filteredData = data.filter((item: any) => item.regional.includes(regional));
+            const filteredData = data?.filter((item: any) => item.regional.includes(regional));
             this.dataSource.data = filteredData;
           }
         })
@@ -145,7 +151,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
       else {
         this._serviceP.getFullPqrs().subscribe({
           next: (data: any) => {
-            const filteredData = data.filter((item: any) => item.type.includes(value));
+            const filteredData = data?.filter((item: any) => item.type.includes(value));
             this.dataSource.data = filteredData;
           }
         })
@@ -165,7 +171,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     if (event.option.value == "Ninguna" && (type != null && type != "0")) {
       this._serviceP.getFullPqrs().subscribe({
         next: (data: any) => {
-          const filteredData = data.filter((item: any) => item.type.includes(type));
+          const filteredData = data?.filter((item: any) => item.type.includes(type));
           this.dataSource.data = filteredData;
         }
       })
@@ -178,7 +184,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     } else if (event.option.value != "Ninguna" && (type != null && type != "0")) {
       this._serviceP.getFullPqrs().subscribe({
         next: (data: any) => {
-          const filteredData = data.filter((item: any) => item.type.includes(type) && item.regional.includes(event.option.value));
+          const filteredData = data?.filter((item: any) => item.type.includes(type) && item.regional.includes(event.option.value));
           this.dataSource.data = filteredData;
         }
       })
@@ -186,7 +192,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     else {
       this._serviceP.getFullPqrs().subscribe({
         next: (data: any) => {
-          const filteredData = data.filter((item: any) => item.regional.includes(event.option.value));
+          const filteredData = data?.filter((item: any) => item.regional.includes(event.option.value));
           this.dataSource.data = filteredData;
         }
       })
@@ -225,9 +231,9 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
         console.log(data)
         this.allPqrs = data
         if(minin != null){
-          this.dataSource.data = data.filter((x:any)=> x.status == "MINING");
+          this.dataSource.data = data?.filter((x:any)=> x.status == "MINING");
         }else{
-          this.dataSource.data = data.filter((x:any)=> x.status == "CREATED");
+          this.dataSource.data = data?.filter((x:any)=> x.status == "CREATED");
         }
       }
     })
@@ -272,8 +278,8 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
     //   showCancelButton:true,
     //   confirmButtonText:'Operación',
     //   cancelButtonText:'Transporte',
-    //   confirmButtonColor:'#126b37',
-    //   cancelButtonColor:'#126b37'
+    //   confirmButtonColor:'#075f47',
+    //   cancelButtonColor:'#075f47'
     // }).then((response)=>{
     //   if(response.isConfirmed){
     //     this._serviceP.messageMinersOp().subscribe();
@@ -298,15 +304,15 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
   }
 
   showMining(){
-    this.dataSource.data = this.allPqrs.filter((x:any) => x.status == "MINING")
+    this.dataSource.data = this.allPqrs?.filter((x:any) => x.status == "MINING")
   }
 
   showFollow(){
-    this.dataSource.data = this.allPqrs.filter((x:any) => x.status == "FOLLOW")
+    this.dataSource.data = this.allPqrs?.filter((x:any) => x.status == "FOLLOW")
   }
 
   showTotal(){
-  this.dataSource.data = this.allPqrs.filter((x:any)=> x.status == "CREATED")
+  this.dataSource.data = this.allPqrs?.filter((x:any)=> x.status == "CREATED")
   }
 
   getSignatureValid(){
@@ -479,7 +485,7 @@ export class IndexPqrsComponent implements OnInit, AfterViewInit {
 
   private _filter(value: string): { name: string }[] {
     const filterValue = value.toLowerCase();
-    return this.regionals.filter((reg: any) => reg.name.toLowerCase().includes(filterValue));
+    return this.regionals?.filter((reg: any) => reg.name.toLowerCase().includes(filterValue));
   }
 
 }
